@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\VisitorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [VisitorController::class, 'index']);
+Route::get('/welcome', [VisitorController::class, 'index']);
+Route::get('about',[VisitorController::class,'aboutUs'])->name('about');
+Route::get('blogs',[VisitorController::class,'blogs'])->name('blogs');
+Route::get('bolgDetails',[VisitorController::class,'bolgDetails'])->name('bolgDetails');
+Route::get('contact',[VisitorController::class,'contactUs'])->name('contact');
+Route::get('doctors',[VisitorController::class,'doctors'])->name('doctors');
+Route::get('services',[VisitorController::class,'services'])->name('services');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
