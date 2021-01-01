@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Secretaire extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+      'nom','prenom','user_id','id'];
+
+      
 }
