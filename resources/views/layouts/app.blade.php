@@ -3,19 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Scripts <script src="{{ asset('js/app.js') }}" defer></script>-->
-    
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
@@ -23,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('visitorPage/css/bootstrap.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('visitorPage/css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('visitorPage/css/flaticon.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('visitorPage/css/nice-select.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('visitorPage/css/nice-select.css')}}"type="text/css">
     <!--<link rel="stylesheet" href="{{ asset('visitorPage/css/jquery-ui.min.css')}}" type="text/css">-->
     <link rel="stylesheet" href="{{ asset('visitorPage/css/magnific-popup.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('visitorPage/css/owl.carousel.min.css')}}" type="text/css">
