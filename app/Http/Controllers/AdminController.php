@@ -13,8 +13,23 @@ class AdminController extends Controller
         return view('adminPages.allDoctorsAdmin');
     }
 
-     public function allPatientsAdmin()
+    public function allPatientsAdmin()
     {
         return view('adminPages.allPatientsAdmin');
+    }
+
+    public function allAppointmentsAdmin()
+    {
+        return view('adminPages.allAppointmentsAdmin');
+    }
+
+    public function allSecretariesAdmin()
+    {
+        return view('adminPages.allSecretariesAdmin');
+    }
+
+    public function allservicesAdmin()
+    {
+        return view('adminPages.allservicesAdmin');
     }
 }
