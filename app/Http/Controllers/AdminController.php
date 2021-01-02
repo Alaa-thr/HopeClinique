@@ -32,4 +32,9 @@ class AdminController extends Controller
     {
         return view('adminPages.allservicesAdmin');
     }
+
+    public function addUser($type)
+    {
+        return view('users.addUsers');
+    }
 }
