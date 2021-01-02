@@ -34,6 +34,7 @@ Route::get('allPatients', [AdminController::class, 'allPatientsAdmin'])->name('a
 Route::get('appointments', [AdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
 Route::get('secretaries', [AdminController::class, 'allSecretariesAdmin'])->name('allSecretaries');
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
+Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
 
 
 Auth::routes();
