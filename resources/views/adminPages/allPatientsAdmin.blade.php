@@ -1,6 +1,6 @@
 @extends('layouts.scrtrDoctorApp')
 @section('content')
- <div class="page-wrapper">
+ 		<div class="page-wrapper">
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
@@ -128,18 +128,5 @@
                 </div>
             </div>
         </div>
-		<div id="delete_patient" class="modal fade delete-modal" role="dialog">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-body text-center">
-						<img src="{{ asset('scrtrDoctorPage/img/sent.png')}}" alt="" width="50" height="46">
-						<h3>Are you sure want to delete this Patient?</h3>
-						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 @endsection
