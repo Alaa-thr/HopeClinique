@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8" >
-            <div class="card" style="margin-bottom: 110px;margin-top: 100px; ">
+        <div class="col-md-8 offset-md-3" >
+            <div class="card" style="margin-bottom: 110px;margin-top: 100px;width:475px;">
 
 
                 <div class="card-body">
@@ -16,7 +16,7 @@
 
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
-                        <div class="account-logo" style="margin-bottom: 40px;margin-top: 20px;margin-left:300px;">
+                        <div class="account-logo" style="margin-bottom: 40px;margin-top: 20px;margin-left:150px;">
                                 <a href="#"><img  src="{{ asset('visitorPage/img/logo.png')}}" alt=""></a>
                         </div>
                         <div class="form-group row">
