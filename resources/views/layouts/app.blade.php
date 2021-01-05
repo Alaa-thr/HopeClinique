@@ -39,6 +39,7 @@
 
     <!-- Js Plugins -->
     <script src="{{ asset('visitorPage/js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{ asset('scrtrDoctorPage/js/popper.min.js')}}"></script>
     <script src="{{ asset('visitorPage/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('visitorPage/js/jquery.magnific-popup.min.js')}}"></script>
     <script src="{{ asset('visitorPage/js/masonry.pkgd.min.js')}}"></script>

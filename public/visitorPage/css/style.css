@@ -322,7 +322,7 @@ ol {
 .header__menu ul li {
 	list-style: none;
 	display: inline-block;
-	margin-right: 45px;
+	margin-right: 20px;
 	position: relative;
 }
 
@@ -2851,4 +2851,16 @@ ol {
 		border-radius: 50px;
 		padding: 14px 30px 12px;
 	}
+}
+.m-r-8 {
+	margin-right: 8px;
+}
+.m-l-10 {
+	margin-left: 10px;
+}
+.m-l--13 {
+	margin-left: -13px;
+}
+.dropdown-toggle {
+	color: black !important;
 }

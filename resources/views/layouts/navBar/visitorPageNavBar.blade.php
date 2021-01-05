@@ -25,10 +25,38 @@
         <div class="offcanvas__logo">
             <a href="/"><img src="{{ asset('visitorPage/img/logo.png')}}" alt=""></a>
         </div>
-        <div id="mobile-menu-wrap"></div>
+        
         <div class="offcanvas__btn">
-            <a href="#" class="primary-btn">Appointment</a>
+            @guest
+            <a href="{{route('login')}}" class="primary-btn">Login</a>
+            @else
+            <ul class="nav user-menu">
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown" >
+                        <span class="user-img m-l--13">
+                            <img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
+                            <span class="status online"></span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                        <a class="dropdown-item" href="settings.html">Settings</a>
+                        <div>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            @endguest
+            <div id="mobile-menu-wrap"></div>
+            <ul class="header__menu" style="display: none; margin-top: -22px">
+                <li><a href="#">Appointment</a></li>
+            </ul>
         </div>
+        <hr style="background-color: black">
         <ul class="offcanvas__widget">
             <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
             <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
@@ -82,17 +110,39 @@
                                 <li class="<?php echo $stripeDoctor ?>"><a href="{{route('doctors')}}">Doctors</a></li>
                                 <li class="<?php echo $stripeBlog ?>"><a href="{{route('blogs')}}">Blog</a></li>
                                 <li class="<?php echo $stripeAbout ?>"><a href="{{route('about')}}">About</a></li>
-                                <li class="<?php echo $stripeContact ?>"><a href="{{route('contact')}}">Contact Us</a></li>
-                                <!--<li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./pricing.html">Pricing</a></li>
-                                        <li><a href="{{route('bolgDetails')}}">Blog Details</a></li>
-                                    </ul>
-                                </li>-->
+                                <li class="<?php echo $stripeContact ?>"><a href="{{route('contact')}}">Contact</a></li>
+                                
                             </ul>
                         </nav>
                         <div class="header__btn">
-                            <a href="#" class="primary-btn">Appointment</a>
+                            <a href="#" class="primary-btn m-r-8 m-l-10">Appointment</a>
+                            @guest
+                            <a href="{{route('login')}}" class="primary-btn">Login</a>
+                            @else
+                            <ul class="nav user-menu float-right">
+                                <li class="nav-item dropdown has-arrow">
+                                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                                        <span class="user-img">
+                                            <img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
+                                            <span class="status online"></span>
+                                        </span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                                        <a class="dropdown-item" href="settings.html">Settings</a>
+                                        <div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                 document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            @endguest
                         </div>
                     </div>
                 </div>
