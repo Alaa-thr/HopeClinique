@@ -35,8 +35,22 @@ class AdminController extends Controller
 
     public function addUser($type)
     {
-
+        //tq clique sur adduser test type if admin ,sec,patient ou doctor for t3abik l page adduser ta3ou
         $typeUser = $type;
-        return view('users.addUsers',['typeUser'=>$typeUser]);
+
+        //pour récupérer les villes m bdd
+        $villes=\DB::table('villes')->orderBy('id','asc')->get();
+
+        //pour récupérer les maladies chroniques m bdd
+        $chroniques=\DB::table('maladieschroniques')->orderBy('id','asc')->get();
+
+        //pour récupérer les allergies m bdd
+        $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
+
+        //pour récupérer les specialites m bdd
+        $specialites=\DB::table('specialites')->orderBy('id','asc')->get();
+
+        return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
+        'chroniques'=>$chroniques,'allergies'=>$allergies,'specialites'=>$specialites]);
     }
 }

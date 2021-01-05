@@ -74,28 +74,24 @@
 																	<div class="col-sm-6">
 																			<div class="form-group">
 																					<label>Spécialité</label>
-																				 <select class="select">
-																						 <option>Anesthésiste </option>
-																						 <option>Dentiste‎ </option>
-																						 <option>Psychiatre‎</option>
-																						 <option>Hématologue‎</option>
-																						 <option>Pharmacist</option>
-																						 <option>Accountant</option>
-																				 </select>
+																					<select class="form-control select">
+
+																					      @foreach($specialites as $s)
+																					          <option>{{ $s->nom }}</option>
+																					         @endforeach
+																					</select>
 																			</div>
 																	</div>
 																@elseif ($typeUser==='ADMIN')
 																<div class="col-sm-6">
 																		<div class="form-group">
 																				<label>Spécialité</label>
-																			 <select class="select">
-																					 <option>Anesthésiste </option>
-																					 <option>Dentiste‎ </option>
-																					 <option>Psychiatre‎</option>
-																					 <option>Hématologue‎</option>
-																					 <option>Pharmacist</option>
-																					 <option>Accountant</option>
-																			 </select>
+																				<select class="form-control select">
+
+																							@foreach($specialites as $s)
+																									<option>{{ $s->nom }}</option>
+																								 @endforeach
+																				</select>
 																		</div>
 																</div>
 															@endif
@@ -176,7 +172,7 @@
 
 					</select>
 			</div>
-	
+
 
 
 
@@ -185,10 +181,12 @@
 											@if ($typeUser=='patient')
 											<div class="col-sm-6 col-md-6 col-lg-3">
 																						<div class="form-group">
-																							<label>Country</label>
+																							<label>City</label>
 																							<select class="form-control select">
-																								<option>USA</option>
-																								<option>United Kingdom</option>
+
+																							      @foreach($villes as $v)
+																							          <option>{{ $v->nom }}</option>
+																							         @endforeach
 																							</select>
 																						</div>
 																					</div>
@@ -199,17 +197,13 @@
 																							<input type="text" class="form-control">
 																						</div>
 																					</div>
-
-
 																								@endif
-
-
-											</div>
-									</div>
+																</div>
+														</div>
 
 
 																	@if ($typeUser=='secretaire')
-																															 <div class="col-sm-6">
+																	 <div class="col-sm-6">
 																		<div class="form-group">
 																			<label>Avatar</label>
 																			<div class="profile-upload">
@@ -227,8 +221,13 @@
 @if ($typeUser=='patient')
 <div class="col-sm-6">
 		<div class="form-group">
-				<label>Maladies Chroniques<span class="text-danger">*</span></label>
-				<input class="form-control" type="text">
+				<label>Maladies Chroniques</label>
+				<select class="form-control select" multiple>
+
+				      @foreach($chroniques as $c)
+				          <option>{{ $c->nom }}</option>
+				         @endforeach
+				</select>
 		</div>
 </div>
 <div class="col-sm-6">
@@ -239,8 +238,13 @@
 </div>
 <div class="col-sm-6">
 		<div class="form-group">
-				<label>Allergies<span class="text-danger">*</span></label>
-				<input class="form-control" type="text">
+				<label>Allergies</label>
+				<select class="form-control select" multiple>
+
+				      @foreach($allergies as $a)
+				          <option>{{ $a->nom }}</option>
+				         @endforeach
+				</select>
 		</div>
 </div>
 <div class="col-sm-6">
