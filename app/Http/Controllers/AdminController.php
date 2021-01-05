@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    
+
 
     public function allDoctorsAdmin()
     {
@@ -35,6 +35,8 @@ class AdminController extends Controller
 
     public function addUser($type)
     {
-        return view('users.addUsers');
+
+        $typeUser = $type;
+        return view('users.addUsers',['typeUser'=>$typeUser]);
     }
 }

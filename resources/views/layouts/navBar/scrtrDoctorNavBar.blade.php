@@ -1,7 +1,7 @@
 <?php
 
     $stripeDashboard=$stripeAllDoctors=$stripeSecretaries=$stripeAllPatients=$stripeAppointments=$stripeAllServices='';
-                
+
     $urlAcctuiel = Route::getCurrentRoute()->uri();
     if($urlAcctuiel == 'dashboard'){
         $stripeDashboard='active';
@@ -69,15 +69,27 @@
                             <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="<?php echo $stripeAllDoctors ?>">
-                            <a href="{{route('allDoctors')}}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
-                        </li>
-                        <li class="<?php echo $stripeSecretaries ?>">
-                            <a href="{{route('allSecretaries')}}"><i class="fa fa-user"></i>
-                            <span>Secretaries</span></a>
-                        </li>
-                        <li class="<?php echo $stripeAllPatients ?>">
-                            <a href="{{route('allPatients')}}"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
-                        </li>
+              <a><i class="fa fa-user-md"></i> <span>Doctors</span><span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                          <li><a href="{{route('allDoctors')}}">All Doctors</a></li>
+                            <li><a href="{{route('addUser',['type'=>'doctor'])}}">Add Doctors</a></li>
+                    </ul>
+          </li>
+          <li class="<?php echo $stripeSecretaries ?>">
+              <a><i class="fa fa-user"></i><span>Secretaries</span><span class="menu-arrow"></span></a>
+              <ul style="display: none;">
+                    <li><a href="{{route('allSecretaries')}}">All Secretaries</a></li>
+                      <li><a href="{{route('addUser',['type'=>'secretaire'])}}">Add Secretaries</a></li>
+              </ul>
+        </li>
+       </li>
+        <li class="<?php echo $stripeAllPatients ?>">
+              <a><i class="fa fa-wheelchair"></i> <span>Patients</span><span class="menu-arrow"></span></a>
+              <ul style="display: none;">
+                    <li><a href="{{route('allSecretaries')}}">All Patients</a></li>
+                      <li><a href="{{route('addUser',['type'=>'patient'])}}">Add Patients</a></li>
+              </ul>
+        </li>
                         <li class="<?php echo $stripeAppointments ?>">
                             <a href="{{route('allAppointments')}}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
