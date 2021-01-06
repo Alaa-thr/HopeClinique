@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\ScrtrDocController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +39,9 @@ Route::get('allSecretaries', [AdminController::class, 'allSecretariesAdmin'])->n
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
 
+/* ADD patient Pages */
+Route::get('addUser/patient', [PatientController::class, 'create']);
+Route::post('addUser', [PatientController::class, 'store']);
 
 Auth::routes();
 

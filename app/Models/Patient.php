@@ -12,7 +12,7 @@ class Patient extends Model
 
 
     protected $fillable = [
-      'id ','prenom','nom','Num_Secrurite_Social','date_naiss',
+      'id ','prenom','nom','Num_Secrurite_Social','date_naissance',
       'maladie_chronique','allergie','antecedent','commentaire'
   ];
 
