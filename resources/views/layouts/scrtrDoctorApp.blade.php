@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('visitorPage/css/font-awesome.min.css')}}" type="text/css">   
     <link rel="stylesheet" href="{{ asset('scrtrDoctorPage/css/style.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'secretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}')
+    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}')
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/select2.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/bootstrap-datetimepicker.min.css')}}">
@@ -25,7 +25,7 @@
 </head>
 <body>
     <div id="app">
-
+      
          <div class="main-wrapper">
                 @include('layouts.navBar.scrtrDoctorNavBar')
             <main >
@@ -43,7 +43,7 @@
     <script src="{{ asset('scrtrDoctorPage/js/Chart.bundle.js')}}"></script> 
     @if(Route::getCurrentRoute()->uri() == 'dashboard')
         <script src="{{ asset('scrtrDoctorPage/js/chart.js')}}"></script>;
-    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'secretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}')
+    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}')
         <script src="{{ asset('scrtrDoctorPage/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/moment.min.js')}}"></script>

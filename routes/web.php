@@ -32,7 +32,7 @@ Route::get('dashboard', [ScrtrDocController::class, 'dashboard'])->name('dashboa
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');
 Route::get('allPatients', [AdminController::class, 'allPatientsAdmin'])->name('allPatients');
 Route::get('appointments', [AdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
-Route::get('secretaries', [AdminController::class, 'allSecretariesAdmin'])->name('allSecretaries');
+Route::get('allSecretaries', [AdminController::class, 'allSecretariesAdmin'])->name('allSecretaries');
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
 
