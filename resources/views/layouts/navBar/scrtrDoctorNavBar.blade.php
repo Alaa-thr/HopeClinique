@@ -1,6 +1,6 @@
 <?php
 
-    $stripeDashboard=$stripeAllDoctors=$stripeAddDoctors=$stripeAllDoctorsPere=$stripeSecretaries=$stripeAddSecretaries=$stripeSecretariesPere=$stripeAllPatients=$stripeAllPatientsPere=$stripeAddPatients=$stripeAppointments=$stripeAllServices='';
+    $stripeDashboard=$stripeAllDoctors=$stripeAddDoctors=$stripeAllDoctorsPere=$stripeSecretaries=$stripeAddSecretaries=$stripeSecretariesPere=$stripeAllPatients=$stripeAllPatientsPere=$stripeAddPatients=$stripeAppointments=$stripeAllServices=$stripeProfile='';
 
     $urlAcctuiel = Route::getCurrentRoute()->uri();
     if($urlAcctuiel == 'dashboard'){
@@ -27,6 +27,8 @@
     }else if($urlAcctuiel == 'addUser/{type}' && $typeUser == "patient"){
         $stripeAddPatients='active';
         $stripeAllPatientsPere='active';
+    }else if($urlAcctuiel == 'profile'){
+        $stripeProfile='active';
     }
 ?>
 <div class="header">
@@ -44,10 +46,10 @@
 							<img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
 							<span class="status online"></span>
 						</span>
-						<span>Admin</span>
+						<span>{{$nameUser}}</span>
                     </a>
 					<div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                        <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
                         <a class="dropdown-item" href="settings.html">Settings</a>
                         <div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
@@ -77,9 +79,15 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
+                        @if($typeUser == 'doctor' || $typeUser == 'adminM')
                         <li class="<?php echo $stripeDashboard ?>">
                             <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
+                        @endif
+                        <li class="<?php echo $stripeProfile ?>">
+                            <a href="{{route('profile')}}"><i class="fa fa-dashboard"></i> <span>Profile</span></a>
+                        </li>
+                        @if($typeUser == 'adminM')
 						<li >
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>"><i class="fa fa-user-md"></i> <span>Doctors</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
@@ -94,29 +102,34 @@
                                 <li class="<?php echo $stripeAddSecretaries ?>"><a href="{{route('addUser',['type'=>'secretaire'])}}">Add Secretaries</a></li>
                             </ul>
                         </li>
+                        @endif
+                        @if($typeUser == 'secretaire' || $typeUser == 'doctor' || $typeUser == 'adminM')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeAllPatientsPere ?>"><i class="fa fa-wheelchair"></i> <span>Patients</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li class="<?php echo $stripeAllPatients ?>"><a href="{{route('allPatients')}}">All Patients</a></li>
-                                <li class="<?php echo $stripeAddPatients ?>"><a href="{{route('addUser',['type'=>'patient'])}}">Add Patients</a></li>
+                                @if($typeUser == 'secretaire')
+                                    <li class="<?php echo $stripeAddPatients ?>"><a href="{{route('addUser',['type'=>'patient'])}}">Add Patients</a></li>
+                                @endif
                             </ul>
                         </li>
+                        @endif
                         <li class="<?php echo $stripeAppointments ?>">
                             <a href="{{route('allAppointments')}}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
+                        @if($typeUser == 'adminM')
                         <li class="<?php echo $stripeAllServices ?>">
                             <a href="{{route('allservices')}}"><i class="fa fa-hospital-o"></i> <span>Services</span></a>
                         </li>
-						<!--<li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
+						<li class="submenu">
+                            <a href="#"><i class="fa fa-article"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a href="employees.html">Employees List</a></li>
-								<li><a href="leaves.html">Leaves</a></li>
-								<li><a href="holidays.html">Holidays</a></li>
-								<li><a href="attendance.html">Attendance</a></li>
+								<li><a href="employees.html">All Blogs</a></li>
+								<li><a href="leaves.html">Add Blog</a></li>
 							</ul>
 						</li>
-						<li class="submenu">
+                        @endif
+						<!--<li class="submenu">
 							<a href="#"><i class="fa fa-money"></i> <span> Accounts </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="invoices.html">Invoices</a></li>

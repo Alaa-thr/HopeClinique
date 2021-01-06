@@ -29,6 +29,7 @@ Route::get('dashboard', [ScrtrDocController::class, 'dashboard'])->name('dashboa
 
 
 /* Admin Pages */
+Route::get('profile', [AdminController::class, 'allDoctorsAdmin'])->name('profile');
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');
 Route::get('allPatients', [AdminController::class, 'allPatientsAdmin'])->name('allPatients');
 Route::get('appointments', [AdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
