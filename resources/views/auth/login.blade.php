@@ -4,13 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 offset-md-3">
-            <div class="card" style="margin-bottom: 110px;margin-top: 100px;width:475px;">
+            <div class="card" id="modifier">
 
 
                 <div class="card-body" >
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="account-logo" style="margin-bottom: 40px;margin-top: 15px;margin-left:150px;">
+                        <div class="account-logo" id="mod">
                                 <a href="#"><img  src="{{ asset('visitorPage/img/logo.png')}}" alt=""></a>
                         </div>
                         <div class="form-group row">
