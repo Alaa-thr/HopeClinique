@@ -9,16 +9,26 @@ use App\Models\Medecin;
 class ScrtrDocController extends Controller
 {
     
+	public function getNameUsers()
+    {
+        $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        return $nameUser;
+    }
 
     public function dashboard()
     {
 
-    	$nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
-    	if(Auth::user()->user_roles == 'adminM'){
-            $typeUser = 'adminM';
-        }else if(Auth::user()->user_roles == 'doctor'){
-        	$typeUser = 'doctor';
-        }
-        return view('secrtrDoctorPages.dashboard',['typeUser'=>$typeUser,'nameUser'=>$nameUser]);
+        return view('secrtrDoctorPages.dashboard',['nameUser'=>$this->getNameUsers()]);
+    }
+
+    public function profile()
+    {
+
+        return view('secrtrDoctorPages.profile',['nameUser'=>$this->getNameUsers()]);
+    }
+
+     public function editProfile()
+    {
+        return view('secrtrDoctorPages.editProfile',['nameUser'=>$this->getNameUsers()]);
     }
 }

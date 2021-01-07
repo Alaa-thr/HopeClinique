@@ -28,19 +28,19 @@ Route::get('services',[VisitorController::class,'services'])->name('services');
 
 /* Secretaire & Doctor Pages */
 Route::get('dashboard', [ScrtrDocController::class, 'dashboard'])->name('dashboard');
-
+Route::get('profile', [ScrtrDocController::class, 'profile'])->name('profile');
+Route::get('editProfile',[ScrtrDocController::class,'editProfile'])->name('editProfile');
 
 /* Admin Pages */
-Route::get('profile', [AdminController::class, 'allDoctorsAdmin'])->name('profile');
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');
 Route::get('allPatients', [AdminController::class, 'allPatientsAdmin'])->name('allPatients');
 Route::get('appointments', [AdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
 Route::get('allSecretaries', [AdminController::class, 'allSecretariesAdmin'])->name('allSecretaries');
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
-
+Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs');
+Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 /* ADD patient Pages */
-Route::get('addUser/patient', [PatientController::class, 'create']);
 Route::post('addUser', [PatientController::class, 'store']);
 
 Auth::routes();

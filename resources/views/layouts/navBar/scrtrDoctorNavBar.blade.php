@@ -79,7 +79,7 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
-                        @if($typeUser == 'doctor' || $typeUser == 'adminM')
+                        @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM')
                         <li class="<?php echo $stripeDashboard ?>">
                             <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
@@ -87,7 +87,7 @@
                         <li class="<?php echo $stripeProfile ?>">
                             <a href="{{route('profile')}}"><i class="fa fa-dashboard"></i> <span>Profile</span></a>
                         </li>
-                        @if($typeUser == 'adminM')
+                        @if(Auth::user()->user_roles == 'adminM')
 						<li >
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>"><i class="fa fa-user-md"></i> <span>Doctors</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
@@ -103,12 +103,12 @@
                             </ul>
                         </li>
                         @endif
-                        @if($typeUser == 'secretaire' || $typeUser == 'doctor' || $typeUser == 'adminM')
+                        @if(Auth::user()->user_roles == 'secretaire' || Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeAllPatientsPere ?>"><i class="fa fa-wheelchair"></i> <span>Patients</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li class="<?php echo $stripeAllPatients ?>"><a href="{{route('allPatients')}}">All Patients</a></li>
-                                @if($typeUser == 'secretaire')
+                                @if(Auth::user()->user_roles != 'secretaire')
                                     <li class="<?php echo $stripeAddPatients ?>"><a href="{{route('addUser',['type'=>'patient'])}}">Add Patients</a></li>
                                 @endif
                             </ul>
@@ -117,15 +117,15 @@
                         <li class="<?php echo $stripeAppointments ?>">
                             <a href="{{route('allAppointments')}}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                         </li>
-                        @if($typeUser == 'adminM')
+                        @if(Auth::user()->user_roles == 'adminM')
                         <li class="<?php echo $stripeAllServices ?>">
                             <a href="{{route('allservices')}}"><i class="fa fa-hospital-o"></i> <span>Services</span></a>
                         </li>
 						<li class="submenu">
-                            <a href="#"><i class="fa fa-article"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
+                            <a class="cusrsor-pointer" ><i class="fa fa-article"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a href="employees.html">All Blogs</a></li>
-								<li><a href="leaves.html">Add Blog</a></li>
+								<li><a href="{{route('allblogs')}}">All Blogs</a></li>
+								<li><a href="{{route('detailsBlog')}}">Add Blog</a></li>
 							</ul>
 						</li>
                         @endif

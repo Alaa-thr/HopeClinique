@@ -17,6 +17,29 @@
 							</h4>
 	                    </div>
 	                </div>
+	                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<strong>Error!</strong> There is a <a href="#" class="alert-link">problem</a> in the inputs, please check again.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+	                <div class="alert alert-success alert-dismissible fade show" role="alert">
+						<strong>Success!</strong> The 
+						<a href="#" class="alert-link">
+								@if ($typeUser=='doctor')
+										Doctor
+								@elseif ($typeUser=='secretaire')
+										Secretaire
+								@elseif ($typeUser=='patient')
+										Patient
+								@endif
+
+						</a> 
+						has been added successfully.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 	                <div class="row">
 	                    <div class="col-lg-8 offset-lg-2">
 	                        <form action="{{ url('addUser') }}" method="post">
@@ -84,15 +107,15 @@
 										<div class="form-group gender-select">
 											<label class="gen-label">Gender:<span class="text-danger">*</span></label>
 											<div class="form-check-inline">
-												<label class="form-check-label"><input class="form-check-input" type="radio" name="status" value="0" >Male
+												<label class="form-check-label"><input class="form-check-input" type="radio" name="gender" value="0" >Male
 												</label>
 											</div>
 											<div class="form-check-inline">
-												<label class="form-check-label"><input class="form-check-input" type="radio" name="status" value="1" >Female
+												<label class="form-check-label"><input class="form-check-input" type="radio" name="gender" value="1" >Female
 												</label>
 											</div>
 										</div>
-	                </div>
+	                				</div>
 									@if ($typeUser=='doctor' || $typeUser=='secretaire')
 									<div class="col-sm-6">
 									  <div class="form-group">
@@ -134,7 +157,7 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>Social Security Number<span class="text-danger">*</span></label>
-												<input type="text" class="form-control" name="Num_Secrurite_Social">
+												<input type="tel" class="form-control" name="Num_Secrurite_Social">
 											</div>
 										</div>
 									@endif
@@ -151,7 +174,7 @@
 										</div>
 										<div class="col-sm-6">
 												<div class="form-group">
-														<label>antecedent<span class="text-danger">*</span></label>
+														<label>antecedent</label>
 														<input class="form-control" type="text" name="antecedent">
 												</div>
 										</div>
@@ -174,15 +197,15 @@
 									@endif
 
 								</div>
-								@if ($typeUser=='doctor')
+								@if ($typeUser =='doctor' || $typeUser =='adminM')
 			                        <div class="m-t-20 text-center">
 			                            <button class="btn btn-primary submit-btn">Add Doctor</button>
 			                        </div>
-								@elseif ($typeUser=='secretaire')
+								@elseif ($typeUser =='secretaire')
 		 	                        <div class="m-t-20 text-center">
 		 	                            <button class="btn btn-primary submit-btn">Add Secretaire</button>
 		 	                        </div>
-								@elseif ($typeUser=='patient')
+								@elseif ($typeUser =='patient')
 									<div class="m-t-20 text-center">
 										<button class="btn btn-primary submit-btn">Add Patient</button>
 									</div>
