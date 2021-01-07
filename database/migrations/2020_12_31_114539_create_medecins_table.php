@@ -19,10 +19,9 @@ class CreateMedecinsTable extends Migration
           $table->string('nom');
           $table->string('prenom');
           $table->string('specialite');
-          $table->boolean('isAdmin')->default(0);
           $table->timestamps();
         });
-        DB::table('medecins')->insert(array('id'=>'1','user_id'=>'1','nom'=>'Admin','prenom'=>'Admin','specialite'=>'none','isAdmin'=>'1','created_at'=>new \dateTime,'updated_at'=>new \dateTime));
+        DB::table('medecins')->insert(array('id'=>'1','user_id'=>'1','nom'=>'Admin','prenom'=>'Admin','specialite'=>'none','created_at'=>new \dateTime,'updated_at'=>new \dateTime));
     }
 
     /**

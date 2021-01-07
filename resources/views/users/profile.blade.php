@@ -25,33 +25,30 @@
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="profile-info-left">
-                                                <h3 class="user-name m-t-0 mb-0">Cristina Groves</h3>
-                                                <small class="text-muted">Gynecologist</small>
-                                                <div class="staff-id">Employee ID : DR-0001</div>
-                                                <div class="staff-msg"><a href="chat.html" class="btn btn-primary">Send Message</a></div>
+                                                <h3 class="user-name m-t-0 mb-0">{{$user->nom.' '.$user->prenom}}</h3>
+                                                @if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+                                                	<small class="text-muted">{{$user->specialite}}</small>
+                                                @endif
+                                                @if(Auth::user()->user_roles == 'secretaire')
+                                                	<div class="staff-id">Secretaire ID : SC-{{$user->id}}</div>
+                                                @elseif(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+                                                	<div class="staff-id">Doctor ID : DC-{{$user->id}}</div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-7">
                                             <ul class="personal-info">
                                                 <li>
                                                     <span class="title">Phone:</span>
-                                                    <span class="text"><a href="#">770-889-6484</a></span>
+                                                    <span class="text"><a>{{Auth::user()->phone}}</a></span>
                                                 </li>
                                                 <li>
                                                     <span class="title">Email:</span>
-                                                    <span class="text"><a href="#">cristinagroves@example.com</a></span>
-                                                </li>
-                                                <li>
-                                                    <span class="title">Birthday:</span>
-                                                    <span class="text">3rd March</span>
-                                                </li>
-                                                <li>
-                                                    <span class="title">Address Email:</span>
-                                                    <span class="text">714 Burwell Heights Road, Bridge City, TX, 77611</span>
+                                                    <span class="text"><a>{{Auth::user()->email}}</a></span>
                                                 </li>
                                                 <li>
                                                     <span class="title">Gender:</span>
-                                                    <span class="text">Female</span>
+                                                    <span class="text">{{$user->gender}}</span>
                                                 </li>
                                             </ul>
                                         </div>
