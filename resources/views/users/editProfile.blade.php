@@ -7,48 +7,60 @@
                         <h4 class="page-title">Edit Profile</h4>
                     </div>
                 </div>
-                <form>
+                <form enctype="multipart/form-data" action="{{ url('updateProfile') }}" method="post">
+                    {{  csrf_field() }}
+                	<input type="hidden" name="_method" value="PUT">
                     <div class="card-box">
                         <h3 class="card-title">Basic Informations</h3>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-img-wrap">
-                                    <img class="inline-block" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" alt="user">
+                                    <img class="inline-block" src="{{asset('storage/'.$user->avatar)}}" alt="user" >
                                     <div class="fileupload btn">
                                         <span class="btn-text">edit</span>
-                                        <input class="upload" type="file">
+                                        <input class="upload @error('avatar') is-invalid @enderror" type="file" name='avatar'>
+                                        @error('avatar')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="profile-basic">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group form-focus">
                                                 <label class="focus-label">First Name</label>
-                                                <input type="text" class="form-control floating" value="John">
-                                            </div>
+                                                <input type="text" class="form-control floating @error('nom') is-invalid @enderror" value="{{$user->nom}}" name="nom" >
+                                            @error('nom')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group form-focus">
                                                 <label class="focus-label">Last Name</label>
-                                                <input type="text" class="form-control floating" value="Doe">
-                                            </div>
+                                                <input type="text" class="form-control floating @error('prenom') is-invalid @enderror" value="{{$user->prenom}}" name="prenom">
+                                                @error('prenom')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-focus">
-                                                <label class="focus-label">Birth Date</label>
-                                                <div class="cal-icon">
-                                                    <input class="form-control floating datetimepicker" type="text" value="05/06/1985">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-focus select-focus">
+                                        <div class="col-md-6 m-t-20">
                                                 <label class="focus-label">Gendar</label>
-                                                <select class="select form-control floating">
-                                                    <option value="male selected">Male</option>
-                                                    <option value="female">Female</option>
+                                                <select class="select form-control floating @error('gender') is-invalid @enderror" name="gender">
+                                                    <option value="{{$user->gender}}" selected>{{$user->gender}}</option>
+                                                    @if($user->gender == 'male')
+                                                    	<option value="female">Female</option>
+                                                    @else
+                                                    	<option value="male">Male</option>
+                                                    @endif
                                                 </select>
-                                            </div>
+                                                @error('gender')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -58,27 +70,27 @@
                     <div class="card-box">
                         <h3 class="card-title">Contact Informations</h3>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group form-focus">
+                            <div class="col-md-6">
                                     <label class="focus-label">Address Email</label>
-                                    <input type="text" class="form-control floating" value="4487 Snowbird Lane">
-                                </div>
-                            </div>
+                                    <input type="text" class="form-control floating @error('email') is-invalid @enderror" value="{{Auth::user()->email}}" name="email">
+                                    @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                    @enderror
+                            </div> 
                             <div class="col-md-6">
-                                <div class="form-group form-focus">
-                                    <label class="focus-label">Country</label>
-                                    <input type="text" class="form-control floating" value="United States">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group form-focus">
                                     <label class="focus-label">Phone Number</label>
-                                    <input type="text" class="form-control floating" value="631-889-3206">
-                                </div>
+                                    <input type="text" class="form-control floating @error('phone') is-invalid @enderror" value="{{Auth::user()->phone}}" name="phone">
+                                    @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                    @enderror
                             </div>
                         </div>
                     </div>
-                    <div class="card-box">
+                    <!--<div class="card-box">
                         <h3 class="card-title">Education Informations</h3>
                         <div class="row">
                             <div class="col-md-6">
@@ -167,9 +179,9 @@
                         <div class="add-more">
                             <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add More Experience</a>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="text-center m-t-20">
-                        <button class="btn btn-primary submit-btn" type="button">Save</button>
+                        <button class="btn btn-primary submit-btn " type="submit" >Save</button>
                     </div>
                 </form>
             </div>

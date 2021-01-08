@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Medecin;
+use App\Http\Requests\ProfileRequest;
+use Illuminate\Http\Facades\UploadedFile;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function getNameUsers()
     {
@@ -65,5 +71,29 @@ class AdminController extends Controller
 
         return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
         'chroniques'=>$chroniques,'allergies'=>$allergies,'nameUser'=>$this->getNameUsers()]);
+    }
+
+    public function updateProfile(ProfileRequest $request)
+    {
+        $userRole = Auth::user()->user_roles;
+        if($userRole == 'secretaire'){
+            $user = Secretaire::find(Auth::user()->id);
+        }else if($userRole == 'doctor' || $userRole == 'adminM'){
+            $userAuth = Auth::user();
+            $userAuth->email = $request->email;
+            $userAuth->phone = $request->phone;
+
+            $user = Medecin::find(Auth::user()->id);
+            $user->nom = $request->nom;
+            $user->prenom = $request->prenom;
+            $user->gender = $request->gender;
+            if($request->hasFile('avatar')){
+                $user->avatar = $request->avatar->store('users_Avatar');
+            }
+            
+            $userAuth->save();
+            $user->save();
+        }
+        return back();   
     }
 }

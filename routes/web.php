@@ -42,7 +42,11 @@ Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('a
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
 Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs');
 Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
-/* ADD patient */
+Route::put('updateProfile',[AdminController::class,'updateProfile']);
+
+
+/* ADD patient Pages */
+
 Route::post('addUser', [PatientController::class, 'store']);
 /* ADD secretaire Pages */
 Route::post('addUser', [SecretaireController::class, 'store']);
