@@ -5,12 +5,24 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AddUsersRequest;
+
 
 class PatientController extends Controller
 {
 
-      public function store(Request $request)
+
+      public function store(AddUsersRequest $request)
       {
+        if($request->p == 'patient'){
+          $user = new User();
+          $user->phone = $request->phone;
+          $user->email = $request->email;
+          $user->password = Hash::make($request->password);
+          $user->user_roles = "patient";
+          $user->save();
+
           $patient = new Patient();
           $patient->nom = $request->input('nom');
           $patient->prenom = $request->input('prenom');
@@ -23,8 +35,9 @@ class PatientController extends Controller
           $patient->antecedent        = $request->input('antecedent');
           $patient->commentaire       = $request->input('commentaire');
           $patient->save();
+          return view('users.addUsers',['typeUser'=>$typeUser,'nameUser'=>$this->getNameUsers()]);
 
           return back();
-
-       }
+}
+}
 }

@@ -24,7 +24,7 @@
 						</button>
 					</div>
 	                <div class="alert alert-success alert-dismissible fade show" role="alert">
-						<strong>Success!</strong> The 
+						<strong>Success!</strong> The
 						<a href="#" class="alert-link">
 								@if ($typeUser=='doctor')
 										Doctor
@@ -34,7 +34,7 @@
 										Patient
 								@endif
 
-						</a> 
+						</a>
 						has been added successfully.
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -85,11 +85,7 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>Specialty<span class="text-danger">*</span></label>
-												<select class="form-control select">
-													@foreach($specialites as $s)
-														<option>{{ $s->nom }}</option>
-													@endforeach
-												</select>
+												<input class="form-control" type="text" name="specialite">
 											</div>
 										</div>
 									@endif
@@ -125,7 +121,7 @@
 									        <img alt="" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}">
 									      </div>
 									      <div class="upload-input">
-									        <input type="file" class="form-control">
+									        <input type="file" class="form-control" name="avatar">
 									      </div>
 									    </div>
 									  </div>
@@ -135,7 +131,7 @@
 									<div class="col-sm-6" >
 									  <div class="form-group">
 									    <label>Role<span class="text-danger">*</span></label>
-									    <select class="select">
+									    <select class="select" name="role">
 									        <option>Doctor</option>
 									        <option>Doctor Admin</option>
 									    </select>
@@ -199,14 +195,17 @@
 								</div>
 								@if ($typeUser =='doctor' || $typeUser =='adminM')
 			                        <div class="m-t-20 text-center">
+																<input type="hidden" value="{{$typeUser}}" name="d"/>
 			                            <button class="btn btn-primary submit-btn">Add Doctor</button>
 			                        </div>
 								@elseif ($typeUser =='secretaire')
 		 	                        <div class="m-t-20 text-center">
+																<input type="hidden" value="{{$typeUser}}" name="s"/>
 		 	                            <button class="btn btn-primary submit-btn">Add Secretaire</button>
 		 	                        </div>
 								@elseif ($typeUser =='patient')
 									<div class="m-t-20 text-center">
+										<input type="hidden" value="{{$typeUser}}" name="p"/>
 										<button class="btn btn-primary submit-btn">Add Patient</button>
 									</div>
 

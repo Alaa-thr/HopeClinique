@@ -63,10 +63,7 @@ class AdminController extends Controller
         //pour récupérer les allergies m bdd
         $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
 
-        //pour récupérer les specialites m bdd
-        $specialites=\DB::table('specialites')->orderBy('id','asc')->get();
-
         return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
-        'chroniques'=>$chroniques,'allergies'=>$allergies,'specialites'=>$specialites,'nameUser'=>$this->getNameUsers()]);
+        'chroniques'=>$chroniques,'allergies'=>$allergies,'nameUser'=>$this->getNameUsers()]);
     }
 }

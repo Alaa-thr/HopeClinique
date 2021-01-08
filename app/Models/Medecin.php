@@ -10,7 +10,7 @@ class Medecin extends Model
     use HasFactory;
     protected $primaryKey = 'user_id';
     protected $fillable = [
-      'id','user_id ','nom','prenom','specialite','isAdmin'];
+      'id','user_id ','nom','prenom','specialite',];
 
       public function prescription()
       {
