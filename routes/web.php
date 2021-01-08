@@ -5,6 +5,8 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\ScrtrDocController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\SecretaireController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +44,14 @@ Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs'
 Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
 
+
 /* ADD patient Pages */
+
 Route::post('addUser', [PatientController::class, 'store']);
+/* ADD secretaire Pages */
+Route::post('addUser', [SecretaireController::class, 'store']);
+/* ADD doctor ou adminDoctor Pages */
+Route::post('addUser', [DoctorController::class, 'store']);
 
 Auth::routes();
 
