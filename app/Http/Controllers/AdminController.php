@@ -85,24 +85,34 @@ class AdminController extends Controller
     public function updateProfile(ProfileRequest $request)
     {
         $userRole = Auth::user()->user_roles;
+        $userAuth = Auth::user();
+        $userAuth->email = $request->email;
+        $userAuth->phone = $request->phone_number;
         if($userRole == 'secretaire'){
-            $user = Secretaire::find(Auth::user()->id);
+
+            $secretaire = Secretaire::find(Auth::user()->id);
+            $secretaire->nom = $request->first_name;
+            $secretaire->prenom = $request->last_name;
+            $secretaire->gender  = $request->gender;
+            if($request->hasFile('avatar')){
+                $secretaire->avatar = $request->avatar->store('users_Avatar/secretaire');
+            }
+            $secretaire->save();
+
         }else if($userRole == 'doctor' || $userRole == 'adminM'){
-            $userAuth = Auth::user();
-            $userAuth->email = $request->email;
-            $userAuth->phone = $request->phone;
 
             $user = Medecin::find(Auth::user()->id);
-            $user->nom = $request->nom;
-            $user->prenom = $request->prenom;
+            $user->nom = $request->first_name;
+            $user->prenom = $request->last_name;
             $user->gender = $request->gender;
             if($request->hasFile('avatar')){
-                $user->avatar = $request->avatar->store('users_Avatar');
+                $user->avatar = $request->avatar->store('users_Avatar/doctor');
             }
 
-            $userAuth->save();
             $user->save();
         }
+
+        $userAuth->save();
         return back();
     }
     //pour supprimer les allDoctors

@@ -199,9 +199,6 @@
             <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-3.jpg')}}">
                 <a href="{{ asset('visitorPage/img/gallery/gallery-3.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
             </div>
-            <div class="gc__item gc__item__large set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-4.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-4.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
             <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-5.jpg')}}">
                 <a href="{{ asset('visitorPage/img/gallery/gallery-5.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
             </div>

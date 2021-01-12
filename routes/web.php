@@ -47,11 +47,8 @@ Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 
 /* ADD patient Pages */
 
-Route::post('addUser', [PatientController::class, 'store']);
+Route::post('addUser', [ScrtrDocController::class, 'store']);
 /* ADD secretaire Pages */
-Route::post('addUser', [SecretaireController::class, 'store']);
-/* ADD doctor ou adminDoctor Pages */
-Route::post('addUser', [DoctorController::class, 'store']);
 
 Auth::routes();
 

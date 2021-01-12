@@ -17,12 +17,12 @@ class CreatePatientsTable extends Migration
           $table->id();
           $table->string('nom');
           $table->string('prenom');
-          $table->integer('Num_Secrurite_Social')->unique();
+          $table->bigInteger('Num_Secrurite_Social')->unique();
           $table->date('date_naiss');
-          $table->string('maladie_chronique');
-          $table->string('allergie');
-          $table->string('antecedent');
-          $table->string('commentaire');
+          $table->string('maladie_chronique')->nullable();
+          $table->string('allergie')->nullable();
+          $table->string('antecedent')->nullable();
+          $table->string('commentaire')->nullable();
           $table->timestamps();
         });
     }

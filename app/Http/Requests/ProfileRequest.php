@@ -24,11 +24,11 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => ['required', 'string', 'max:30', 'min:3','alpha'],
-            'prenom' => ['required', 'string','alpha'],
+            'first_name' => ['required', 'string', 'max:30', 'min:3','alpha'],
+            'last_name' => ['required', 'string','alpha'],
             'avatar' =>['image'],
             'email' =>['required', 'string', 'email'],
-            'phone' =>['required', 'string','regex:/0[5-7][0-9]+/','min:10','max:10'],
+            'phone_number' =>['required', 'string','regex:/0[5-7][0-9]+/','min:10','max:10'],
         ];
     }
 }
