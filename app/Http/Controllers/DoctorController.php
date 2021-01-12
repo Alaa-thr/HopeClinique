@@ -12,31 +12,39 @@ class DoctorController extends Controller
 {
   public function store(AddUsersRequest $request)
   {
-    if($request->d == 'doctor'){
+    if($request->d == 'doctor')
+    {
 
-          if($request->input('role') == 'Doctor'){
+          if($request->input('role') == 'Doctor')
+            {
               $isDoctor ="doctor";
-        }
-        else{
+            }
+        else
+          {
               $isDoctor = "adminM";
-        }
-      $user = new User();
-      $user->phone = $request->phone;
-      $user->email = $request->email;
-      $user->password = Hash::make($request->password);
-      $user->user_roles = $isDoctor;
-      $user->save();
+          }
+              $user = new User();
+              $user->phone = $request->phone;
+              $user->email = $request->email;
+              $user->password = Hash::make($request->password);
+              $user->user_roles = $isDoctor;
+              $user->save();
 
 
-      $medecin = new Medecin();
-      $medecin->nom                  = $request->input('nom');
-      $medecin->prenom               = $request->input('prenom');
-      $medecin->gender               = $request->status == '1' ? 'Female' : 'Male' ;
-      $medecin->user_id              = $user->id;
-      $medecin->avatar               = $request->input('avatar');
-      $medecin->specialite           = $request->input('specialite');
-      $medecin->save();
+              $medecin = new Medecin();
+              $medecin->nom                  = $request->input('nom');
+              $medecin->prenom               = $request->input('prenom');
+              $medecin->gender               = $request->status == '1' ? 'Female' : 'Male' ;
+              $medecin->user_id              = $user->id;
+              $medecin->avatar               = $request->input('avatar');
+              $medecin->specialite           = $request->input('specialite');
+              $medecin->save();
 
       return back();
+    }
+  }
+    public function update(){
 
-}}}
+      
+    }
+}

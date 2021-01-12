@@ -10882,23 +10882,22 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-
-  /* dans la pâge email.blade et login.blade*/
-  #modifier{
-    width:475px;
-    margin-top: 100px;
-    margin-bottom: 110px;
-  }
-  /* dans la pâge login.blade*/
-  #mod{
-    margin-bottom: 40px;
-    margin-top: 15px;
-    margin-left: 150px;
-  }
-  /* dans la pâge email.blade */
-  #mod1{
-    margin-bottom: 40px;
-    margin-top: 20px;
-    margin-left: 150px;
-  }
+}
+/* dans la pâge email.blade et login.blade*/
+#modifier{
+  width:475px;
+  margin-top: 100px;
+  margin-bottom: 110px;
+}
+/* dans la pâge login.blade*/
+#mod{
+  margin-bottom: 40px;
+  margin-top: 15px;
+  margin-left: 150px;
+}
+/* dans la pâge email.blade */
+#mod1{
+  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-left: 150px;
 }

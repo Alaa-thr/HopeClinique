@@ -43,7 +43,7 @@ Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser
 Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs');
 Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
-
+Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 
 /* ADD patient Pages */
 
