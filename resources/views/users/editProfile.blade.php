@@ -30,8 +30,8 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                                 <label class="focus-label">First Name</label>
-                                                <input type="text" class="form-control floating @error('nom') is-invalid @enderror" value="{{$user->nom}}" name="nom" >
-                                            @error('nom')
+                                                <input type="text" class="form-control floating @error('first_name') is-invalid @enderror" value="{{$user->nom}}" name="first_name" >
+                                            @error('first_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -39,8 +39,8 @@
                                         </div>
                                         <div class="col-md-6">
                                                 <label class="focus-label">Last Name</label>
-                                                <input type="text" class="form-control floating @error('prenom') is-invalid @enderror" value="{{$user->prenom}}" name="prenom">
-                                                @error('prenom')
+                                                <input type="text" class="form-control floating @error('last_name') is-invalid @enderror" value="{{$user->prenom}}" name="last_name">
+                                                @error('last_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -81,8 +81,8 @@
                             </div> 
                             <div class="col-md-6">
                                     <label class="focus-label">Phone Number</label>
-                                    <input type="text" class="form-control floating @error('phone') is-invalid @enderror" value="{{Auth::user()->phone}}" name="phone">
-                                    @error('phone')
+                                    <input type="text" class="form-control floating @error('phone_number') is-invalid @enderror" value="{{Auth::user()->phone}}" name="phone_number">
+                                    @error('phone_number')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

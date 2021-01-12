@@ -11,7 +11,7 @@ class Secretaire extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-      'nom','prenom','user_id','id'];
+      'nom','prenom','user_id','id','gender','avatar'];
 
       
 }

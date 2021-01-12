@@ -18,25 +18,46 @@ class AddUsersRequest extends FormRequest {
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     * ,'regex:/^[a-zA-Z][0-9]+[&é-è_çà$*@^\]+[&é-è_çà$*a-z0-9A-Z]+/'
      * @return array
      */
     public function rules()
     {
+      if($this->typeUser == 'patient'){
         return [
-          'nom' =>['required','regex:/[a-zA-Z-0-9][a-z0-9A-Zéçèàâ]+/'],
-          'prenom' =>['required','regex:/[A-Z-0-9][a-z0-9A-Zéçèàâ]+/'],
-          'Num_Secrurite_Social' =>['required','string','regex:/[0-9]+/',"min:12","max:12"],
-          'ville' =>['required', 'string'],
-          'date_naiss' =>['required'],
-          'maladie_chronique' =>['nullable', 'string'],
-          'allergie' =>['nullable', 'string'],
-          'antecedent' =>['nullable', 'string'],
-          'specialite' =>['required', 'string'],
-          'commentaire' =>['nullable', 'string'],
-          'phone' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
-          'email' =>['required', 'string'],
-          'password' =>['required', 'string', 'min:8','regex:/^[a-zA-Z][0-9]+[&é-è_çà$*@^\]+[&é-è_çà$*a-z0-9A-Z]+/'],
+            'first_name' =>['required','alpha'],
+            'last_name' =>['required','alpha'],
+            'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
+            'email' =>['required', 'string','email'],
+            'password' =>['required', 'string', 'min:8'],
+            'date_of_birth' =>['required'],
+            'city' => ['required'],
+            'social_security_number' => ['required','min:12','max:12','alpha_num'],
+            /*'commentaire' => ['nullable','string','regex:/^[a-z0-9A-Z]+[a-z0-9A-Z"_-éèàç,.:!?<>%*()&]+'],*/
+            'allergie' => ['nullable','string','alpha'],
+            'antecedent' => ['nullable','string','alpha'],
+            'chronic_diseases' => ['nullable','string','alpha'],
         ];
+      }else if($this->typeUser == 'adminM' || $this->typeUser == 'doctor'){
+          return [
+            'first_name' =>['required','alpha'],
+            'last_name' =>['required','alpha'],
+            'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
+            'email' =>['required', 'string','email'],
+            'password' =>['required', 'string', 'min:8'],
+            'Specialty' =>['required', 'string'],
+            'avatar' => ['required','image'],
+            'role' => ['required'],
+          ];
+      }else if($this->typeUser == 'secretaire'){
+          return [
+            'first_name' =>['required','alpha'],
+            'last_name' =>['required','alpha'],
+            'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
+            'email' =>['required', 'string','email'],
+            'password' =>['required', 'string', 'min:8'],
+            'avatar' => ['required','image'],
+          ];
+      }
     }
 }
