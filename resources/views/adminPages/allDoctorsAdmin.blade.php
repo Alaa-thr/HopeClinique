@@ -60,6 +60,7 @@
                             </div>
                             <h4 class="doctor-name text-ellipsis"><a href="profile.html">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a></h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
+                            <div class="doc-prof">ID:{{$l->id}} \{{$um->user_roles}}</div>
                             <div class="user-country">
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}
                             </div>
