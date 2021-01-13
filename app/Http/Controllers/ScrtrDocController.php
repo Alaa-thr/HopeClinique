@@ -55,7 +55,7 @@ class ScrtrDocController extends Controller
 
     public function store(AddUsersRequest $request)
     {
-        
+
           $user = new User();
           $user->phone = $request->phone_number;
           $user->email = $request->email;
@@ -74,7 +74,7 @@ class ScrtrDocController extends Controller
               $patient->maladie_chronique = $request->chronic_diseases;
               $patient->allergie          = $request->allergie;
               $patient->antecedent        = $request->antecedent;
-              
+              $patient->user_id           = $user->id;
               $patient->save();
 
           }else if($request->typeUser == 'doctor' || $request->typeUser == 'adminM'){
@@ -110,9 +110,9 @@ class ScrtrDocController extends Controller
             $secretaire->save();
 
           }
-      
-          
+
+
           return back()->withSuccess( 'Message you want show in View' );
-         
+
     }
 }

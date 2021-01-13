@@ -45,7 +45,6 @@
                                             <th>Email</th>
                                             <th>Mobile</th>
                                             <th style="min-width: 110px;">Join Date</th>
-                                            <th>Role</th>
                                             <th class="text-right">Action</th>
                                         </tr>
                                     </thead>
@@ -61,9 +60,6 @@
                                           <td>{{ $us->email }}</td>
                                           <td>{{ $us->phone }}</td>
                                           <td>{{ $ls->created_at->format('Y-m-d') }}</td>
-                                          <td>
-                                          <span class="custom-badge status-grey">Secretaire</span>
-                                          </td>
                                           <td class="text-right">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>

@@ -41,6 +41,7 @@
 									<thead>
 										<tr>
 											<th>Name</th>
+                      <th>ID</th>
 											<th>Ville</th>
 											<th>Num_Secrurite_Social</th>
 											<th>Phone</th>
@@ -53,7 +54,8 @@
                     @if($up->id == $lp->user_id)
 										<tr>
 											<td><img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle m-r-5"
-                        alt="">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</td>
+                        alt="">{{strtoupper ($lp->nom ) }} {{strtoupper ($lp->prenom) }}</td>
+                      <td>{{ $lp->id }}</td>
 											<td>{{ $lp->ville }}</td>
 											<td>{{ $lp->Num_Secrurite_Social }}</td>
 											<td>{{ $up->phone }}</td>
@@ -62,7 +64,7 @@
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="edit-patient.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+														<a class="dropdown-item" href="{{ ('informationUsers/'.$lp->id)}}"><i class="fa fa-pencil m-r-5"></i> Plus</a>
 														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>
