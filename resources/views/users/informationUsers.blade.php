@@ -1,5 +1,7 @@
 @extends('layouts.scrtrDoctorApp')
 @section('content')
+
+
 	        <div class="page-wrapper">
             <div class="content">
                 <div class="row">
@@ -92,7 +94,60 @@
                         </div>
                     </div>
                 </div>
+								<div class="card-box">
+										<h3 class="card-title"> RDV: </h3>
+								<div class="row doctor-grid">
+									@foreach($rdvs as $r)    @foreach($medecins as $m)
+									 @if($r->medecin_id == $m->id || $r->medecin_id == NULL)
+				          <div class="col-md-4 col-sm-4  col-lg-3">
+				                        <div class="profile-widget" id="br">
+																	<h4 class="doctor-name text-ellipsis"><a href="profile.html">P:{{strtoupper ($p->nom ) }} {{strtoupper ($p->prenom) }}</a></h4>
+																	@if($r->medecin_id == NULL)
+																		<h4 class="doctor-name text-ellipsis"><a href="profile.html">M:{{strtoupper ($r->nom_medecin ) }} {{strtoupper ($r->prenom_medecin) }}</a></h4>
+																		@elseif($r->medecin_id != NULL)
+																		<h4 class="doctor-name text-ellipsis"><a href="profile.html">M:{{strtoupper ($m->nom ) }} {{strtoupper ($m->prenom) }}</a></h4>
+																		@endif
+																		<div class="doc-prof">Date:{{$r->date}}</div>
+																	  <div class="doc-prof">Debu:{{$r->heure_debut}}</div>
+																		<div class="doc-prof">Fin:{{$r->heure_fin}} </div>
+																		<div class="doc-prof">Motif:{{$r->motif}}</div>
+				                        </div>
+				          </div>
+									@endif
+									@endforeach          @endforeach
+				       </div></div>
+								<div class="card-box">
+										<h3 class="card-title"> Lettre: </h3>
+										<div class="row">
+												<div class="col-md-3">
+																<b>{{$p->commentaire}}</b>
+												</div>
+										</div>
+								</div>
+								<div class="card-box">
+										<h3 class="card-title"> Ordenance: </h3>
+										<div class="row">
+												<div class="col-md-3">
+																<b>{{$p->commentaire}}</b>
+												</div>
+										</div>
+								</div>
+								<div class="card-box">
+										<h3 class="card-title"> Gallery: </h3>
+					            <div class="content">
+													<div id="lightgallery" class="row">
+														@foreach($images as $img)
+  													<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-b-20">
+					                    <a href="{{asset('storage/'.$img->image)}}">
+					                     <img class="img-thumbnail" src="{{asset('storage/'.$img->image)}}" alt="" id="c">
+					                    </a>
+					                   </div>
+														@endforeach
+													</div>
+					            </div>
+ 										<div class="sidebar-overlay" data-reff=""></div>
+									</div>
                 @endforeach  @endforeach
               </div>
           </div>
-  @endsection
+@endsection

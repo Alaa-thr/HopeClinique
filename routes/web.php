@@ -49,6 +49,10 @@ Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
 /* ADD users Pages */
 Route::post('addUser', [ScrtrDocController::class, 'store']);
+/*Search*/
+Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
+Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');
+Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name('searchDoctor');
 
 Auth::routes();
 
