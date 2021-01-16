@@ -10901,3 +10901,8 @@ a.text-dark:focus {
   margin-top: 20px;
   margin-left: 150px;
 }
+/*pour border de rdvs exiiste dans pages all patients*/
+#br{
+  border-style: solid;
+ border-color: green;
+}
