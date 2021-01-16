@@ -51,7 +51,7 @@
           <div class="col-md-4 col-sm-4  col-lg-3">
                         <div class="profile-widget">
                             <div class="doctor-img">
-                                <a class="avatar" href="profile.html"><img src="{{asset('storage/'.$l->avatar)}}" alt="user"/></a>
+                                <a class="avatar" href=""><img src="{{asset('storage/'.$l->avatar)}}" alt="user"/></a>
                             </div>
                             <div class="dropdown profile-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>

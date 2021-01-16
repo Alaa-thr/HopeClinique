@@ -10906,3 +10906,7 @@ a.text-dark:focus {
   border-style: solid;
  border-color: green;
 }
+#c{
+ width: 150px;
+ height:150px;
+}
