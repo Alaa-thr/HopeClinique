@@ -133,7 +133,7 @@
 										</div>
 								</div>
 								<div class="card-box">
-										<h3 class="card-title"> Gallery: </h3>
+										<h3 class="card-title"> Imageries: </h3>
 					            <div class="content">
 													<div id="lightgallery" class="row">
 														@foreach($images as $img)

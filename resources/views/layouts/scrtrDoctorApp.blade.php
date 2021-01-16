@@ -16,10 +16,7 @@
     <link rel="stylesheet" href="{{ asset('visitorPage/css/bootstrap.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('visitorPage/css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('scrtrDoctorPage/css/style.css')}}" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('pp/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('pp/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('pp/plugins/light-gallery/css/lightgallery.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('pp/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/light-gallery/css/lightgallery.min.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile')
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/select2.min.css')}}">
@@ -45,12 +42,7 @@
     <script src="{{ asset('visitorPage/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('scrtrDoctorPage/js/jquery.slimscroll.js')}}"></script>
     <script src="{{ asset('scrtrDoctorPage/js/Chart.bundle.js')}}"></script>
-    <script src="{{ asset('pp/js/jquery-3.2.1.min.js')}}"></script>
-    <script src="{{ asset('pp/js/popper.min.js')}}"></script>
-    <script src="{{ asset('pp/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('pp/js/jquery.slimscroll.js')}}"></script>
-    <script src="{{ asset('pp/plugins/light-gallery/js/lightgallery-all.min.js')}}"></script>
-    <script src="{{ asset('pp/js/app.js')}}"></script>
+    <script src="{{ asset('js/lightgallery-all.min.js')}}"></script>
     @if(Route::getCurrentRoute()->uri() == 'dashboard')
         <script src="{{ asset('scrtrDoctorPage/js/chart.js')}}"></script>;
     @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile')
