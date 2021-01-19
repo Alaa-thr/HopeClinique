@@ -13,31 +13,24 @@
                     </div>
                     <div class="row ">
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
-                                <label class="focus-label">Secretarie ID</label>
-                                <form  action="/searchSecretaires" method="get">
-                                  <input type="text" class="form-control floating" name="search">
-                                  <input type="hidden" value="id" name="searchp"/>
-                                </form>
-                           </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
-                                <label class="focus-label">Secretarie Name</label>
-                                <form  action="/searchSecretaires" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="name" name="searchp"/>
+                          <div class="form-group form-focus">
+                            <label class="focus-label">Secretarie Name</label>
+                            <form  action="/searchSecretaires" method="get">
+                            <input type="text" class="form-control floating" name="search">
+                            <input type="hidden" value="name" name="searchp"/>
+                          </form>
+                         </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3">
+                      </div>
+                      <div class="col-sm-6 col-md-3">
+                          <div class="form-group form-focus">
+                              <label class="focus-label">Phone Number</label>
+                              <form  action="/searchSecretaires" method="get">
+                              <input type="text" class="form-control floating" name="search">
+                              <input type="hidden" value="phone" name="searchp"/>
                               </form>
-                           </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
-                                <label class="focus-label">Phone Number</label>
-                                <form  action="/searchSecretaires" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="phone" name="searchp"/>
-                                </form>
-                            </div>
+                          </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>

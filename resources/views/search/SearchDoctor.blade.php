@@ -15,21 +15,14 @@
                 <div class="row ">
                       <div class="col-sm-6 col-md-3">
                           <div class="form-group form-focus">
-                              <label class="focus-label">Doctor ID</label>
-                              <form  action="/searchDoctor" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="id" name="searchp"/>
-                              </form>
+                            <label class="focus-label">Doctor Name</label>
+                            <form  action="/searchDoctor" method="get">
+                              <input type="text" class="form-control floating" name="search">
+                              <input type="hidden" value="name" name="searchp"/>
+                            </form>
                           </div>
                       </div>
                       <div class="col-sm-6 col-md-3">
-                          <div class="form-group form-focus">
-                              <label class="focus-label">Doctor Name</label>
-                              <form  action="/searchDoctor" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="name" name="searchp"/>
-                              </form>
-                          </div>
                       </div>
                       <div class="col-sm-6 col-md-3">
                           <div class="form-group form-focus">
@@ -46,8 +39,9 @@
               </div>
             </div>  <!--pour backround white finish -->
 				<div class="row doctor-grid">
-          @foreach($liste as $l)    @foreach($userM as $um)
-           @if($um->id == $l->user_id)
+          @foreach($liste as $l)
+            @foreach($userM as $um)
+              @if($um->id == $l->user_id)
           <div class="col-md-4 col-sm-4  col-lg-3">
                         <div class="profile-widget">
                             <div class="doctor-img">
@@ -69,13 +63,15 @@
                             </div>
                             <h4 class="doctor-name text-ellipsis"><a href="profile.html">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a></h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
-                            <div class="doc-prof">ID:{{$l->id}} \{{$um->user_roles}}</div>
+                            <div class="doc-prof">{{$um->user_roles}}</div>
                             <div class="user-country">
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}
                             </div>
                         </div>
-          </div>@endif
-          @endforeach          @endforeach
+                    </div>
+                    @endif
+                  @endforeach
+                @endforeach
        </div>
 				<div class="row">
                     <div class="col-sm-12">

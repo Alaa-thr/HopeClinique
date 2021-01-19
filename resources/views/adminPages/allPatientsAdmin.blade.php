@@ -14,15 +14,6 @@
 	                <div class="row ">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group form-focus">
-                                <label class="focus-label">Patient ID</label>
-                                <form  action="/searchPatient" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="id" name="searchp"/>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
                                 <label class="focus-label">Patient Name</label>
                                 <form  action="/searchPatient" method="get">
                                 <input type="text" class="form-control floating" name="search">
@@ -40,6 +31,15 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
+                                  <div class="form-group form-focus">
+                                      <label class="focus-label">Secrurite Social</label>
+                                      <form  action="/searchPatient" method="get">
+                                      <input type="text" class="form-control floating" name="search">
+                                      <input type="hidden" value="id" name="searchp"/>
+                                      </form>
+                                  </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
                             <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-                      <th>ID</th>
+
 											<th>Ville</th>
 											<th>Num_Secrurite_Social</th>
 											<th>Phone</th>
@@ -64,7 +64,6 @@
 										<tr>
 											<td><img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle m-r-5"
                         alt="">{{strtoupper ($lp->nom ) }} {{strtoupper ($lp->prenom) }}</td>
-                      <td>{{ $lp->id }}</td>
 											<td>{{ $lp->ville }}</td>
 											<td>{{ $lp->Num_Secrurite_Social }}</td>
 											<td>{{ $up->phone }}</td>
@@ -73,7 +72,12 @@
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="{{ ('informationUsers/'.$lp->id)}}"><i class="fa fa-pencil m-r-5"></i> Plus</a>
+                            <form action="{{ url('informationUsers/'.$lp->id )}}" method="get">
+                               <button class="dropdown-item" data-toggle="modal">
+                                 <input type="hidden" value="patient" name="role"/> + &nbsp; Plus
+                               </button>
+                            </form>
+                            <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
 														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>
