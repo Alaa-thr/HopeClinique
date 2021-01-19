@@ -14,15 +14,6 @@
 	                <div class="row ">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group form-focus">
-                                <label class="focus-label">Patient ID</label>
-                                <form  action="/searchPatient" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="id" name="searchp"/>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
                                 <label class="focus-label">Patient Name</label>
                                 <form  action="/searchPatient" method="get">
                                 <input type="text" class="form-control floating" name="search">
@@ -40,6 +31,15 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
+                                  <div class="form-group form-focus">
+                                      <label class="focus-label">Secrurite Social</label>
+                                      <form  action="/searchPatient" method="get">
+                                      <input type="text" class="form-control floating" name="search">
+                                      <input type="hidden" value="id" name="searchp"/>
+                                      </form>
+                                  </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
                             <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
                         </div>
                     </div>
@@ -50,7 +50,6 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-                      <th>ID</th>
 											<th>Ville</th>
 											<th>Num_Secrurite_Social</th>
 											<th>Phone</th>
@@ -64,7 +63,6 @@
 										<tr>
 											<td><img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle m-r-5"
                         alt="">{{strtoupper ($lp->nom ) }} {{strtoupper ($lp->prenom) }}</td>
-                      <td>{{ $lp->id }}</td>
 											<td>{{ $lp->ville }}</td>
 											<td>{{ $lp->Num_Secrurite_Social }}</td>
 											<td>{{ $up->phone }}</td>

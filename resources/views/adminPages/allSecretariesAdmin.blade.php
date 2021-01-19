@@ -14,21 +14,14 @@
                     <div class="row ">
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group form-focus">
-                                <label class="focus-label">Secretarie ID</label>
-                                <form  action="/searchSecretaires" method="get">
-                                  <input type="text" class="form-control floating" name="search">
-                                  <input type="hidden" value="id" name="searchp"/>
-                                </form>
+                              <label class="focus-label">Secretarie Name</label>
+                              <form  action="/searchSecretaires" method="get">
+                              <input type="text" class="form-control floating" name="search">
+                              <input type="hidden" value="name" name="searchp"/>
+                            </form>
                            </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <div class="form-group form-focus">
-                                <label class="focus-label">Secretarie Name</label>
-                                <form  action="/searchSecretaires" method="get">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="name" name="searchp"/>
-                              </form>
-                           </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             <div class="form-group form-focus">
@@ -45,12 +38,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-    						<div class="table-responsive">
+    						            <div class="table-responsive">
                                 <table class="table table-striped custom-table">
                                     <thead>
                                         <tr>
                                             <th style="min-width:200px;">Name</th>
-                                            <th>Secretarie ID</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
                                             <th style="min-width: 110px;">Join Date</th>
@@ -58,14 +50,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach($listeS as $ls)    @foreach($userS as $us)
-                                       @if($us->id == $ls->user_id)
+                                      @foreach($listeS as $ls)
+                                          @foreach($userS as $us)
+                                            @if($us->id == $ls->user_id)
                                       <tr>
                                         <td>
     											                <img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle" alt="">
                                           <h2>{{strtoupper ($ls->nom ) }} {{strtoupper ($ls->prenom) }}</h2>
     										                </td>
-                                          <td>{{ $ls->id }}</td>
                                           <td>{{ $us->email }}</td>
                                           <td>{{ $us->phone }}</td>
                                           <td>{{ $ls->created_at }}</td>
@@ -73,6 +65,11 @@
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
+                                                        <form action="{{ url('informationUsers/'.$ls->id )}}" method="get">
+                                                         <button class="dropdown-item" data-toggle="modal">
+                                                           <input type="hidden" value="secretarie" name="role"/> + &nbsp; Plus
+                                                         </button>
+                                                        </form>
                                                         <a class="dropdown-item" href="edit-employee.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                         <form action="{{ url('addUserdelete/'.$ls->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
                                                            {{ csrf_field() }}<!--pour générer token-->
@@ -85,11 +82,13 @@
                                                     </div>
                                                 </div>
                                           </td>
-                                      </tr>@endif
-                                      @endforeach    @endforeach
+                                      </tr>
+                                              @endif
+                                         @endforeach
+                                      @endforeach
                                     </tbody>
                                 </table>
-    						</div>
+    					            	</div>
                         </div>
                     </div>
                 </div>
