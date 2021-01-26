@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SecretaireController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,15 @@ Route::post('addUser', [ScrtrDocController::class, 'store']);
 Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
 Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');
 Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name('searchDoctor');
+/* ADD OrdonnancePatient Pages */
+Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
+Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
+
+Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

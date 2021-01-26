@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Models\Medecin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use App\Models\Prescription;
+use App\Models\Ligne_Prescripton;
 
 class PatientController extends Controller
 {
@@ -66,5 +68,53 @@ class PatientController extends Controller
       }
     return view('search.SearchPatient',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
   }
+  public function PageOrdonnance($id){
 
+      $medicaments = \DB::table('medicaments')->orderBy('id','asc')->get();
+      $listeP    =\DB::table('patients')->where([['id', $id]])->get();
+      $date      =  Carbon::now()->format('Y-m-d');
+      $idDoctorUser = Medecin::find(Auth::user()->id)->id;
+
+      return view('adminPages.ordonnance',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,
+      'date'=>$date,'idDoctorUser'=>$idDoctorUser,'idPatient'=>$id,'medicaments'=>$medicaments]);
+    }
+
+    public function addOrdannance(Request $request)
+    {
+
+              $prescriptions = new Prescription();
+              $prescriptions->medecin_id = $request->idDoctor;
+              $prescriptions->patient_id = $request->idPatient;
+              $prescriptions->date       = "2021-01-10 20:09:39";
+              $prescriptions->save();
+
+            //  $doseTable[];$médicamentTable[];$DureeTable[];
+
+              foreach ($request->médicament as $m) {
+                      $médicamentTable[]=$m;}
+
+              foreach ($request->duree_traitement as $d) {
+                        $DureeTable[]=$d;}
+              foreach ($request->dose as $dd) {
+                        $doseTable[]=$dd;}
+              foreach ($request->moment_prises as $p) {
+                        $momentTable[]=$p;}
+
+                  $i=0;
+                foreach ($request->médicament as $m) {
+                          $ligne_prescriptions = new Ligne_Prescripton();
+                          $ligne_prescriptions->prescription_id = $prescriptions->id;
+                          $ligne_prescriptions->medicament      = $médicamentTable[$i];
+                          $ligne_prescriptions->dose            = $doseTable[$i];
+                          $ligne_prescriptions->moment_prises   = $doseTable[$i];
+                          $ligne_prescriptions->duree_traitement= $momentTable[$i];
+                            $i++;
+                          $ligne_prescriptions->save();
+                        }
+
+
+
+          return back();
+
+    }
 }

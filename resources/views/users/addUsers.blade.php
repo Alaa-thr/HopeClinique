@@ -138,10 +138,10 @@
 												</label>
 											</div>
 										</div>
-	                				</div>
+	                </div>
 									@if ($typeUser=='doctor' )
 									<div class="col-sm-6" >
-									  <div class="form-group">
+										  <div class="form-group">
 									    <label>Role<span class="text-danger">*</span></label>
 									    <select class="select @error('role') is-invalid @enderror" name="role">
 									    	<option selected disabled>Choose role</option>
@@ -149,10 +149,10 @@
 									        <option>Doctor Admin</option>
 									    </select>
 									    @error('role')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
 									  </div>
 									</div>
 
