@@ -4928,3 +4928,31 @@ blockquote p {
 .active_btn{
 	cursor: not-allowed;
 }
+/*logo de Page add Ordonnance*/
+#imgOrd{
+	height: 70px;
+}
+.txt{
+	padding-top: 10px;
+}
+#add{
+		margin-bottom: 21px;
+		margin-left: 755px;
+		width: 222px;
+}
+#ch{
+	margin-top: 42px;
+	margin-left: 355px;
+}
+#fonction{
+	margin-Left:18px;
+	width:880px;
+}
+
+#medicament{
+	width:330px;
+}
+#divClinique{
+	width: 922px;
+	margin-left: 2px;
+}

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -38,16 +37,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    protected function redirectTo()
-    {
-      
-        if(Auth::user()->user_roles == "adminM" || Auth::user()->user_roles == "medecin"){
-                return RouteServiceProvider::DASHBOARD;
-        }
-        else{
-                return RouteServiceProvider::HOME;
-        }     
-    }
-
 }

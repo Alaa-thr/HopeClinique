@@ -95,7 +95,7 @@
 							</div>
 					</div>
 					<div class="card-box">
-							<h3 class="card-title"> Commentaire: </h3>
+							<h3 class="card-title"> Commantaire: </h3>
 							<div class="row">
 									<div class="col-md-3">
 													<b>{{$p->commentaire}}</b>
@@ -103,7 +103,7 @@
 							</div>
 					</div>
 					<div class="card-box">
-							<h3 class="card-title"> Commentaire: </h3>
+							<h3 class="card-title"> RDV: </h3>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="table-responsive">
@@ -118,7 +118,6 @@
 													<td>Motif</td>
 												</tr>
 											</thead>
-											<tbody>
 												@foreach($rdvs as $r)
 													@foreach($medecins as $m)
 														@if($r->medecin_id == $m->id || $r->medecin_id == NULL)
@@ -132,16 +131,15 @@
 													<td>{{$r->date}}</td>
 													<td>{{$r->heure_debut}} - {{$r->heure_fin}} </td>
 													@if($today->diffInDays($r->date,false) > 0)
-													<td><span class="custom-badge status-green">Active</span></td>
-													@elseif($today->diffInDays($r->date,false) <= 0)
 													<td><span class="custom-badge status-red">Inactive</span></td>
+													@elseif($today->diffInDays($r->date,false) <= 0)
+													<td><span class="custom-badge status-green">Active</span></td>
 													@endif
 													<td>{{$r->motif}}</td>
 												</tr>
 														@endif
 													@endforeach
 												@endforeach
-											</tbody>
 										</table>
 									</div>
 								</div>
@@ -156,7 +154,16 @@
 							</div>
 					</div>
 					<div class="card-box">
-							<h3 class="card-title"> Ordenance: </h3>
+						<div class="row">
+									<div class="col-sm-4 col-3">
+											<h4 class="card-title">Ordonnance:</h4>
+									</div>
+									<div class="col-sm-8 col-9 text-right m-b-20">
+											<a href="{{ url('Ordonnance/'.$p->id)}}" class="btn btn btn-primary btn-rounded float-right">
+												<i class="fa fa-plus"></i> Add Ordonnance</a>
+									</div>
+							</div>
+
 							<div class="row">
 									<div class="col-md-3">
 													<b>{{$p->commentaire}}</b>
@@ -164,7 +171,15 @@
 							</div>
 					</div>
 					<div class="card-box">
-							<h3 class="card-title"> Imageries: </h3>
+						<div class="row">
+									<div class="col-sm-4 col-3">
+											<h4 class="card-title">Immagerie:</h4>
+									</div>
+									<div class="col-sm-8 col-9 text-right m-b-20">
+											<a href="" class="btn btn btn-primary btn-rounded float-right">
+												<i class="fa fa-plus"></i> Add Immagerie</a>
+									</div>
+							</div>
 								<div class="content">
 										<div id="lightgallery" class="row">
 											@foreach($images as $img)
@@ -227,6 +242,50 @@
 					 			</div>
 					 	</div>
 					 	@endif
+					@if($typeUser == 'secretarie')
+							<div class="card-box">
+								<h3 class="card-title">Basic Informations</h3>
+								<div class="row">
+										<div class="col-md-12">
+												<div class="profile-img-wrap">
+														<img class="inline-block" src="{{asset('storage/'.$p->avatar)}}" alt="user" >
+												</div>
+												<div class="profile-basic">
+													<div class="row">
+															<div class="col-md-4">
+																			<label class="focus-label">First Name</label>
+																			<input type="text" class="form-control floating"  value="{{$p->nom}}"disabled>
+															</div>
+															<div class="col-md-4">
+																			<label class="focus-label">Last Name</label>
+																			<input type="text" class="form-control floating"  value="{{$p->prenom}}"disabled>
+															</div>
+													</div>
+													<div style="padding:20px;"></div>
+															<div class="row">
+																		<div class="col-md-4">
+																			<label class="focus-label">Gender</label>
+																			<input type="text" class="form-control floating " value="{{$p->gender}}"disabled>
+																		</div>
+															</div>
+													</div>
+										</div>
+								</div>
+							 </div>
+							 <div class="card-box">
+											<h3 class="card-title">Contact Informations</h3>
+										<div class="row">
+												<div class="col-md-6">
+													<label class="focus-label">Email</label>
+													<input type="text" class="form-control floating"  value="{{$u->email}}" disabled>
+												</div>
+												 <div class="col-md-6">
+														<label class="focus-label">Phone</label>
+														<input type="text" class="form-control floating"  value="{{$u->phone}}" disabled>
+												</div>
+									</div>
+							</div>
+							@endif
 					@endforeach
 			  @endforeach
   </div>

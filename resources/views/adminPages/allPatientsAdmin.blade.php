@@ -82,8 +82,10 @@
 													</div>
 												</div>
 											</td>
-										</tr>@endif
-                    @endforeach           @endforeach
+										</tr>
+                       @endif
+                    @endforeach
+                 @endforeach
 									</tbody>
 								</table>
 							</div>

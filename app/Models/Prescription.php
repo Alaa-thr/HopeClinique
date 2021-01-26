@@ -15,7 +15,10 @@ class Prescription extends Model
       'id','medecin_id','patient_id','date','nom_medecin','prenom_medecin'  ];
 
 
-
+      public function ligne_prescripton()
+        {
+            return $this->hasMany('App\Models\Ligne_Prescripton');
+        }
       public function patient()
         {
             return $this->belongsTo('App\Models\Patient');
