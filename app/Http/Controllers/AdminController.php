@@ -20,9 +20,15 @@ class AdminController extends Controller
 
     public function getNameUsers()
     {
-        $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        $nameUser = null;
+        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        }else if(Auth::user()->user_roles == 'secretaire'){
+            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+        }
         return $nameUser;
     }
+    
     public function allDoctorsAdmin()
     {
         $liste = Medecin::all();//pour afficher liste de medecin

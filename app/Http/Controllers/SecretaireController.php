@@ -15,10 +15,16 @@ class SecretaireController extends Controller
 {
 
       public function getNameUsers()
-      {
-          $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
-          return $nameUser;
-      }
+    {
+        $nameUser = null;
+        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        }else if(Auth::user()->user_roles == 'secretaire'){
+            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+        }
+        return $nameUser;
+    }
+      
       public function store(AddUsersRequest $request)
       {
               if($request->s == "secretaire"){
