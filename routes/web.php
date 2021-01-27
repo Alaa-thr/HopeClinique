@@ -2,12 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VisitorController;
-use App\Http\Controllers\ScrtrDocController;
+use App\Http\Controllers\ScrtrDocAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SecretaireController;
-use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +29,18 @@ Route::get('doctors',[VisitorController::class,'doctors'])->name('doctors');
 Route::get('services',[VisitorController::class,'services'])->name('services');
 
 /* Secretaire & Doctor Pages */
-Route::get('dashboard', [ScrtrDocController::class, 'dashboard'])->name('dashboard');
-Route::get('profile', [ScrtrDocController::class, 'profile'])->name('profile');
-Route::get('editProfile',[ScrtrDocController::class,'editProfile'])->name('editProfile');
+Route::get('dashboard', [ScrtrDocAdminController::class, 'dashboard'])->name('dashboard');
+Route::get('profile', [ScrtrDocAdminController::class, 'profile'])->name('profile');
+Route::get('editProfile',[ScrtrDocAdminController::class,'editProfile'])->name('editProfile');
+Route::get('addAppointment',[ScrtrDocAdminController::class,'showAddAppointment'])->name('addAppointment');
+Route::get('addAppointment/{id}',[ScrtrDocAdminController::class,'showAddAppointmentID']);
+Route::post('addAppointmentInfo',[ScrtrDocAdminController::class,'addAppointment'])->name('addAppointmentInfo');
+Route::get('getPatientSelected/{id}',[ScrtrDocAdminController::class,'getPatientSelected'])->name('getPatientSelected');
 
 /* Admin Pages */
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');
 Route::get('allPatients', [AdminController::class, 'allPatientsAdmin'])->name('allPatients');
-Route::get('appointments', [AdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
+Route::get('appointments', [ScrtrDocAdminController::class, 'allAppointmentsAdmin'])->name('allAppointments');
 Route::get('allSecretaries', [AdminController::class, 'allSecretariesAdmin'])->name('allSecretaries');
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
@@ -49,20 +52,7 @@ Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
 /* ADD users Pages */
-Route::post('addUser', [ScrtrDocController::class, 'store']);
-/*Search*/
-Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
-Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');
-Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name('searchDoctor');
-/* ADD OrdonnancePatient Pages */
-Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
-Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
-
-Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('addUser', [ScrtrDocAdminController::class, 'store']);
 
 Auth::routes();
 
