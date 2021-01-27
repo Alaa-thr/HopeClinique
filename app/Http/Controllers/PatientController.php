@@ -26,8 +26,23 @@ class PatientController extends Controller
               $rdvs   = \DB::table('rdvs')->where([['patient_id', $id]])->get();
               $medecins   = \DB::table('medecins')->get();
               $images   = \DB::table('images')->where([['patient_id', $id]])->get();
+              $prescription   = \DB::table('prescriptions')->where([['patient_id', $id]])->get();
               $today = today();
-              return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'users' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today]);
+              $date=Carbon::now()->format('Y-m-d');
+              $patient = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
+                    ->join('patients','patients.id','=','prescriptions.patient_id')
+                    ->select('prescriptions.date','patients.nom','patients.prenom',
+                    'patients.Num_Secrurite_Social','patients.date_naiss')
+                    ->get();
+              $prescriptions = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
+                    ->join('ligne__prescriptons','ligne__prescriptons.prescription_id','=','prescriptions.id')
+                    ->select('ligne__prescriptons.medicament as medicament',
+                    'ligne__prescriptons.dose as dose','ligne__prescriptons.moment_prises as moment_prises',
+                    'ligne__prescriptons.duree_traitement as duree_traitement')
+                    ->get();
+              return view('users.informationUsers',['patient'=>$patient,'prescriptions'=>$prescriptions,'nameUser'=>$this->getNameUsers(),
+              'user' => $user,'users' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,
+              'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription]);
          }
          elseif($request->role == "secretarie")
            {

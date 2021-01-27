@@ -45,7 +45,7 @@
     <script src="{{ asset('js/lightgallery-all.min.js')}}"></script>
     @if(Route::getCurrentRoute()->uri() == 'dashboard')
         <script src="{{ asset('scrtrDoctorPage/js/chart.js')}}"></script>;
-    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile'|| Route::getCurrentRoute()->uri() == 'Ordonnance/{id}')
+    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile'|| Route::getCurrentRoute()->uri() == 'Ordonnance/{id}' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}')
         <script src="{{ asset('scrtrDoctorPage/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/moment.min.js')}}"></script>

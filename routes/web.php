@@ -58,7 +58,7 @@ Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name(
 Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
 Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
 
-Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('generate-pdf/{id}', [PDFController::class, 'generatePDF']);
 
 Auth::routes();
 
