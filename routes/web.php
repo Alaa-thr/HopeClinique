@@ -7,12 +7,13 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SecretaireController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
@@ -53,7 +54,15 @@ Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
 /* ADD users Pages */
-Route::post('addUser', [ScrtrDocAdminController::class, 'store']);
+/* ADD OrdonnancePatient Pages */
+Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
+Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');
+Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name('searchDoctor');
+/* ADD OrdonnancePatient Pages */
+Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
+Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
+
+Route::get('generate-pdf/{id}', [PDFController::class, 'generatePDF']);
 
 Auth::routes();
 

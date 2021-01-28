@@ -4,10 +4,10 @@
 	<div class="content">
 			<div class="row">
 					<div class="col-sm-12">
-							<h4 class="page-title">Plus Informations</h4>
+
 					</div>
 			</div>
-			{{  csrf_field() }}
+
 			@foreach($user as $p)
 				@foreach($users as $u)
 			  	@if($typeUser == 'patient')
@@ -154,8 +154,95 @@
 					</div>
 					<div class="card-box">
 						<div class="row">
-							<div class="col-sm-4 col-3">
-									<h4 class="card-title">Ordonnance:</h4>
+									<div class="col-sm-4 col-3">
+											<h4 class="card-title">Ordonnance:</h4>
+									</div>
+									<div class="col-sm-8 col-9 text-right m-b-20">
+											<a href="{{ url('Ordonnance/'.$p->id)}}"
+												class="btn btn btn-primary btn-rounded float-right">
+												<i class="fa fa-plus"></i> Add Ordonnance</a>
+									</div>
+									<div class="col-sm-12 col-9 text-right m-b-20" >
+													<form action="" method="get">
+														 <button class="btn btn-white" >
+															 <i class="fa fa-print fa-lg"></i> Print
+														 </button>
+													</form>
+									</div>
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-striped custom-table">
+												<thead>
+													<tr>
+													@foreach($prescription as $presc)
+														<th>Ordonnance {{$presc->date}}
+															<div class="dropdown dropdown-action" style="margin-left:355px;" >
+																<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+																	<i class="fa fa-ellipsis-v"></i></a>
+																<div class="dropdown-menu dropdown-menu-right" >
+																		<div class="row">
+																      <div class="col-md-12">
+																          <div class="card-box">
+																              <h4 class="payslip-title"  id="divCliniquePDF">Clinique HopeClinique Dr. - TLEMCEN</h4>
+																              <div class="row">
+																                  <div class="col-sm-6 m-b-20">
+																                  </div>
+																              </div>
+																              @foreach($patient as $patien)
+																              <div class="row">
+																                      <ul class="list-unstyled">
+																                          <li><h5 class="txt"><strong>Tlemcen,le &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																                                                     {{$patien->date}}
+																                                              </strong>
+																                          </h5></li>
+																                          <li><h5 class="txt"><strong>Nom et prénom :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																                                                      {{strtoupper ($patien->nom ) }} {{strtoupper ($patien->prenom) }}
+																                                              </strong>
+																                          </h5></li>
+																                          <li><h5 class="txt"><strong>Date de naissance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																                                                      {{$patien->date_naiss}}
+																                                              </strong>
+																                          </h5></li>
+																                          <li><h5 class="txt"><strong>N de Secrurite_Social:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																                                                      {{$patien->Num_Secrurite_Social}}
+																                                              </strong>
+																                          </h5></li>
+																                      </ul>
+																              </div>
+																              @endforeach
+																              <hr>
+																              @foreach($prescriptions as $pres)
+																              <div class="row">
+																                <div class="col-md-12">
+																                  <div class="table-responsive">
+																                    <table class="table table-striped custom-table">
+																                      <tbody>
+																                        <tr>
+																                          <th>Médicament: {{$pres->medicament}}</th>
+																                          <td>Dose : {{$pres->dose}}</td>
+																                          <td>Duree : {{$pres->duree_traitement}}</td>
+																                          <td>Moment Prises : {{$pres->moment_prises}}</td>
+																                        </tr>
+																                      </tbody>
+																                    </table>
+																                  </div>
+																                </div>
+																              </div>
+																              @endforeach
+																          </div>
+																      </div>
+																  </div>
+
+																</div>
+															</div>
+														</th>
+														@endforeach
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+
 							</div>
 							<div class="col-sm-8 col-9 text-right m-b-20">
 								<a href="{{ url('Ordonnance/'.$p->id)}}" class="btn btn btn-primary btn-rounded float-right">

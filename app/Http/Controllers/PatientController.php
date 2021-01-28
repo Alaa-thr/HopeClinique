@@ -33,8 +33,23 @@ class PatientController extends Controller
               $rdvs   = \DB::table('rdvs')->where([['patient_id', $id]])->get();
               $medecins   = \DB::table('medecins')->get();
               $images   = \DB::table('images')->where([['patient_id', $id]])->get();
+              $prescription   = \DB::table('prescriptions')->where([['patient_id', $id]])->get();
               $today = today();
-              return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'users' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today]);
+              $date=Carbon::now()->format('Y-m-d');
+              $patient = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
+                    ->join('patients','patients.id','=','prescriptions.patient_id')
+                    ->select('prescriptions.date','patients.nom','patients.prenom',
+                    'patients.Num_Secrurite_Social','patients.date_naiss')
+                    ->get();
+              $prescriptions = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
+                    ->join('ligne__prescriptons','ligne__prescriptons.prescription_id','=','prescriptions.id')
+                    ->select('ligne__prescriptons.medicament as medicament',
+                    'ligne__prescriptons.dose as dose','ligne__prescriptons.moment_prises as moment_prises',
+                    'ligne__prescriptons.duree_traitement as duree_traitement')
+                    ->get();
+              return view('users.informationUsers',['patient'=>$patient,'prescriptions'=>$prescriptions,'nameUser'=>$this->getNameUsers(),
+              'user' => $user,'users' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,
+              'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription]);
          }
          elseif($request->role == "secretarie")
            {
@@ -75,7 +90,48 @@ class PatientController extends Controller
       }
     return view('search.SearchPatient',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
   }
-  public function PageOrdonnance($id){
+
+
+
+public function addOrdannance($id)
+{
+
+      $prescriptions = new Prescription();
+      $prescriptions->medecin_id = $request->idDoctor;
+      $prescriptions->patient_id = $request->idPatient;
+      $prescriptions->date       = "2021-01-10 20:09:39";
+      $prescriptions->save();
+
+    //  $doseTable[];$médicamentTable[];$DureeTable[];
+
+      foreach ($request->médicament as $m) {
+              $médicamentTable[]=$m;}
+
+      foreach ($request->duree_traitement as $d) {
+                $DureeTable[]=$d;}
+      foreach ($request->dose as $dd) {
+                $doseTable[]=$dd;}
+      foreach ($request->moment_prises as $p) {
+                $momentTable[]=$p;}
+
+          $i=0;
+        foreach ($request->médicament as $m) {
+                  $ligne_prescriptions = new Ligne_Prescripton();
+                  $ligne_prescriptions->prescription_id = $prescriptions->id;
+                  $ligne_prescriptions->medicament      = $médicamentTable[$i];
+                  $ligne_prescriptions->dose            = $doseTable[$i];
+                  $ligne_prescriptions->moment_prises   = $doseTable[$i];
+                  $ligne_prescriptions->duree_traitement= $momentTable[$i];
+                    $i++;
+                  $ligne_prescriptions->save();
+                }
+
+
+
+  return back();
+
+}
+public function PageOrdonnance($id){
 
       $medicaments = \DB::table('medicaments')->orderBy('id','asc')->get();
       $listeP    =\DB::table('patients')->where([['id', $id]])->get();
@@ -86,42 +142,4 @@ class PatientController extends Controller
       'date'=>$date,'idDoctorUser'=>$idDoctorUser,'idPatient'=>$id,'medicaments'=>$medicaments]);
     }
 
-    public function addOrdannance(Request $request)
-    {
-
-              $prescriptions = new Prescription();
-              $prescriptions->medecin_id = $request->idDoctor;
-              $prescriptions->patient_id = $request->idPatient;
-              $prescriptions->date       = "2021-01-10 20:09:39";
-              $prescriptions->save();
-
-            //  $doseTable[];$médicamentTable[];$DureeTable[];
-
-              foreach ($request->médicament as $m) {
-                      $médicamentTable[]=$m;}
-
-              foreach ($request->duree_traitement as $d) {
-                        $DureeTable[]=$d;}
-              foreach ($request->dose as $dd) {
-                        $doseTable[]=$dd;}
-              foreach ($request->moment_prises as $p) {
-                        $momentTable[]=$p;}
-
-                  $i=0;
-                foreach ($request->médicament as $m) {
-                          $ligne_prescriptions = new Ligne_Prescripton();
-                          $ligne_prescriptions->prescription_id = $prescriptions->id;
-                          $ligne_prescriptions->medicament      = $médicamentTable[$i];
-                          $ligne_prescriptions->dose            = $doseTable[$i];
-                          $ligne_prescriptions->moment_prises   = $doseTable[$i];
-                          $ligne_prescriptions->duree_traitement= $momentTable[$i];
-                            $i++;
-                          $ligne_prescriptions->save();
-                        }
-
-
-
-          return back();
-
-    }
 }
