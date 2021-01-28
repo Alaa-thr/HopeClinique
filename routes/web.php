@@ -52,7 +52,7 @@ Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
 /* ADD users Pages */
-Route::post('addUser', [ScrtrDocAdminController::class, 'store']);
+
 
 Auth::routes();
 
