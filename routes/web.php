@@ -37,6 +37,7 @@ Route::get('addAppointment',[ScrtrDocAdminController::class,'showAddAppointment'
 Route::get('addAppointment/{id}',[ScrtrDocAdminController::class,'showAddAppointmentID']);
 Route::post('addAppointmentInfo',[ScrtrDocAdminController::class,'addAppointment'])->name('addAppointmentInfo');
 Route::get('getPatientSelected/{id}',[ScrtrDocAdminController::class,'getPatientSelected'])->name('getPatientSelected');
+Route::get('checkDateAppointment/{date}/{timeD}/{timeF}',[ScrtrDocAdminController::class,'checkDateAppointment']);
 
 /* Admin Pages */
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');

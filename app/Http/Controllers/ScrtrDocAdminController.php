@@ -120,7 +120,7 @@ class ScrtrDocAdminController extends Controller
           }
 
 
-          return back()->withSuccess("");
+          return back()->withSuccess("hh");
 
     }
     public function getPatientSelected($id)
@@ -130,6 +130,21 @@ class ScrtrDocAdminController extends Controller
         'email' => $user->email,
         'phone' =>  $user->phone,
       ]);
+    }
+
+    public function checkDateAppointment($date,$timeD,$timeF)
+    {
+      $rdv = \DB::table('rdvs')->where([['date','=',Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d')],['heure_debut','=',$timeD],['heure_fin','=',$timeF]])->get();
+      if(count($rdv) != 0){
+        return response()->json([
+          'appointmentExist' => True,
+        ]);
+      }else{
+        return response()->json([
+          'appointmentExist' => false,
+        ]);
+      }
+
     }
 
     public function allAppointmentsAdmin()
@@ -157,9 +172,9 @@ class ScrtrDocAdminController extends Controller
         $appointment = new Rdv();
         $appointment->medecin_id = $request->doctor;
         $appointment->patient_id = $request->patient;
-        $appointment->date  =Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
-        $appointment->heure_debut = date("h:i:s", strtotime( $request->time_beging ));
-        $appointment->heure_fin = date("h:i:s", strtotime( $request->time_end ));
+        $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
+        $appointment->heure_debut = date("h:i", strtotime( $request->time_beging ));
+        $appointment->heure_fin = date("h:i", strtotime( $request->time_end ));
         $appointment->motif = $request->reason;
         $appointment->save();
         return back()->withSuccess("");

@@ -18,8 +18,8 @@ class CreateRdvsTable extends Migration
           $table->unsignedBigInteger('medecin_id')->nullable();
           $table->unsignedBigInteger('patient_id');
           $table->date('date');
-          $table->date('heure_debut');
-          $table->date('heure_fin');
+          $table->time('heure_debut');
+          $table->time('heure_fin');
           $table->string('motif');
           $table->string('nom_medecin')->default(NULL);
           $table->string('prenom_medecin')->default(NULL);
