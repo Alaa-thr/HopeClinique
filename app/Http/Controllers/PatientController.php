@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Medecin;
+use App\Models\Secretaire;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Prescription;
@@ -10,9 +12,14 @@ use App\Models\Ligne_Prescripton;
 
 class PatientController extends Controller
 {
-    public function getNameUsers()
+   public function getNameUsers()
     {
-        $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        $nameUser = null;
+        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+        }else if(Auth::user()->user_roles == 'secretaire'){
+            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+        }
         return $nameUser;
     }
     public function plusinformation(Request $request,$id){
