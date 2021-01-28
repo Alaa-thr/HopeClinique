@@ -27,7 +27,7 @@
 	                                <div class="col-md-6">
 										<div class="form-group">
 											<label>Patient Name</label>
-											<select class="form-control select @error('patient') is-invalid @enderror" multiple name="patient" id="patientSelect" onchange="addInfoPatient(event)">
+											<select class="form-control select  @error('patient') is-invalid @enderror" multiple name="patient" id="patientSelect" onchange="addInfoPatient(event)">
 												
 												@foreach($allPatients as $patient)
 														<option value="{{$patient->user_id}}">{{$patient->nom}}  {{$patient->prenom}}  {{$patient->date_naiss}}</option>
@@ -61,13 +61,16 @@
 	                                    <div class="form-group">
 	                                        <label>Date</label>
 	                                        <div class="cal-icon">
-	                                            <input type="text" class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" >
+	                                            <input type="text" class="form-control datetimepicker @error('date') is-invalid @enderror" name="date" id="date" onblur="checkAppointmentDate(this)">
 	                                        </div>
 	                                        @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                         	@enderror
+                                        	<span class="invalid-feedback" role="alert" style="display: none" id='dateExiste'>
+			                                    <strong>There's an appointment in this date and time.</strong>
+			                                </span>
 	                                    </div>
 	                                </div>
 	                                <div class="col-md-6">
@@ -76,12 +79,15 @@
 			                                    <div class="form-group">
 			                                        <label>Time Beging</label>
 			                                        <div>
-			                                            <input type="time" class="form-control  @error('time_beging') is-invalid @enderror" id="datetimepicker3" name="time_beging">
+			                                            <input type="time" class="form-control  @error('time_beging') is-invalid @enderror" id="time_beging" name="time_beging" onblur="checkTime(this)">
 			                                            @error('time_beging')
 			                                                <span class="invalid-feedback" role="alert">
 			                                                    <strong>{{ $message }}</strong>
 			                                                </span>
 			                                        	@enderror
+			                                        	<span class="invalid-feedback" role="alert" style="display: none" id='tempDebutSuppr'>
+			                                                <strong>The time begining must less than time end.</strong>
+			                                            </span>
 			                                        </div>
 			                                    </div>
 			                                </div>
@@ -89,7 +95,7 @@
 			                                    <div class="form-group">
 			                                        <label>Time End</label>
 			                                        <div>
-			                                            <input type="time" class="form-control  @error('time_end') is-invalid @enderror" id="datetimepicker3" name="time_end">
+			                                            <input type="time" class="form-control  @error('time_end') is-invalid @enderror" name="time_end" onblur="checkTime(this)">
 			                                            @error('time_end')
 			                                                <span class="invalid-feedback" role="alert">
 			                                                    <strong>{{ $message }}</strong>
@@ -135,7 +141,7 @@
 	                                @enderror
 	                            </div>
 	                            <div class="m-t-20 text-center">
-	                                <button class="btn btn-primary submit-btn" type="submit">Create Appointment</button>
+	                                <button class="btn btn-primary submit-btn" type="submit" id="createAppointmentButton">Create Appointment</button>
 	                            </div>
 	                        </form>
 	                    </div>

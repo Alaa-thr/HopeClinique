@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="row ">
-                      <div class="col-sm-6 col-md-3">
+                      <div class="col-sm-6 col-md-6">
                           <div class="form-group form-focus">
                             <label class="focus-label">Doctor Name</label>
                             <form  action="/searchDoctor" method="get">
@@ -21,8 +21,6 @@
                               <input type="hidden" value="name" name="searchp"/>
                             </form>
                           </div>
-                      </div>
-                      <div class="col-sm-6 col-md-3">
                       </div>
                       <div class="col-sm-6 col-md-3">
                           <div class="form-group form-focus">
@@ -55,7 +53,7 @@
                                        <input type="hidden" value="doctor" name="role"/> + &nbsp; Plus
                                      </button>
                                   </form>
-                                    <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> More</a>
                                       <form action="{{ url('addUserdelete/'.$l->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
                                          {{ csrf_field() }}<!--pour générer token-->
                                          {{ method_field('DELETE')}}<!--pour générer input de type hidden et value put -->

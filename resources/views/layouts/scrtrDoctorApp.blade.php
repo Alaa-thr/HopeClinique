@@ -17,10 +17,11 @@
     <link rel="stylesheet" href="{{ asset('visitorPage/css/font-awesome.min.css')}}" type="text/css">   
     <link rel="stylesheet" href="{{ asset('scrtrDoctorPage/css/style.css')}}" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}')
+    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}')
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/select2.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/bootstrap-datetimepicker.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/fullcalendar.min.css')}}">
     @endif
 </head>
 <body>
@@ -43,12 +44,15 @@
     <script src="{{ asset('scrtrDoctorPage/js/Chart.bundle.js')}}"></script> 
     @if(Route::getCurrentRoute()->uri() == 'dashboard')
         <script src="{{ asset('scrtrDoctorPage/js/chart.js')}}"></script>;
-    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}')
+    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}')
         <script src="{{ asset('scrtrDoctorPage/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/moment.min.js')}}"></script>
+        <script src="{{ asset('scrtrDoctorPage/js/fullcalendar.min.js')}}"></script>
+        <script src="{{ asset('scrtrDoctorPage/js/jquery.fullcalendar.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/bootstrap-datetimepicker.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/select2.min.js')}}"></script>
+
     @endif
     <script src="{{ asset('scrtrDoctorPage/js/app.js')}}"></script>
     <script type="text/javascript">
