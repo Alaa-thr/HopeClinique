@@ -10910,3 +10910,10 @@ a.text-dark:focus {
  width: 150px;
  height:150px;
 }
+/*clique sur plus information Ordonnance*/
+#plusOrd{
+  border-color: blue;
+  width: 350px;
+  margin-top: 1222px;
+  margin-right: 22px;
+}
