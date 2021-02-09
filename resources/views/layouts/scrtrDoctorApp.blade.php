@@ -18,12 +18,13 @@
     <link rel="stylesheet" href="{{ asset('scrtrDoctorPage/css/style.css')}}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/light-gallery/css/lightgallery.min.css')}}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}' || Route::getCurrentRoute()->uri() == 'Ordonnance/{id}')
+    @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'profile' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices' || Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment'|| Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'addAppointment/{id}' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}' || Route::getCurrentRoute()->uri() == 'Ordonnance/{id}')
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/select2.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/dataTables.bootstrap4.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/bootstrap-datetimepicker.min.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/fullcalendar.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('scrtrDoctorPage/css/bootstrap-datetimepicker.min.css')}}">      
     @endif
+
+    <script src="{{ asset('scrtrDoctorPage/js/jquery-3.2.1.min.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
@@ -40,27 +41,26 @@
 
 
     <!-- Js Plugins -->
-    <script src="{{ asset('scrtrDoctorPage/js/jquery-3.2.1.min.js')}}"></script>
+    
     <script src="{{ asset('scrtrDoctorPage/js/popper.min.js')}}"></script>
     <script src="{{ asset('visitorPage/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('scrtrDoctorPage/js/jquery.slimscroll.js')}}"></script>
     <script src="{{ asset('scrtrDoctorPage/js/Chart.bundle.js')}}"></script>
     <script src="{{ asset('js/lightgallery-all.min.js')}}"></script>
+
     @if(Route::getCurrentRoute()->uri() == 'dashboard')
         <script src="{{ asset('scrtrDoctorPage/js/chart.js')}}"></script>;
 
-    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment' || Route::getCurrentRoute()->uri() == 'Ordonnance/{id}' || Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}')
+    @elseif(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment' || Route::getCurrentRoute()->uri() == 'Ordonnance/{id}' || Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}' || Route::getCurrentRoute()->uri() == 'searchPatientDoctor' ||Route::getCurrentRoute()->uri() == 'profile')        
 
         <script src="{{ asset('scrtrDoctorPage/js/jquery.dataTables.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/dataTables.bootstrap4.min.js')}}"></script>
-        <script src="{{ asset('scrtrDoctorPage/js/moment.min.js')}}"></script>
-        <script src="{{ asset('scrtrDoctorPage/js/fullcalendar.min.js')}}"></script>
-        <script src="{{ asset('scrtrDoctorPage/js/jquery.fullcalendar.js')}}"></script>
-        <script src="{{ asset('scrtrDoctorPage/js/bootstrap-datetimepicker.min.js')}}"></script>
         <script src="{{ asset('scrtrDoctorPage/js/select2.min.js')}}"></script>
-
+        <script src="{{ asset('scrtrDoctorPage/js/moment.min.js')}}"></script>
+        <script src="{{ asset('scrtrDoctorPage/js/bootstrap-datetimepicker.min.js')}}"></script>    
     @endif
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>    <script src="{{ asset('scrtrDoctorPage/js/app.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>   
+    <script src="{{ asset('scrtrDoctorPage/js/app.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function() {
           $("#patientSelect").select2({ maximumSelectionLength: 1 });

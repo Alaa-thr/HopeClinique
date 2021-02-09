@@ -13,10 +13,17 @@ use App\Models\Medecin;
 class DoctorController extends Controller
 {
   public function getNameUsers()
-  {
-      $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
-      return $nameUser;
-  }
+    {
+        $nameUser = null;
+        
+        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          
+        }else if(Auth::user()->user_roles == 'secretaire'){
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+        }
+        return  $nameUser;
+    }
   public function store(AddUsersRequest $request)
   {
     if($request->d == 'doctor')
@@ -69,6 +76,16 @@ class DoctorController extends Controller
                                       ->get();
       $liste  =\DB::table('medecins')->get();
     }
-  return view('search.SearchDoctor',['nameUser'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'userM'=>$userM]);
-}
+    return view('search.SearchDoctor',['nameUser'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'userM'=>$userM]);
+  }
+  public function getEventsDoctor($idDoc)
+  {
+    $events = \DB::table('rdvs')
+            ->join('patients','patients.id','=','rdvs.patient_id')
+            ->where('medecin_id', $idDoc)
+            ->select('nom','prenom','rdvs.id','date','heure_debut','heure_fin')->get();
+    return response()->json([
+        'events' => $events,
+      ]);
+  }
 }

@@ -59,10 +59,12 @@ Route::post('addImagerie', [PatientController::class, 'addImageriePatient']);
 Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
 Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');
 Route::get('/searchDoctor', [DoctorController::class, 'getsearchDoctor'])->name('searchDoctor');
+Route::get('/searchPatientDoctor', [ScrtrDocAdminController::class, 'getsearchPatientDoctor'])->name('searchPatientDoctor');
 /* ADD OrdonnancePatient Pages */
 Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
 Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
 Route::get('generate-pdf/{id}', [PDFController::class, 'generatePDF']);
+Route::get('/getEventsDoctor/{id}', [DoctorController::class, 'getEventsDoctor']);
 
 /* ADD Lettre Orientation Pages */
 Route::get('lettre/{id}',[PatientController::class, 'lettre']);

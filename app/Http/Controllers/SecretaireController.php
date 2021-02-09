@@ -14,15 +14,17 @@ use App\Models\Medecin;
 class SecretaireController extends Controller
 {
 
-      public function getNameUsers()
+    public function getNameUsers()
     {
         $nameUser = null;
+        
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
-            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          
         }else if(Auth::user()->user_roles == 'secretaire'){
-            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
-        return $nameUser;
+        return  $nameUser;
     }
       
       public function store(AddUsersRequest $request)

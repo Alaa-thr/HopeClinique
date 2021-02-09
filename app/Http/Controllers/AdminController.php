@@ -21,53 +21,55 @@ class AdminController extends Controller
     public function getNameUsers()
     {
         $nameUser = null;
+        
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
-            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          
         }else if(Auth::user()->user_roles == 'secretaire'){
-            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
-        return $nameUser;
+        return  $nameUser;
     }
 
     public function allDoctorsAdmin()
     {
         $liste = Medecin::all();//pour afficher liste de medecin
         $userM  = \DB::table('users')->get();//pour afficher liste de users
-        return view('adminPages.allDoctorsAdmin',['nameUser'=>$this->getNameUsers(),'liste'=>$liste,'userM'=>$userM]);
+        return view('adminPages.allDoctorsAdmin',['users'=>$this->getNameUsers(),'liste'=>$liste,'userM'=>$userM]);
     }
 
     public function allPatientsAdmin()
     {
         $listeP = Patient::all();//pour afficher liste de patient
         $userP  = \DB::table('users')->get();//pour afficher liste de users
-        return view('adminPages.allPatientsAdmin',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'userP'=>$userP]);
+        return view('adminPages.allPatientsAdmin',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'userP'=>$userP]);
     }
 
     public function allAppointmentsAdmin()
     {
-        return view('adminPages.allAppointmentsAdmin',['nameUser'=>$this->getNameUsers()]);
+        return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers()]);
     }
 
     public function allSecretariesAdmin()
     {
         $listeS = Secretaire::all();//pour afficher liste de secretaire
         $userS  = \DB::table('users')->get();//pour afficher liste de users
-        return view('adminPages.allSecretariesAdmin',['nameUser'=>$this->getNameUsers(),'listeS'=>$listeS,'userS'=>$userS]);
+        return view('adminPages.allSecretariesAdmin',['users'=>$this->getNameUsers(),'listeS'=>$listeS,'userS'=>$userS]);
     }
 
     public function allservicesAdmin()
     {
-        return view('adminPages.allservicesAdmin',['nameUser'=>$this->getNameUsers()]);
+        return view('adminPages.allservicesAdmin',['users'=>$this->getNameUsers()]);
     }
 
     public function allblogsAdmin()
     {
-        return view('adminPages.blogs',['nameUser'=>$this->getNameUsers()]);
+        return view('adminPages.blogs',['users'=>$this->getNameUsers()]);
     }
 
     public function detailsBlogAdmin()
     {
-        return view('adminPages.detailsBlog',['nameUser'=>$this->getNameUsers()]);
+        return view('adminPages.detailsBlog',['users'=>$this->getNameUsers()]);
     }
 
     public function addUser($type)
@@ -85,7 +87,7 @@ class AdminController extends Controller
         $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
 
         return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
-        'chroniques'=>$chroniques,'allergies'=>$allergies,'nameUser'=>$this->getNameUsers()]);
+        'chroniques'=>$chroniques,'allergies'=>$allergies,'users'=>$this->getNameUsers()]);
     }
 
     public function updateProfile(ProfileRequest $request)

@@ -1,5 +1,9 @@
 @extends('layouts.scrtrDoctorApp')
 @section('content')
+<link href="{{ asset('fullCalendar/lib/main.css')}}" rel='stylesheet' />
+<link href="{{ asset('fullCalendar/lib/fullCalendar.css')}}" rel='stylesheet' />
+<script src="{{ asset('fullCalendar/lib/main.js')}}"></script>
+<script src="{{ asset('fullCalendar/lib/fullCalendar.js')}}"></script>
 <div class="page-wrapper">
 	<div class="content">
 			<div class="row">
@@ -11,7 +15,7 @@
 
 			{{  csrf_field() }}
 			@foreach($user as $p)
-				@foreach($users as $u)
+				@foreach($usersSelect as $u)
 			  	@if($typeUser == 'patient')
 					<div class="card-box">
 							<h3 class="card-title">Basic Informations</h3>
@@ -291,8 +295,9 @@
 					            <div class="profile-basic">
 					              <div class="row">
 					                  <div class="col-md-4">
-					                          <label class="focus-label">First Name</label>
-					                          <input type="text" class="form-control floating"  value="{{$p->nom}}"disabled>
+					                        <label class="focus-label">First Name</label>
+					                        <input type="text" class="form-control floating"  value="{{$p->nom}}"disabled>
+					                        <input type="hidden" id="idDoc" value="{{$p->id}}">
 					                  </div>
 					                  <div class="col-md-4">
 					                          <label class="focus-label">Last Name</label>
@@ -326,8 +331,26 @@
 					 								<input type="text" class="form-control floating"  value="{{$u->phone}}" disabled>
 					 						</div>
 					 			</div>
-					 	</div>
-					 	@endif
+					 			<div class="col-md-6">
+					 				<label class="focus-label">Phone</label>
+					 				<input type="text" class="form-control floating"  value="{{$u->phone}}" disabled>
+					 			</div>
+					 		</div>
+					  </div>
+					  <div class="card-box">
+					  	<div class="row">
+						 	<div class="col-sm-4 col-3">
+		                        <h4 class="page-title">Appointments</h4>
+		                    </div>
+		                    <div class="col-sm-8 col-9 text-right m-b-20">
+		                        <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
+		                    </div>
+	                	</div>
+					 		<div class="row">
+					 			<div  class="col-lg-12 col-md-12 " id="calendar"></div>
+					 		</div>
+					  </div>
+					@endif
 					@if($typeUser == 'secretarie')
 							<div class="card-box">
 								<h3 class="card-title">Basic Informations</h3>

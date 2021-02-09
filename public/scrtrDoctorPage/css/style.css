@@ -2384,7 +2384,7 @@ ul.chat-user-total li i.old-users {
 	transform: translate3d(0, 22px, 0) scale(1);
 	transform-origin: left top;
 	transition: 240ms;
-	left: 12px;
+	left: 30px;
 	top: -8px;
 	z-index: 1;
 	color: #888;

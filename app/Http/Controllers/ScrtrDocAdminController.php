@@ -24,12 +24,14 @@ class ScrtrDocAdminController extends Controller
 	public function getNameUsers()
     {
         $nameUser = null;
+        
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
-            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          
         }else if(Auth::user()->user_roles == 'secretaire'){
-            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
-        return $nameUser;
+        return  $nameUser;
     }
 
     public function dashboard()
@@ -112,7 +114,7 @@ class ScrtrDocAdminController extends Controller
             $user = Medecin::find(Auth::user()->id);
         }
 
-        return view('users.profile',['nameUser'=>$this->getNameUsers(),'user' => $user]);
+        return view('users.profile',['users'=>$this->getNameUsers(),'user' => $user]);
     }
 
      public function editProfile()
@@ -123,7 +125,7 @@ class ScrtrDocAdminController extends Controller
         }else if($userRole == 'doctor' || $userRole == 'adminM'){
             $user = Medecin::find(Auth::user()->id);
         }
-        return view('users.editProfile',['nameUser'=>$this->getNameUsers(),'user' => $user]);
+        return view('users.editProfile',['users'=>$this->getNameUsers(),'user' => $user]);
     }
 
     public function store(AddUsersRequest $request)
@@ -143,7 +145,7 @@ class ScrtrDocAdminController extends Controller
               $patient->Num_Secrurite_Social = $request->social_security_number;
               $patient->gender            = $request->gender == '1' ? 'Female' : 'Male' ;
               $patient->ville             = $request->city;
-              $patient->date_naiss        = Carbon::createFromFormat('m/d/Y', $request->input('date_of_birth'))->format('Y-m-d');
+              $patient->date_naiss        = Carbon::parse($request->date_of_birth)->age;
               $patient->maladie_chronique = $request->chronic_diseases;
               $patient->allergie          = $request->allergie;
               $patient->antecedent        = $request->antecedent;
@@ -214,22 +216,22 @@ class ScrtrDocAdminController extends Controller
 
     public function allAppointmentsAdmin()
     {
-        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')->join('medecins','medecins.id','=','rdvs.medecin_id')->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss' ,'medecins.prenom as medecinPrenom','medecins.nom as medecinName')->get();
-        return view('adminPages.allAppointmentsAdmin',['nameUser'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
+        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')->join('medecins','medecins.id','=','rdvs.medecin_id')->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')->get();
+        return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
     }
 
     public function showAddAppointment()
     {
         $allPatients = Patient::All();
         $allDoctors = Medecin::All();
-        return view('secrtrDoctorPages.addAppointment',['nameUser'=>$this->getNameUsers(),'allPatients'=>$allPatients,'allDoctors'=>$allDoctors]);
+        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>$allPatients,'allDoctors'=>$allDoctors]);
     }
 
     public function showAddAppointmentID($id)
     {
         $allPatients = Patient::find($id);
         $allDoctors = Medecin::All();
-        return view('secrtrDoctorPages.addAppointment',['nameUser'=>$this->getNameUsers(),'allPatients'=>[$allPatients],'allDoctors'=>$allDoctors]);
+        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>[$allPatients],'allDoctors'=>$allDoctors]);
     }
 
     public function addAppointment(AddAppointment $request)
@@ -243,5 +245,33 @@ class ScrtrDocAdminController extends Controller
         $appointment->motif = $request->reason;
         $appointment->save();
         return back()->withSuccess("");
+    }
+
+    public function getsearchPatientDoctor(Request $request){
+
+      $search = $request->get('search');//prendre le mot qui nous saisissons
+
+
+      if($request->searchPatientDoctor == "birthday")
+      {
+        
+        $liste  =\DB::table('rdvs')
+        ->join('medecins','medecins.id','=','rdvs.medecin_id')
+        ->join('patients','patients.id','=','rdvs.patient_id')
+        ->where('date_naiss','like','%'.$search.'%')
+        ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+        ->get();
+      }elseif($request->searchPatientDoctor == "name"){
+        $liste  =\DB::table('rdvs')
+        ->join('medecins','medecins.id','=','rdvs.medecin_id')
+        ->join('patients','patients.id','=','rdvs.patient_id')
+        ->where('patients.nom', 'like', '%'.$search.'%')
+        ->orWhere('patients.prenom', 'like', '%'.$search.'%')
+        ->orWhere('medecins.prenom', 'like', '%'.$search.'%')
+        ->orWhere('medecins.prenom', 'like', '%'.$search.'%')
+        ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+        ->get();
+      }
+      return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'appointments'=> $liste]);
     }
 }

@@ -11,6 +11,29 @@
 	                        <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
 	                    </div>
 	                </div>
+	                <div class="row ">
+                      <div class="col-sm-6 col-md-4" >
+                          <div class="form-group form-focus" >
+                          	<label class="focus-label ">Name of doctor or patient</label>
+                            <form  action="{{route('searchPatientDoctor')}}" method="get" class="col-sm-6 col-md-12">
+                              <input type="text" class="form-control floating" name="search">
+                              <input type="hidden" value="name" name="searchPatientDoctor"/>
+                            </form>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-4">
+                          <div class="form-group form-focus">
+                              <label class="focus-label">Birthday</label>
+                              <form  action="{{route('searchPatientDoctor')}}" method="get" class="col-sm-6 col-md-12">
+                                <input type="text" class="form-control floating" name="search">
+                                <input type="hidden" value="birthday" name="searchPatientDoctor"/>
+                              </form>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-3">
+                          <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
+                      </div>
+              		</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="table-responsive">
@@ -18,7 +41,7 @@
 									<thead>
 										<tr>
 											<th>Patient Name</th>
-											<th>Age</th>
+											<th>Birthday</th>
 											<th>Doctor Name</th>
 											<th>Appointment Date</th>
 											<th>Appointment Time</th>
