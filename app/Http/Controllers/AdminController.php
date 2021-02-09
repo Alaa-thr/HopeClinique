@@ -30,7 +30,7 @@ class AdminController extends Controller
         }
         return  $nameUser;
     }
-    
+
     public function allDoctorsAdmin()
     {
         $liste = Medecin::all();//pour afficher liste de medecin
@@ -125,6 +125,7 @@ class AdminController extends Controller
     }
     //pour supprimer les allDoctors
     public function destroy(Request $request,$id){
+
       if($request->input('destroyU') == 'doctor'){
               $doctor = \DB::table('medecins')->where([['id', $id]])->get();
               foreach ($doctor as $key ) {
@@ -155,8 +156,8 @@ class AdminController extends Controller
 
         if($request->input('destroyU') == 'secretaire'){
                 $secretaireID = \DB::table('secretaires')->where([['id', $id]])->value('user_id');
-                $user = \DB::table('users')->where('id',$secretaireID)->delete();
-                $secretaire = \DB::table('secretaires')->where([['id', $id]])->delete();
+              $user = \DB::table('users')->where('id',$secretaireID)->delete();
+              $secretaire = \DB::table('secretaires')->where([['id', $id]])->delete();
               }
 
           return back();

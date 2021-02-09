@@ -42,4 +42,23 @@ class PDFController extends Controller
           }
           return $pdf->download('ordonnance '.$nom.' '.$prenom.'.pdf');
     }
+
+    public function generatePDFLettre($id)
+    {
+      $date=Carbon::now()->format('Y-m-d');
+      $patient = \DB::table('lettre__orientations')->where([['patient_id', $id],['date', $date]])
+            ->join('patients','patients.id','=','lettre__orientations.patient_id')
+            ->select('lettre__orientations.date','patients.nom','patients.prenom',
+            'lettre__orientations.contenu','patients.date_naiss')
+            ->get();
+      $specialite = Medecin::find(Auth::user()->id)->specialite;
+
+          $pdf = PDF::loadView('myPDFLettre', ['specialite'=>$specialite,'nameUser'=>$this->getNameUsers(),'patient'=>$patient]);
+
+          foreach ($patient as $p) {
+            $nom = $p->nom;
+            $prenom = $p->prenom;
+          }
+          return $pdf->download('lettreOrientation '.$nom.' '.$prenom.'.pdf');
+    }
 }
