@@ -100,7 +100,7 @@ class ScrtrDocAdminController extends Controller
             $data4[] = 0;
           }
           //print_r( $data3);
-        return view('secrtrDoctorPages.dashboard',['nameUser'=>$this->getNameUsers(),'data1'=> $data1,
+        return view('secrtrDoctorPages.dashboard',['users'=>$this->getNameUsers(),'data1'=> $data1,
         'data2'=> $data2,'data3'=> $data3,'data4'=> $data4,'mois'=> $mois,
     ]);
     }

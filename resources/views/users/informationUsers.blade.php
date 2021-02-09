@@ -331,10 +331,7 @@
 					 								<input type="text" class="form-control floating"  value="{{$u->phone}}" disabled>
 					 						</div>
 					 			</div>
-					 			<div class="col-md-6">
-					 				<label class="focus-label">Phone</label>
-					 				<input type="text" class="form-control floating"  value="{{$u->phone}}" disabled>
-					 			</div>
+					 			
 					 		</div>
 					  </div>
 					  <div class="card-box">
@@ -346,9 +343,9 @@
 		                        <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
 		                    </div>
 	                	</div>
-					 		<div class="row">
-					 			<div  class="col-lg-12 col-md-12 " id="calendar"></div>
-					 		</div>
+					 	<div class="row">
+					 		<div  class="col-lg-12 col-md-12 " id="calendar"></div>
+					 	</div>
 					  </div>
 					@endif
 					@if($typeUser == 'secretarie')

@@ -35,7 +35,7 @@
                           <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
                       </div>
               </div>
-            </div>  <!--pour backround white finish -->
+            </div>  
 				<div class="row doctor-grid">
           @foreach($liste as $l)
             @foreach($userM as $um)
