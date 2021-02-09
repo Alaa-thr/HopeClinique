@@ -18,7 +18,7 @@
                             <div class="profile-view">
                                 <div class="profile-img-wrap">
                                     <div class="profile-img">
-                                        <a href="#"><img class="avatar" src="{{ asset('scrtrDoctorPage/img/doctor-03.jpg')}}" alt=""></a>
+                                        <a href="#"><img class="avatar" src=" {{asset('storage/'.$user->avatar)}}" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="profile-basic">
@@ -30,9 +30,9 @@
                                                 	<small class="text-muted">{{$user->specialite}}</small>
                                                 @endif
                                                 @if(Auth::user()->user_roles == 'secretaire')
-                                                	<div class="staff-id">Secretaire ID : SC-{{$user->id}}</div>
+                                                	<div class="staff-id">Secretaire</div>
                                                 @elseif(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
-                                                	<div class="staff-id">Doctor ID : DC-{{$user->id}}</div>
+                                                	<div class="staff-id">Doctor</div>
                                                 @endif
                                             </div>
                                         </div>
@@ -60,12 +60,10 @@
                 </div>
 				<div class="profile-tabs">
 					<ul class="nav nav-tabs nav-tabs-bottom">
-						<li class="nav-item"><a class="nav-link active" href="#about-cont" data-toggle="tab">About</a></li>
 						<li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-toggle="tab">Profile</a></li>
-						<li class="nav-item"><a class="nav-link" href="#bottom-tab3" data-toggle="tab">Messages</a></li>
 					</ul>
 
-					<div class="tab-content">
+					<!--<div class="tab-content">
 						<div class="tab-pane show active" id="about-cont">
                 <div class="row">
                     <div class="col-md-12">
@@ -149,7 +147,7 @@
 						<div class="tab-pane" id="bottom-tab3">
 							Tab content 3
 						</div>
-					</div>
+					</div>-->
 				</div>
             </div>
         </div>

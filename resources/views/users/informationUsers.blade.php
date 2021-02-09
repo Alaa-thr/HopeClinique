@@ -1,5 +1,9 @@
 @extends('layouts.scrtrDoctorApp')
 @section('content')
+<link href="{{ asset('fullCalendar/lib/main.css')}}" rel='stylesheet' />
+<link href="{{ asset('fullCalendar/lib/fullCalendar.css')}}" rel='stylesheet' />
+<script src="{{ asset('fullCalendar/lib/main.js')}}"></script>
+<script src="{{ asset('fullCalendar/lib/fullCalendar.js')}}"></script>
 <div class="page-wrapper">
 	<div class="content">
 			<div class="row">
@@ -9,7 +13,7 @@
 			</div>
 
 			@foreach($user as $p)
-				@foreach($users as $u)
+				@foreach($usersSelect as $u)
 			  	@if($typeUser == 'patient')
 					<div class="card-box">
 						<h3 class="card-title">Basic Informations</h3>
@@ -137,6 +141,7 @@
 														<td>{{$r->motif}}</td>
 													</tr>
 												@endif
+
 											@endforeach
 										@endforeach
 									</table>
@@ -183,57 +188,46 @@
 																		<div class="row">
 																      <div class="col-md-12">
 																          <div class="card-box">
-																              <h4 class="payslip-title"  id="divCliniquePDF">Clinique HopeClinique Dr. - TLEMCEN</h4>
-																              <div class="row">
-																                  <div class="col-sm-6 m-b-20">
+								<h4 class="payslip-title"  id="divCliniquePDF">Clinique HopeClinique Dr. - TLEMCEN</h4>
+								<div class="row">
+												<div class="col-sm-6 m-b-20">
 																                  </div>
 																              </div>
-																              @foreach($patient as $patien)
-																              <div class="row">
-																                      <ul class="list-unstyled">
-																                          <li><h5 class="txt"><strong>Tlemcen,le &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																                                                     {{$patien->date}}
-																                                              </strong>
-																                          </h5></li>
-																                          <li><h5 class="txt"><strong>Nom et prénom :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																                                                      {{strtoupper ($patien->nom ) }} {{strtoupper ($patien->prenom) }}
-																                                              </strong>
-																                          </h5></li>
-																                          <li><h5 class="txt"><strong>Date de naissance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																                                                      {{$patien->date_naiss}}
-																                                              </strong>
-																                          </h5></li>
-																                          <li><h5 class="txt"><strong>N de Secrurite_Social:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																                                                      {{$patien->Num_Secrurite_Social}}
-																                                              </strong>
-																                          </h5></li>
-																                      </ul>
+				 @foreach($patient as $patien)
+						<div class="row">
+				<ul class="list-unstyled">
+						<li><h5 class="txt"><strong>Tlemcen,le &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></li>
+							 <li><h5 class="txt"><strong>Nom et prénom :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></li>
+							<li><h5 class="txt"><strong>Date de naissance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></li>
+						<li><h5 class="txt"><strong>N de Secrurite_Social:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											</h5></li>
+						 </ul>
 																              </div>
-																              @endforeach
-																              <hr>
-																              @foreach($prescriptions as $pres)
-																              <div class="row">
-																                <div class="col-md-12">
-																                  <div class="table-responsive">
-																                    <table class="table table-striped custom-table">
-																                      <tbody>
-																                        <tr>
-																                          <th>Médicament: {{$pres->medicament}}</th>
-																                          <td>Dose : {{$pres->dose}}</td>
-																                          <td>Duree : {{$pres->duree_traitement}}</td>
-																                          <td>Moment Prises : {{$pres->moment_prises}}</td>
-																                        </tr>
-																                      </tbody>
-																                    </table>
-																                  </div>
-																                </div>
-																              </div>
-																              @endforeach
-																          </div>
-																      </div>
-																  </div>
+						@endforeach
+						<hr>
+					 @foreach($prescriptions as $pres)
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table table-striped custom-table">
+										<tbody>
+											<tr>
+												<th>Médicament: {{$pres->medicament}}</th>
+												<td>Dose : {{$pres->dose}}</td>
+												<td>Duree : {{$pres->duree_traitement}}</td>
+												<td>Moment Prises : {{$pres->moment_prises}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						 </div>
+					@endforeach
+											</div>
+									</div>
+					</div>
 
-																</div>
+			</div>
 															</div>
 														</th>
 														@endforeach
@@ -294,6 +288,7 @@
 					                  <div class="col-md-4">
 					                        <label class="focus-label">First Name</label>
 					                        <input type="text" class="form-control floating"  value="{{$p->nom}}"disabled>
+					                        <input type="hidden" id="idDoc" value="{{$p->id}}">
 					                  </div>
 					                  <div class="col-md-4">
 					                        <label class="focus-label">Last Name</label>
@@ -329,34 +324,16 @@
 					 		</div>
 					  </div>
 					  <div class="card-box">
-					 		<h3 class="card-title">Appointment</h3>
+					  	<div class="row">
+						 	<div class="col-sm-4 col-3">
+		                        <h4 class="page-title">Appointments</h4>
+		                    </div>
+		                    <div class="col-sm-8 col-9 text-right m-b-20">
+		                        <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
+		                    </div>
+	                	</div>
 					 		<div class="row">
-					 			<div class="row">
-				                    <div class="col-lg-12">
-				                        <div class="card-box mb-0">
-				                            <div class="row">
-				                                <div class="col-md-12">
-				                                    <div id="calendar"></div>
-				                                </div>
-				                            </div>
-				                        </div>
-				                        <div class="modal fade none-border" id="event-modal">
-				                            <div class="modal-dialog">
-				                                <div class="modal-content modal-md">
-				                                    <div class="modal-header">
-				                                        <h4 class="modal-title">Add Event</h4>
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-				                                    </div>
-				                                    <div class="modal-body"></div>
-				                                    <div class="modal-footer text-center">
-				                                        <button type="button" class="btn btn-primary submit-btn save-event">Create event</button>
-				                                        <button type="button" class="btn btn-danger btn-lg delete-event" data-dismiss="modal">Delete</button>
-				                                    </div>
-				                                </div>
-				                            </div>
-				                        </div>
-				                    </div>
-				                </div>
+					 			<div  class="col-lg-12 col-md-12 " id="calendar"></div>
 					 		</div>
 					  </div>
 					@endif

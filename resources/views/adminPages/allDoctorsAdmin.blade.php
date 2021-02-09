@@ -13,19 +13,19 @@
                 </div>
 
                 <div class="row ">
-                      <div class="col-sm-6 col-md-6">
+                      <div class="col-sm-6 col-md-4">
                           <div class="form-group form-focus">
                             <label class="focus-label">Doctor Name</label>
-                            <form  action="/searchDoctor" method="get">
+                            <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
                               <input type="text" class="form-control floating" name="search">
                               <input type="hidden" value="name" name="searchp"/>
                             </form>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-3">
+                      <div class="col-sm-6 col-md-4">
                           <div class="form-group form-focus">
                               <label class="focus-label">Phone Number</label>
-                              <form  action="/searchDoctor" method="get">
+                              <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
                                 <input type="text" class="form-control floating" name="search">
                                 <input type="hidden" value="phone" name="searchp"/>
                               </form>
@@ -64,7 +64,10 @@
                                       </form>
                                 </div>
                             </div>
-                            <h4 class="doctor-name text-ellipsis"><a href="profile.html">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a></h4>
+                            <h4 class="doctor-name text-ellipsis">
+                              <form action="{{ url('informationUsers/'.$l->id )}}" method="get"> <a>{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a>
+                              </form>
+                            </h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
                             <div class="user-country">
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}

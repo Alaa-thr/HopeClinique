@@ -9,18 +9,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Prescription;
 use App\Models\Ligne_Prescripton;
+use Calendar;
+use App\Models\Rdv;
 
 class PatientController extends Controller
 {
    public function getNameUsers()
     {
         $nameUser = null;
+        
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
-            $nameUser = Medecin::find(Auth::user()->id)->nom.' '.Medecin::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          
         }else if(Auth::user()->user_roles == 'secretaire'){
-            $nameUser = Secretaire::find(Auth::user()->id)->nom.' '.Secretaire::find(Auth::user()->id)->prenom;
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
-        return $nameUser;
+        return  $nameUser;
     }
     public function plusinformation(Request $request,$id){
 
@@ -47,8 +51,8 @@ class PatientController extends Controller
                     'ligne__prescriptons.dose as dose','ligne__prescriptons.moment_prises as moment_prises',
                     'ligne__prescriptons.duree_traitement as duree_traitement')
                     ->get();
-              return view('users.informationUsers',['patient'=>$patient,'prescriptions'=>$prescriptions,'nameUser'=>$this->getNameUsers(),
-              'user' => $user,'users' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,
+              return view('users.informationUsers',['patient'=>$patient,'prescriptions'=>$prescriptions,'users'=>$this->getNameUsers(),
+              'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,
               'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription]);
          }
          elseif($request->role == "secretarie")
@@ -57,16 +61,17 @@ class PatientController extends Controller
              $user = \DB::table('secretaires')->where([['id', $id]])->get();
              $user_id = \DB::table('secretaires')->where([['id', $id]])->value('user_id');
              $users   = \DB::table('users')->where([['id', $user_id]])->get();
-             return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'users' => $users,'typeUser' => $typeUser]);
+             return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
          }
 
         elseif($request->role == "doctor")
-          {
+          {    
             $typeUser = "doctor";
             $user = \DB::table('medecins')->where([['id', $id]])->get();
             $user_id = \DB::table('medecins')->where([['id', $id]])->value('user_id');
             $users   = \DB::table('users')->where([['id', $user_id]])->get();
-            return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'users' => $users,'typeUser' => $typeUser]);
+            
+            return view('users.informationUsers',['users'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
         }
     }
     public function getsearchPatient(Request $request){
@@ -88,7 +93,7 @@ class PatientController extends Controller
                                         ->get();
         $listeP  =\DB::table('patients')->get();
       }
-    return view('search.SearchPatient',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
+    return view('search.SearchPatient',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
   }
 
 
@@ -138,7 +143,7 @@ public function PageOrdonnance($id){
       $date      =  Carbon::now()->format('Y-m-d');
       $idDoctorUser = Medecin::find(Auth::user()->id)->id;
 
-      return view('adminPages.ordonnance',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,
+      return view('adminPages.ordonnance',['users'=>$this->getNameUsers(),'listeP'=>$listeP,
       'date'=>$date,'idDoctorUser'=>$idDoctorUser,'idPatient'=>$id,'medicaments'=>$medicaments]);
     }
 

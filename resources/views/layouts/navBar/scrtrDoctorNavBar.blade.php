@@ -44,11 +44,13 @@
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img">
-                            <img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
-                            <span class="status online"></span>
-                        </span>
-                        <span>{{$nameUser}}</span>
+                        @foreach($users as $user)
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
+                            </span>
+                            <span>{{$user->nom}} {{$user->prenom}}</span>
+                        @endforeach
+                        
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{{route('profile')}}">My Account</a>

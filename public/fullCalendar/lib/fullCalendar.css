@@ -1,0 +1,39 @@
+
+ #calendar {
+   max-width: 1100px;
+   margin: 0 auto;
+ }
+ .fc-timegrid-event{
+  min-height: 47px;
+ }
+
+@media (max-width: 767.98px) { 
+	.fc-button-group {
+		 flex-wrap:wrap
+	}
+	.fc-button-group .fc-prev-button{
+		
+		width: 20px;
+		
+	}
+	 .fc-prev-button span{
+		padding-left: -10px;
+		margin-left: -10px;
+		
+	}
+	.fc-next-button span{
+		padding-left: -10px;
+		margin-left: -10px;
+		
+	}
+	.fc-button-group .fc-next-button{
+		
+		width: 20px;
+		
+	}
+	.fc-toolbar-chunk .fc-toolbar-title{
+		font-size: 20px;
+		margin-right: 5px;
+		text-align: center;
+	}
+ }
