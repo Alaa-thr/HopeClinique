@@ -7,9 +7,11 @@
                     <div class="col-sm-4 col-3">
                         <h4 class="page-title">Doctors</h4>
                     </div>
-                    <div class="col-sm-8 col-9 text-right m-b-20">
-                        <a href="{{route('addUser',['type'=>'doctor'])}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Doctor</a>
-                    </div>
+                    @if(Auth::user()->user_roles == 'adminM')
+                      <div class="col-sm-8 col-9 text-right m-b-20">
+                          <a href="{{route('addUser',['type'=>'doctor'])}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Doctor</a>
+                      </div>
+                    @endif
                 </div>
 
                 <div class="row ">
@@ -35,7 +37,7 @@
                           <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
                       </div>
               </div>
-            </div>  <!--pour backround white finish -->
+            </div>  
 				<div class="row doctor-grid">
           @foreach($liste as $l)
             @foreach($userM as $um)
@@ -50,10 +52,10 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                   <form action="{{ url('informationUsers/'.$l->id )}}" method="get">
                                      <button class="dropdown-item" data-toggle="modal">
-                                       <input type="hidden" value="doctor" name="role"/> + &nbsp; Plus
+                                       <input type="hidden" value="doctor" name="role"/> + &nbsp; More
                                      </button>
                                   </form>
-                                    <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> More</a>
+                                  
                                       <form action="{{ url('addUserdelete/'.$l->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
                                          {{ csrf_field() }}<!--pour générer token-->
                                          {{ method_field('DELETE')}}<!--pour générer input de type hidden et value put -->

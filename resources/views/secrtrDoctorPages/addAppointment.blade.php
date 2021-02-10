@@ -30,9 +30,12 @@
 											<select class="form-control select  @error('patient') is-invalid @enderror" multiple name="patient" id="patientSelect" onchange="addInfoPatient(event)">
 												
 												@foreach($allPatients as $patient)
-														<option value="{{$patient->user_id}}">{{$patient->nom}}  {{$patient->prenom}}  {{$patient->date_naiss}}</option>
+														<option value="{{$patient->user_id}}">{{$patient->nom}}
+														{{$patient->prenom}}  {{$patient->date_naiss}}</option>
+
 													@endforeach
 											</select>
+
 											@error('patient')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

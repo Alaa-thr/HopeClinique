@@ -100,7 +100,7 @@ class ScrtrDocAdminController extends Controller
             $data4[] = 0;
           }
           //print_r( $data3);
-        return view('secrtrDoctorPages.dashboard',['nameUser'=>$this->getNameUsers(),'data1'=> $data1,
+        return view('secrtrDoctorPages.dashboard',['users'=>$this->getNameUsers(),'data1'=> $data1,
         'data2'=> $data2,'data3'=> $data3,'data4'=> $data4,'mois'=> $mois,
     ]);
     }
@@ -145,9 +145,10 @@ class ScrtrDocAdminController extends Controller
               $patient->Num_Secrurite_Social = $request->social_security_number;
               $patient->gender            = $request->gender == '1' ? 'Female' : 'Male' ;
               $patient->ville             = $request->city;
-              $patient->date_naiss        = Carbon::parse($request->date_of_birth)->age;
+              $patient->date_naiss        = Carbon::createFromFormat('m-d-Y', $request->date_of_birth)->format('Y-m-d');
               $patient->maladie_chronique = $request->chronic_diseases;
               $patient->allergie          = $request->allergie;
+              $patient->age               = Carbon::parse($request->date_of_birth)->age;
               $patient->antecedent        = $request->antecedent;
               $patient->user_id           = $user->id;
               $patient->save();
@@ -237,8 +238,9 @@ class ScrtrDocAdminController extends Controller
     public function addAppointment(AddAppointment $request)
     {
         $appointment = new Rdv();
+        $idPatient = \DB::table('patients')->where('user_id',$request->patient)->select('id')->get();
         $appointment->medecin_id = $request->doctor;
-        $appointment->patient_id = $request->patient;
+        $appointment->patient_id = $idPatient[0]->id;
         $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
         $appointment->heure_debut = date("h:i", strtotime( $request->time_beging ));
         $appointment->heure_fin = date("h:i", strtotime( $request->time_end ));

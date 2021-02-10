@@ -25,8 +25,8 @@ class AddUsersRequest extends FormRequest {
     {
       if($this->typeUser == 'patient'){
         return [
-            'first_name' =>['required','alpha'],
-            'last_name' =>['required','alpha'],
+            'first_name' =>['required','regex:/^[\pL\s\-]+$/u'],
+            'last_name' =>['required','regex:/^[\pL\s\-]+$/u'],
             'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'email' =>['required', 'string','email'],
             'password' =>['required', 'string', 'min:8'],
@@ -34,14 +34,14 @@ class AddUsersRequest extends FormRequest {
             'city' => ['required'],
             'social_security_number' => ['required','min:12','max:12','alpha_num'],
             /*'commentaire' => ['nullable','string','regex:/^[a-z0-9A-Z]+[a-z0-9A-Z"_-éèàç,.:!?<>%*()&]+'],*/
-            'allergie' => ['nullable','string','alpha'],
-            'antecedent' => ['nullable','string','alpha'],
-            'chronic_diseases' => ['nullable','string','alpha'],
+            'allergie' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
+            'antecedent' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
+            'chronic_diseases' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
         ];
       }else if($this->typeUser == 'adminM' || $this->typeUser == 'doctor'){
           return [
-            'first_name' =>['required','alpha'],
-            'last_name' =>['required','alpha'],
+            'first_name' =>['required','regex:/^[\pL\s\-]+$/u'],
+            'last_name' =>['required','regex:/^[\pL\s\-]+$/u'],
             'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'email' =>['required', 'string','email'],
             'password' =>['required', 'string', 'min:8'],
@@ -51,8 +51,8 @@ class AddUsersRequest extends FormRequest {
           ];
       }else if($this->typeUser == 'secretaire'){
           return [
-            'first_name' =>['required','alpha'],
-            'last_name' =>['required','alpha'],
+            'first_name' =>['required','regex:/^[\pL\s\-]+$/u'],
+            'last_name' =>['required','regex:/^[\pL\s\-]+$/u'],
             'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'email' =>['required', 'string','email'],
             'password' =>['required', 'string', 'min:8'],

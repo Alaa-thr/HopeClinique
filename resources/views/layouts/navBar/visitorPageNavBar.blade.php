@@ -39,7 +39,11 @@
                         </span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                        @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
+                            <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
+                        @elseif(Auth::user()->user_roles == 'adminM')
+                            <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                        @endif
                         <a class="dropdown-item" href="settings.html">Settings</a>
                         <div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
@@ -128,7 +132,11 @@
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                                        @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
+                                            <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
+                                        @elseif(Auth::user()->user_roles == 'adminM')
+                                            <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                                        @endif
                                         <a class="dropdown-item" href="settings.html">Settings</a>
                                         <div>
                                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

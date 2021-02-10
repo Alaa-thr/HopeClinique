@@ -38,7 +38,7 @@
 					@endif
 	                <div class="row">
 	                    <div class="col-lg-8 offset-lg-2">
-	                        <form enctype="multipart/form-data" action="{{ url('addUser') }}" method="post">
+	                        <form enctype="multipart/form-data" action="{{ url('addUserStore') }}" method="post">
 														{{  csrf_field() }}
 	                            <div class="row">
 	                                <div class="col-sm-6">

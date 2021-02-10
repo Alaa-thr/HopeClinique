@@ -24,8 +24,8 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'string', 'max:30', 'min:3','alpha'],
-            'last_name' => ['required', 'string','alpha'],
+            'first_name' => ['required', 'string', 'max:30', 'min:3','regex:/^[\pL\s\-]+$/u'],
+            'last_name' => ['required', 'string','regex:/^[\pL\s\-]+$/u'],//'/^[\pL\s\-]+$/u' : accept only caractrs & spaces
             'avatar' =>['image'],
             'email' =>['required', 'string', 'email'],
             'phone_number' =>['required', 'string','regex:/0[5-7][0-9]+/','min:10','max:10'],

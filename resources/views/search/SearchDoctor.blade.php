@@ -13,21 +13,19 @@
                 </div>
 
                 <div class="row ">
-                      <div class="col-sm-6 col-md-3">
+                      <div class="col-sm-6 col-md-4">
                           <div class="form-group form-focus">
                             <label class="focus-label">Doctor Name</label>
-                            <form  action="/searchDoctor" method="get">
+                            <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
                               <input type="text" class="form-control floating" name="search">
                               <input type="hidden" value="name" name="searchp"/>
                             </form>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-3">
-                      </div>
-                      <div class="col-sm-6 col-md-3">
+                      <div class="col-sm-6 col-md-4">
                           <div class="form-group form-focus">
                               <label class="focus-label">Phone Number</label>
-                              <form  action="/searchDoctor" method="get">
+                              <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
                                 <input type="text" class="form-control floating" name="search">
                                 <input type="hidden" value="phone" name="searchp"/>
                               </form>
@@ -50,6 +48,11 @@
                             <div class="dropdown profile-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
+                                  <form action="{{ url('informationUsers/'.$l->id )}}" method="get">
+                                     <button class="dropdown-item" data-toggle="modal">
+                                       <input type="hidden" value="doctor" name="role"/> + &nbsp; More
+                                     </button>
+                                  </form>
                                     <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                       <form action="{{ url('addUserdelete/'.$l->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
                                          {{ csrf_field() }}<!--pour générer token-->
@@ -63,7 +66,6 @@
                             </div>
                             <h4 class="doctor-name text-ellipsis"><a href="profile.html">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a></h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
-                            <div class="doc-prof">{{$um->user_roles}}</div>
                             <div class="user-country">
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}
                             </div>

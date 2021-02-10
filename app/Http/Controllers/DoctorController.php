@@ -76,7 +76,7 @@ class DoctorController extends Controller
                                       ->get();
       $liste  =\DB::table('medecins')->get();
     }
-    return view('search.SearchDoctor',['nameUser'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'userM'=>$userM]);
+    return view('search.SearchDoctor',['users'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'userM'=>$userM]);
   }
   public function getEventsDoctor($idDoc)
   {

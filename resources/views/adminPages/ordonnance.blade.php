@@ -16,10 +16,24 @@
                         </div>
                     </div>
                 </div>
+                @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> The 
+                            <a href="#" class="alert-link">Ordonnance</a>
+                            has been added successfully.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-box" id="divClinique">
-                            <h4 class="payslip-title">Clinique HopeClinique Dr.{{$nameUser}}</h4>
+                            <h4 class="payslip-title">Clinique HopeClinique Dr.
+                            @foreach($users as $user)
+                              {{$user->nom}} {{$user->prenom}}
+                            @endforeach
+                          </h4>
                             <h4 class="payslip-title">TLEMCEN - IMAMA -  0555555555 </h4>
                             <div class="row">
                                 <div class="col-sm-6 m-b-20">

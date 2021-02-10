@@ -35,7 +35,7 @@
 ?>
 <div class="header">
             <div class="header-left">
-                <a href="index-2.html" class="logo">
+                <a href="/" class="logo">
                     <img src="{{ asset('scrtrDoctorPage/img/logo.png')}}" width="35" height="35" alt=""> <span>Preclinic</span>
                 </a>
             </div>
@@ -53,7 +53,11 @@
                         
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
+                        @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
+                            <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
+                        @elseif(Auth::user()->user_roles == 'adminM')
+                            <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                        @endif
                         <a class="dropdown-item" href="settings.html">Settings</a>
                         <div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
@@ -67,7 +71,11 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                    @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
+                        <a class="dropdown-item" href="{{route('profile')}}">My Account</a>
+                    @elseif(Auth::user()->user_roles == 'adminM')
+                        <a class="dropdown-item" href="{{route('dashboard')}}">My Account</a>
+                    @endif
                     <a class="dropdown-item" href="settings.html">Settings</a>
                     <div  class="m-t--15">
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}
@@ -99,12 +107,14 @@
                                 <li class="<?php echo $stripeAddDoctors ?>"><a href="{{route('addUser',['type'=>'doctor'])}}">Add Doctors</a></li>
                             </ul>
                         </li>
-                        @elseif(Auth::user()->user_roles == 'secretaire')
+                        @endif
+                        @if(Auth::user()->user_roles == 'secretaire')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>" href="{{route('allDoctors')}}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
                             
                         </li>
-                        @elseif(Auth::user()->user_roles == 'adminM')
+                        @endif
+                        @if(Auth::user()->user_roles == 'adminM')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeSecretariesPere ?>"><i class="fa fa-user"></i><span>Secretaries</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">

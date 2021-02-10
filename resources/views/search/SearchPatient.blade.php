@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-6 col-md-3">
                                   <div class="form-group form-focus">
-                                      <label class="focus-label">Secrurite Social</label>
+                                      <label class="focus-label">Social Security</label>
                                       <form  action="/searchPatient" method="get">
                                       <input type="text" class="form-control floating" name="search">
                                       <input type="hidden" value="id" name="searchp"/>
@@ -50,8 +50,8 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-											<th>Ville</th>
-											<th>Num_Secrurite_Social</th>
+											<th>City</th>
+											<th>Social Security Number</th>
 											<th>Phone</th>
 											<th>Email</th>
 											<th class="text-right">Action</th>
@@ -71,7 +71,11 @@
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="{{ ('informationUsers/'.$lp->id)}}"><i class="fa fa-pencil m-r-5"></i> Plus</a>
+														<form action="{{ url('informationUsers/'.$lp->id )}}" method="get">
+							                               <button class="dropdown-item" data-toggle="modal">
+							                                 <input type="hidden" value="patient" name="role"/> + &nbsp; More
+							                               </button>
+							                            </form>
 														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>

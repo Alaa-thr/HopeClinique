@@ -50,6 +50,7 @@ Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs'
 Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
 Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
+Route::post('addUserStore', [ScrtrDocAdminController::class, 'store']);
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
