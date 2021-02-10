@@ -8,7 +8,7 @@
 	                        <h4 class="page-title">Patients</h4>
 	                    </div>
 	                    <div class="col-sm-8 col-9 text-right m-b-20">
-	                        <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>
+	                        <a href="{{route('addUser',['type'=>'patient'])}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Patient</a>
 	                    </div>
 	                </div>
 	                <div class="row ">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-6 col-md-3">
                                   <div class="form-group form-focus">
-                                      <label class="focus-label">Secrurite Social</label>
+                                      <label class="focus-label">Social Security</label>
                                       <form  action="/searchPatient" method="get">
                                       <input type="text" class="form-control floating" name="search">
                                       <input type="hidden" value="id" name="searchp"/>
@@ -50,9 +50,8 @@
 									<thead>
 										<tr>
 											<th>Name</th>
-
-											<th>Ville</th>
-											<th>Num_Secrurite_Social</th>
+											<th>City</th>
+											<th>Social Security Number</th>
 											<th>Phone</th>
 											<th>Email</th>
 											<th class="text-right">Action</th>
@@ -74,10 +73,9 @@
 													<div class="dropdown-menu dropdown-menu-right">
                             <form action="{{ url('informationUsers/'.$lp->id )}}" method="get">
                                <button class="dropdown-item" data-toggle="modal">
-                                 <input type="hidden" value="patient" name="role"/> + &nbsp; Plus
+                                 <input type="hidden" value="patient" name="role"/> + &nbsp; More
                                </button>
                             </form>
-                            <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
 														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>

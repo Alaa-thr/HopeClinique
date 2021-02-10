@@ -4,9 +4,19 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-5 col-4">
-                        <h4 class="page-title">Add Commantaire</h4>
+                        <h4 class="page-title">Add Comment</h4>
                     </div>
                 </div>
+                @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> The 
+                            <a href="#" class="alert-link">Comment</a>
+                            has been added successfully.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-box" id="divClinique">

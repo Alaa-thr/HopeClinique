@@ -50,7 +50,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                   <form action="{{ url('informationUsers/'.$l->id )}}" method="get">
                                      <button class="dropdown-item" data-toggle="modal">
-                                       <input type="hidden" value="doctor" name="role"/> + &nbsp; Plus
+                                       <input type="hidden" value="doctor" name="role"/> + &nbsp; More
                                      </button>
                                   </form>
                                     <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
@@ -66,7 +66,6 @@
                             </div>
                             <h4 class="doctor-name text-ellipsis"><a href="profile.html">{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a></h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
-                            <div class="doc-prof">{{$um->user_roles}}</div>
                             <div class="user-country">
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}
                             </div>

@@ -54,8 +54,8 @@ class PatientController extends Controller
                     'ligne__prescriptons.duree_traitement')
                     ->get();
 
-              return view('users.informationUsers',['patient'=>$patient,'prescriptions'=>$prescriptions,'users'=>$this->getNameUsers(),
-              'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription]);
+              return view('users.informationUsers',['patient'=>$patient,'users'=>$this->getNameUsers(),
+              'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription,'ligne__prescriptons'=>$ligne__prescriptons]);
          }
          elseif($request->role == "secretarie")
            {
@@ -127,7 +127,7 @@ class PatientController extends Controller
                     $i++;
                   $ligne_prescriptions->save();
                 }
-              return back();
+              return back()->withSuccess("hh");
 
   }
   public function PageOrdonnance($id){
@@ -159,7 +159,7 @@ class PatientController extends Controller
       $date      =  Carbon::now()->format('Y-m-d');
       $listeP    =\DB::table('patients')->where([['id', $id]])->get();
 
-      return view('adminPages.lettreOrientation',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
+      return view('adminPages.lettreOrientation',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
     }
     public function ADDLettre(Request $request){
 
@@ -170,22 +170,22 @@ class PatientController extends Controller
         $lettre_orientations->contenu    =  $request->cause;
         $lettre_orientations->save();
 
-        return back();
-      }
-      public function commentaire($id){
+        return back()->withSuccess("hh");
+    }
+    public function commentaire($id){
 
           $date      =  Carbon::now()->format('Y-m-d');
           $listeP    =\DB::table('patients')->where([['id', $id]])->get();
 
-          return view('adminPages.commentaire',['nameUser'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
-        }
-        public function ADDcommentaire(Request $request){
+          return view('adminPages.commentaire',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
+    }
+    public function ADDcommentaire(Request $request){
 
             $patients = Patient::find($request->idPatient);
             $patients->commentaire = $patients->commentaire." ,".$request->contenu;
             $patients->save();
           echo $patients->commentaire;
 
-            return back();
-          }
+            return back()->withSuccess("hh");
+    }
 }

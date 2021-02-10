@@ -16,6 +16,16 @@
                         </div>
                     </div>
                 </div>
+                @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> The 
+                            <a href="#" class="alert-link">Lettre Orientation</a>
+                            has been added successfully.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-box" id="divClinique">

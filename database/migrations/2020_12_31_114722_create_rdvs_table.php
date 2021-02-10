@@ -23,7 +23,6 @@ class CreateRdvsTable extends Migration
           $table->string('motif');
           $table->string('nom_medecin')->default(NULL);
           $table->string('prenom_medecin')->default(NULL);
-          $table->unique(['medecin_id','patient_id','date']);
           $table->timestamps();
         });
     }

@@ -4922,6 +4922,9 @@ blockquote p {
 .m-t--15 {
 	margin-top: -15px;
 }
+.m-r-5 {
+	margin-right: 5px;
+}
 .cusrsor-pointer{
 	cursor: pointer;
 }

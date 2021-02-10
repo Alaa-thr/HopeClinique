@@ -107,12 +107,14 @@
                                 <li class="<?php echo $stripeAddDoctors ?>"><a href="{{route('addUser',['type'=>'doctor'])}}">Add Doctors</a></li>
                             </ul>
                         </li>
-                        @elseif(Auth::user()->user_roles == 'secretaire')
+                        @endif
+                        @if(Auth::user()->user_roles == 'secretaire')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>" href="{{route('allDoctors')}}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
                             
                         </li>
-                        @elseif(Auth::user()->user_roles == 'adminM')
+                        @endif
+                        @if(Auth::user()->user_roles == 'adminM')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeSecretariesPere ?>"><i class="fa fa-user"></i><span>Secretaries</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
