@@ -1,159 +1,53 @@
 @extends('layouts.app')
 @section('content')
 <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-option spad set-bg" data-setbg="{{ asset('visitorPage/img/breadcrumb-bg.jpg')}}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Blogs</h2>
-                        <div class="breadcrumb__links">
-                            <a href="/">Home</a>
-                            <span>Blogs</span>
+    <section class="breadcrumb-option spad set-bg" id="section">
+            <div id="serviceImg">
+              <img src="{{ asset('visitorPage/img/breadcrumb-bg.jpg')}}" alt="">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="breadcrumb__text">
+                            <h2>Our Blogs</h2>
+                            <div class="breadcrumb__links">
+                                <a href="/">Home</a>
+                                <span>Blogs</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- Breadcrumb Section End -->
 
     <!-- Blog Section Begin -->
     <section class="blog spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-1.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Here’s how you can get a natural glow this party season</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-2.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Get better skin with these top 10 tips for skin care</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-3.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">8 Ways to Save Your Skin if You Exercise Outside This Winter</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-4.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Here’s how you can get a natural glow this party season</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-5.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Get better skin with these top 10 tips for skin care</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-6.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">8 Ways to Save Your Skin if You Exercise Outside This Winter</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-7.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Here’s how you can get a natural glow this party season</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-8.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">Get better skin with these top 10 tips for skin care</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('visitorPage/img/blog/blog-9.jpg')}}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="#">8 Ways to Save Your Skin if You Exercise Outside This Winter</a></h5>
-                            <ul>
-                                <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                                <li>Dec 06, 2019</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 text-center">
-                    <div class="load__more">
-                        <a href="#" class="primary-btn">Load More</a>
-                    </div>
-                </div>
-            </div>
+          <div class="row">
+            @foreach($blogs as $b)
+              <div style="margin-bottom:30px;" class="col-sm-6 col-md-6 col-lg-4">
+                  <div class="blog grid-blog">
+                      <div class="blog-image">
+                          <a href="blog-details.html">
+                            <img class="img-fluid" src="{{asset('storage/'.$b->avatr)}}" alt=""></a>
+                      </div>
+                      <div class="blog-content">
+                          <h3 class="blog-title"><a href="blog-details.html">Do You Know the {{$b->title}}?</a></h3>
+                          <p>{{$b->description}}.</p>
+                          <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
+                          <div class="blog-info clearfix">
+                              <div class="post-left">
+                                  <ul>
+                                      <li><a href="#."><i class="fa fa-calendar"></i> <span>{{$b->created_at}}</span></a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endforeach
+          </div>
         </div>
     </section>
 @endsection

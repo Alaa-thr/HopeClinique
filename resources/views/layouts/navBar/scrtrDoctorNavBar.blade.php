@@ -50,7 +50,7 @@
                             </span>
                             <span>{{$user->nom}} {{$user->prenom}}</span>
                         @endforeach
-                        
+
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
@@ -111,7 +111,7 @@
                         @if(Auth::user()->user_roles == 'secretaire')
                         <li >
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>" href="{{route('allDoctors')}}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
-                            
+
                         </li>
                         @endif
                         @if(Auth::user()->user_roles == 'adminM')
@@ -151,10 +151,10 @@
                             <a href="{{route('allservices')}}"><i class="fa fa-hospital-o"></i> <span>Services</span></a>
                         </li>
                         <li class="submenu">
-                            <a class="cusrsor-pointer" ><i class="fa fa-article"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
+                            <a class="cusrsor-pointer" ><i class="fa fa-newspaper-o"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="{{route('allblogs')}}">All Blogs</a></li>
-                                <li><a href="{{route('detailsBlog')}}">Add Blog</a></li>
+                                <li><a href="{{ url('blog/'.Auth::user()->id)}}">Add Blog</a></li>
                             </ul>
                         </li>
                         @endif

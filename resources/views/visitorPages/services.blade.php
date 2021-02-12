@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<section class="breadcrumb-option spad set-bg" data-setbg="{{ asset('visitorPage/img/breadcrumb-bg.jpg')}}">
+<section class="breadcrumb-option spad set-bg" data-setbg="" id="section">
+        <div id="serviceImg">
+          <img src="{{ asset('visitorPage/img/team/ourService.png')}}" alt="">
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -14,7 +17,7 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
     <!-- Breadcrumb Section End -->
 
     <!-- Services Section Begin -->
@@ -46,57 +49,8 @@
                         <div class="services__details__pic">
                             <img src="{{ asset('visitorPage/img/services/services-details.jpg')}}" alt="">
                         </div>
-                        <div class="services__details__text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-                            viverra maecenas accumsan lacus vel facilisis magnam aliquid. Cupiditate!</p>
-                            <p>Aut ipsam consequuntur non rem tenetur dolore consequatur ducimus a labore excepturi quae
-                            nisi, quisquam, maxime voluptates magnam aliquid.</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="services__details__item__pic">
-                                    <img src="{{ asset('visitorPage/img/services/sd-1.jpg')}}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="services__details__item__pic">
-                                    <img src="{{ asset('visitorPage/img/services/sd-2.jpg')}}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="services__details__item__pic">
-                                    <img src="{{ asset('visitorPage/img/services/sd-3.jpg')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="services__details__desc">
-                            <p>Atque eum alias debitis suscipit, sint dignissimos minus quisquam recusandae nostrum quas
-                                eligendi odit, fugiat eius rem. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            </p>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <ul class="services__details__feature">
-                                        <li><i class="fa fa-check-circle"></i> Routine and medical care</li>
-                                        <li><i class="fa fa-check-circle"></i> Excellence in Healthcare every</li>
-                                        <li><i class="fa fa-check-circle"></i> Building a healthy environment</li>
-                                        <li><i class="fa fa-check-circle"></i> cumsan lacus vel facilisis.</li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <ul class="services__details__feature">
-                                        <li><i class="fa fa-check-circle"></i> Routine and medical care</li>
-                                        <li><i class="fa fa-check-circle"></i> Excellence in Healthcare every</li>
-                                        <li><i class="fa fa-check-circle"></i> Building a healthy environment</li>
-                                        <li><i class="fa fa-check-circle"></i> cumsan lacus vel facilisis.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque eum alias debitis
-                                suscipit, sint dignissimos minus quisquam recusandae nostrum quas eligendi odit, fugiat
-                                eius rem. Cumque, labore placeat! Velit, vitae. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.</p>
-                        </div>
+
+
                     </div>
                 </div>
                 <div class="col-lg-4 order-lg-1">
@@ -213,22 +167,7 @@
                         <div class="services__title">
                             <h4><img src="{{ asset('visitorPage/img/icons/services-icon.png')}}" alt=""> Get an appointment</h4>
                         </div>
-                        <form action="#">
-                            <input type="text" placeholder="Name">
-                            <input type="text" placeholder="Email">
-                            <div class="datepicker__item">
-                                <input type="text" placeholder="Date" class="datepicker">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <select>
-                                <option value="">Type of service</option>
-                                <option value="">Advanced equipment</option>
-                                <option value="">Qualified doctors</option>
-                                <option value="">Certified services</option>
-                                <option value="">Emergency care</option>
-                            </select>
                             <button type="submit" class="site-btn">Book appoitment</button>
-                        </form>
                     </div>
                 </div>
             </div>

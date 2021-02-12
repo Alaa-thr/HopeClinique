@@ -1,0 +1,143 @@
+jQuery(document).ready(function ($) {
+	slider();
+	sliderP();
+	sliderelement();
+	readMoreText();
+
+
+	/*faq Accordion*/
+	var faq_head = jQuery('.faq-list li > h6'),
+	faq_body = jQuery('.faq-list li > .faq-cont');
+	faq_head.on('click', function (event) {
+	  event.preventDefault();
+	  if (jQuery(this).attr('class') == 'active') {
+		faq_body.slideUp('fast');
+		faq_head.removeAttr("class")
+	  }
+	  else {
+		faq_body.slideUp('fast');
+		jQuery(this).next().stop(true, true).slideDown('fast');
+		faq_head.removeClass('active');
+		jQuery(this).addClass('active');
+	  }
+	});
+	/*End*/
+
+	jQuery('.contact-form form').jqTransform();
+	jQuery('.close').click(function(e){
+		e.preventDefault()
+		$(this).parent().slideUp();
+	});
+	jQuery('.nav .menu-in').meanmenu({meanScreenWidth:"820",meanMenuContainer:".nav",meanMenuOpen:"<span>Navigation Menu</span>",meanMenuClose:"<span>Navigation Menu</span>",meanMenuCloseSize: "127.7%"});
+
+});
+
+jQuery(window).load(function($){
+	slider();
+	sliderP();
+});
+
+jQuery(window).bind("debouncedresize", function($) {
+	sliderelement();
+	jQuery('.nav .menu-in').meanmenu({meanScreenWidth:"820",meanMenuContainer:".nav",meanMenuOpen:"<span>Navigation Menu</span>",meanMenuClose:"<span>Navigation Menu</span>",meanMenuCloseSize: "127.7%"});
+});
+
+
+jQuery(window).resize(function ($) {
+
+});
+
+$(document).ready(function() {
+	var height = $(".sidebar-inn").height();
+	if(height > $(".sidebar-container .main-container").height())
+	{
+		$(".sidebar-container .main-container").css("height", height);
+	}
+});
+
+function slider(){
+	$('.home-banner-inner').carouFredSel({
+		responsive: true,
+	    width:$(window).width(),
+	    auto:true,
+		items: 1,
+		scroll: {
+			duration: 1500,
+			timeoutDuration: 3000,
+			fx: 'crossfade'
+		},
+		pagination: '#pager',
+		prev: '#prev',
+		next: '#next'
+	});
+}
+
+function sliderP(){
+	$('.patients-slider').carouFredSel({
+		responsive: true,
+	    width:$(window).width(),
+			height: "auto",
+	    auto:true,
+		items: 1,
+		scroll: {
+			duration: 1500,
+			timeoutDuration: 3000,
+			fx: 'crossfade'
+		},
+		pagination: '#p-pager',
+		prev: '#prev-p',
+		next: '#next-p'
+	});
+}
+
+
+
+function sliderelement(){
+	var winW=$(window).width(),
+    winH=$(window).height();
+    $('.caroufredsel_wrapper').css('width',winW+'px');
+  //   $('.home-banner-inner').css({'width':winW+'px'});
+	// $('.patients-slider').css({'width':winW+'px'});
+	if($(window).width() > 768){
+		$('body').removeClass('mobile');
+		$('body').addClass('otherdevice');
+
+	}
+	else{
+		$('body').removeClass('otherdevice');
+		$('body').addClass('mobile');
+	}
+}
+
+function readMoreText() {
+	$(document).ready(function() {
+		var old = {};
+		$(".home-slide a.learnbtn").each(function(i) {
+			old[i] = $(this).text();
+		});
+
+		if ($(window).width() < 767)
+		{
+			$(".home-slide a.learnbtn").each(function(i) {
+				$(this).text("Read More");
+			});
+		} else if ($(window).width() > 767) {
+			$(".home-slide a.learnbtn").each(function(i) {
+				$(this).text(old[i]);
+			});
+		}
+
+		$(window).resize(function() {
+			if ($(window).width() < 767)
+			{
+				$(".home-slide a.learnbtn").each(function(i) {
+					$(this).text("Read More");
+				});
+			} else if ($(window).width() > 767){
+				$(".home-slide a.learnbtn").each(function(i) {
+					$(this).text(old[i]);
+				});
+			}
+		});
+	});
+}

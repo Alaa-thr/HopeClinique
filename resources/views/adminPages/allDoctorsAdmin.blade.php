@@ -84,11 +84,9 @@
             @endforeach
          @endforeach
        </div>
-				<div class="row">
-                    <div class="col-sm-12">
-                        <div class="see-all">
-                            <a class="see-all-btn" href="javascript:void(0);">Load More</a>
-                        </div>
+				        <div class="row">
+                    <div class="col-sm-12" id="row">
+                        {{$liste->links()}}
                     </div>
                 </div>
             </div>

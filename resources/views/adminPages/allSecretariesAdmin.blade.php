@@ -92,6 +92,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12" id="row">
+                        {{$listeS->links()}}
+                    </div>
+                </div>
             </div>
         </div>
 @endsection
