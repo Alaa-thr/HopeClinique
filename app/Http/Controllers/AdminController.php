@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Medecin;
 use App\Models\Secretaire;
-use App\Models\Patient;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Patient;
 use App\Http\Requests\updateInforRequest;
 use Illuminate\Http\Facades\UploadedFile;
 use Illuminate\Support\Carbon;
+use App\Models\Blog;
+use App\Http\Requests\BlogRequest;
 
 class AdminController extends Controller
 {
@@ -35,14 +37,14 @@ class AdminController extends Controller
 
     public function allDoctorsAdmin()
     {
-        $liste = Medecin::all();//pour afficher liste de medecin
+        $liste = Medecin::paginate(8);//pour afficher liste de medecin
         $userM  = \DB::table('users')->get();//pour afficher liste de users
         return view('adminPages.allDoctorsAdmin',['users'=>$this->getNameUsers(),'liste'=>$liste,'userM'=>$userM]);
     }
 
     public function allPatientsAdmin()
     {
-        $listeP = Patient::all();//pour afficher liste de patient
+        $listeP = Patient::paginate(10);//pour afficher liste de patient
         $userP  = \DB::table('users')->get();//pour afficher liste de users
         return view('adminPages.allPatientsAdmin',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'userP'=>$userP]);
     }
@@ -54,7 +56,7 @@ class AdminController extends Controller
 
     public function allSecretariesAdmin()
     {
-        $listeS = Secretaire::all();//pour afficher liste de secretaire
+        $listeS = Secretaire::paginate(10);//pour afficher liste de secretaire
         $userS  = \DB::table('users')->get();//pour afficher liste de users
         return view('adminPages.allSecretariesAdmin',['users'=>$this->getNameUsers(),'listeS'=>$listeS,'userS'=>$userS]);
     }
@@ -66,12 +68,18 @@ class AdminController extends Controller
 
     public function allblogsAdmin()
     {
-        return view('adminPages.blogs',['users'=>$this->getNameUsers()]);
+        $blogs = Blog::paginate(1);
+
+        return view('adminPages.blogs',['users'=>$this->getNameUsers(),'blogs'=>$blogs]);
     }
 
-    public function detailsBlogAdmin()
+    public function detailsBlogAdmin($id)
     {
-        return view('adminPages.detailsBlog',['users'=>$this->getNameUsers()]);
+        $medecin_id = \DB::table('blogs')->where('id',$id)->value('medecin_id');
+        $user = \DB::table('medecins')->where('user_id',$medecin_id)->get();
+        $detailBlog = \DB::table('blogs')->where('id',$id)->get();
+
+        return view('adminPages.detailsBlog',['users'=>$this->getNameUsers(),'detailBlog'=>$detailBlog,'user'=>$user]);
     }
 
     public function addUser($type)
@@ -286,5 +294,23 @@ class AdminController extends Controller
                             }
           return back();
 
+       }
+       public function blog($type)
+       {
+           return view('adminPages.addBlog',['users'=>$this->getNameUsers()]);
+       }
+       public function store(BlogRequest $request)
+       {
+         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+                 $bloge = new Blog();
+                 $bloge->medecin_id = $request->idDoctor;
+                 $bloge->title = $request->title;
+                 $bloge->description = $request->description;
+                 if($request->hasFile('avatar')){
+                       $bloge->avatr = $request->avatar->store('users_Avatar/blog');
+                    }
+                 $bloge->save();
+              }
+             return back()->withSuccess("Ok");
        }
 }

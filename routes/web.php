@@ -47,12 +47,14 @@ Route::get('allSecretaries', [AdminController::class, 'allSecretariesAdmin'])->n
 Route::get('allServices', [AdminController::class, 'allservicesAdmin'])->name('allservices');
 Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser');
 Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs');
-Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
+Route::get('detailsBlog/{id}',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
 Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 Route::post('addUserStore', [ScrtrDocAdminController::class, 'store']);
 Route::get('editInformation/{id}',[AdminController::class,'editInformations'])->name('editInformation');
 Route::put('updateInformation/{id}',[AdminController::class,'updateInformations']);
+Route::get('blog/{id}',[AdminController::class,'blog']);
+Route::post('addBlogStore', [AdminController::class, 'store']);
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');

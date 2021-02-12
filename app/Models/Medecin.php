@@ -12,6 +12,11 @@ class Medecin extends Model
     protected $fillable = [
       'id','user_id ','nom','prenom','specialite','gender','avater'];
 
+      public function blog()
+      {
+        return $this->hasMany('App\Models\Blog');
+      }
+
       public function prescription()
       {
         return $this->hasMany('App\Models\Prescription');

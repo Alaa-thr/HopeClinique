@@ -83,9 +83,14 @@
 								</table>
 							</div>
 						</div>
-	                </div>
-            	</div>
+	         </div>
+      	</div>
+        <div class="row">
+            <div class="col-sm-12" id="row">
+                {{$listeP->links()}}
             </div>
         </div>
+    </div>
+  </div>
 
 @endsection
