@@ -9,7 +9,9 @@ use App\Models\Medecin;
 use App\Models\Secretaire;
 use App\Models\Patient;
 use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\updateInforRequest;
 use Illuminate\Http\Facades\UploadedFile;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
@@ -21,10 +23,10 @@ class AdminController extends Controller
     public function getNameUsers()
     {
         $nameUser = null;
-        
+
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
-          
+
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
@@ -162,4 +164,127 @@ class AdminController extends Controller
 
           return back();
         }
+        public function editInformations(Request $request,$id)
+       {
+           //if(Auth::user()->user_roles == 'adminM'){
+           if($request->role == "patient")
+             {
+                 $typeUser = "patient";
+                 $user = \DB::table('patients')->where([['id', $id]])->get();
+                 $user_id = \DB::table('patients')->where([['id', $id]])->value('user_id');
+                 $users   = \DB::table('users')->where([['id', $user_id]])->get();
+                 $rdvs   = \DB::table('rdvs')->where([['patient_id', $id]])->get();
+                 $medecins   = \DB::table('medecins')->get();
+                 $images   = \DB::table('images')->where([['patient_id', $id]])->get();
+                 $prescription   = \DB::table('prescriptions')->where([['patient_id', $id]])->get();
+                 $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
+                 $chroniques=\DB::table('maladieschroniques')->orderBy('id','asc')->get();
+                 $today = today();
+                 $date=Carbon::now()->format('Y-m-d');
+                 $patient = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
+                       ->join('patients','patients.id','=','prescriptions.patient_id')
+                       ->select('prescriptions.date','patients.nom','patients.prenom',
+                       'patients.Num_Secrurite_Social','patients.date_naiss')
+                       ->get();
+                 $ligne__prescriptons = \DB::table('prescriptions')->where([['patient_id', $id]])
+                       ->join('ligne__prescriptons','ligne__prescriptons.prescription_id','=','prescriptions.id')
+                       ->select('prescriptions.id','ligne__prescriptons.prescription_id','ligne__prescriptons.medicament',
+                       'ligne__prescriptons.dose','ligne__prescriptons.moment_prises',
+                       'ligne__prescriptons.duree_traitement')
+                       ->get();
+
+                 return view('users.editInformation',['chroniques'=>$chroniques,'allergies'=>$allergies,'patient'=>$patient,'users'=>$this->getNameUsers(),
+                 'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription,'ligne__prescriptons'=>$ligne__prescriptons]);
+            }
+            elseif($request->role == "secretarie")
+              {
+                $typeUser = "secretaire";
+                $user = \DB::table('secretaires')->where([['id', $id]])->get();
+                $user_id = \DB::table('secretaires')->where([['id', $id]])->value('user_id');
+                $users   = \DB::table('users')->where([['id', $user_id]])->get();
+                return view('users.editInformation',['users'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
+            }
+
+           elseif($request->role == "doctor")
+             {
+               $typeUser = "doctor";
+               $user = \DB::table('medecins')->where([['id', $id]])->get();
+               $user_id = \DB::table('medecins')->where([['id', $id]])->value('user_id');
+               $users   = \DB::table('users')->where([['id', $user_id]])->get();
+
+               return view('users.editInformation',['users'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
+           }
+       }
+       public function updateInformations(updateInforRequest $request,$id)
+       {
+
+          if($request->roleU == 'doctor'){
+            if(Auth::user()->user_roles == 'adminM'){
+              $doctor = Medecin::find($id);
+              $user = User::find($doctor->user_id);
+              $doctor->nom    = $request->first_name;
+              $doctor->prenom = $request->last_name;
+              $doctor->gender = $request->gender;
+              $doctor->specialite = $request->specialite;
+              $user->email   = $request->email;
+              $user->phone = $request->phone;
+              $doctor->save();
+              $user->save();
+                                        }
+                                    }
+          if($request->roleU == 'patient'){
+            $patient = Patient::find($id);
+            $user    = User::find($patient->user_id);
+
+            if(Auth::user()->user_roles == 'adminM' || Auth::user()->user_roles == 'doctor'){
+              $patient->nom    = $request->first_name;
+              $patient->prenom = $request->last_name;
+              $patient->gender = $request->gender;
+              $patient->ville = $request->city;
+              $patient->Num_Secrurite_Social   = $request->social_security;
+              $patient->date_naiss   = $request->date_of_birth;
+              $patient->maladie_chronique   = $request->chronic_diseases;
+              $patient->allergie   = $request->allergie;
+              $patient->antecedent   = $request->antecedent;
+              $patient->commentaire   = $request->comment;
+              $user->phone = $request->phone;
+              $user->email = $request->email;
+              $patient->save();
+              $user->save();  }
+
+          if(Auth::user()->user_roles == 'secretaire'){
+                $patient->nom    = $request->first_name;
+                $patient->prenom = $request->last_name;
+                $patient->gender = $request->gender;
+                $patient->ville = $request->city;
+                $patient->Num_Secrurite_Social   = $request->social_security;
+                $patient->date_naiss   = $request->date_of_birth;
+                $patient->maladie_chronique   = $patient->maladie_chronique ;
+                $patient->allergie   = $patient->allergie;
+                $patient->antecedent   = $patient->antecedent;
+                $patient->commentaire   = $patient->comment;
+                $user->phone = $user->phone;
+                $user->email = $user->email;
+                $patient->save();
+                $user->save();  }
+                                          }
+
+          if($request->roleU == 'secretaire'){
+               if(Auth::user()->user_roles == 'adminM'){
+                  $secretaire = Secretaire::find($id);
+                  echo $secretaire;
+                  $user    = User::find($secretaire->user_id);
+                  $secretaire->nom    = $request->first_name;
+                  $secretaire->prenom = $request->last_name;
+                  $secretaire->gender = $request->gender;
+                //  $secretaire->specialite = $request->specialite;
+                  $user->email   = $request->email;
+                  $user->phone = $request->phone;
+                  $secretaire->save();
+                  $user->save();
+                                                                  }
+                            }
+          return back();
+
+       }
 }

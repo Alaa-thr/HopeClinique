@@ -17,16 +17,16 @@ class SecretaireController extends Controller
     public function getNameUsers()
     {
         $nameUser = null;
-        
+
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
-          
+
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
         return  $nameUser;
     }
-      
+
       public function store(AddUsersRequest $request)
       {
               if($request->s == "secretaire"){
@@ -51,23 +51,27 @@ class SecretaireController extends Controller
       }
       public function getsearchSecretaires(Request $request){
 
-          $search = $request->get('search');//prendre le mot qui nous saisissons
-          $userS  = \DB::table('users')->get();
+        $search = $request->get('search');//prendre le mot qui nous saisissons
+        $userS  = \DB::table('users')->get();
 
-          if($request->searchp == "id")
-          {
-            $listeS  =\DB::table('secretaires')->where('id', 'like','%'.$search.'%')->get();
-          }
-        elseif($request->searchp == "name"){
-          $listeS  =\DB::table('secretaires')->orWhere('nom', 'like', '%'.$search.'%')
-                                          ->orWhere('prenom', 'like', '%'.$search.'%')
-                                          ->get();
-        }
-        elseif($request->searchp == "phone"){
-          $userS  =\DB::table('users')->orWhere('phone', 'like', '%'.$search.'%')
-                                          ->get();
-          $listeS  =\DB::table('secretaires')->get();
-        }
-      return view('search.SearchSecretaire',['nameUser'=>$this->getNameUsers(),'listeS'=>$listeS,'search' => $search,'userS'=>$userS]);
+
+      if($request->search != "" && $request->searchp != ""){
+        $listeS  =\DB::table('secretaires')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                       ->orWhere('prenom', 'like', '%'.$request->search.'%')
+                                       ->get();
+        $userS =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
+                                       ->get();
+      }
+      elseif($request->search != ""){
+        $listeS  =\DB::table('secretaires')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                        ->orWhere('prenom', 'like', '%'.$request->search.'%')
+                                        ->get();
+      }
+      elseif($request->searchp != ""){
+        $userS  =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
+                                        ->get();
+        $listeS  =\DB::table('secretaires')->get();
+      }
+      return view('search.SearchSecretaire',['users'=>$this->getNameUsers(),'listeS'=>$listeS,'search' => $search,'userS'=>$userS]);
     }
 }

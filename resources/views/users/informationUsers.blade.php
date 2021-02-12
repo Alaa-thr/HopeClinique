@@ -144,9 +144,9 @@
 															@endif
 														<td>{{$r->date}}</td>
 														<td>{{$r->heure_debut}} - {{$r->heure_fin}} </td>
-														@if($today->diffInDays($r->date,false) > 0)
+														@if($today->diffInDays($r->date,false) <= 0)
 														<td><span class="custom-badge status-red">Inactive</span></td>
-														@elseif($today->diffInDays($r->date,false) <= 0)
+														@elseif($today->diffInDays($r->date,false) > 0)
 														<td><span class="custom-badge status-green">Active</span></td>
 														@endif
 														<td>{{$r->motif}}</td>

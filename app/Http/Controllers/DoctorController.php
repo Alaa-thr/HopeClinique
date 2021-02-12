@@ -15,10 +15,10 @@ class DoctorController extends Controller
   public function getNameUsers()
     {
         $nameUser = null;
-        
+
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
-          
+
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
@@ -62,17 +62,21 @@ class DoctorController extends Controller
       $search = $request->get('search');//prendre le mot qui nous saisissons
       $userM  = \DB::table('users')->get();
 
-      if($request->searchp == "id")
-      {
-        $liste  =\DB::table('medecins')->where('id', 'like','%'.$search.'%')->get();
-      }
-    elseif($request->searchp == "name"){
-      $liste  =\DB::table('medecins')->orWhere('nom', 'like', '%'.$search.'%')
-                                      ->orWhere('prenom', 'like', '%'.$search.'%')
+
+    if($request->search != "" && $request->searchp != ""){
+      $liste  =\DB::table('medecins')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                     ->orWhere('prenom', 'like', '%'.$request->search.'%')
+                                     ->get();
+      $userM  =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
+                                     ->get();
+    }
+    elseif($request->search != ""){
+      $liste  =\DB::table('medecins')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                      ->orWhere('prenom', 'like', '%'.$request->search.'%')
                                       ->get();
     }
-    elseif($request->searchp == "phone"){
-      $userM  =\DB::table('users')->orWhere('phone', 'like', '%'.$search.'%')
+    elseif($request->searchp != ""){
+      $userM  =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
                                       ->get();
       $liste  =\DB::table('medecins')->get();
     }

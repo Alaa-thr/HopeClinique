@@ -33,7 +33,7 @@ class AddAppointment extends FormRequest
             'email' =>['required', 'string','email'],
             'phone_number' =>['required','string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'reason' =>['required','string',"regex:/^[a-zA-Z0-9][a-zA-Z0-9',çàéè()_+*%:!.]+/"],
-            
+
         ];
     }
 }

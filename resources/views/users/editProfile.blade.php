@@ -78,7 +78,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                     @enderror
-                            </div> 
+                            </div>
                             <div class="col-md-6">
                                     <label class="focus-label">Phone Number</label>
                                     <input type="text" class="form-control floating @error('phone_number') is-invalid @enderror" value="{{Auth::user()->phone}}" name="phone_number">

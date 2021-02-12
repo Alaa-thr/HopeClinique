@@ -51,6 +51,8 @@ Route::get('detailsBlog',[AdminController::class,'detailsBlogAdmin'])->name('det
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
 Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 Route::post('addUserStore', [ScrtrDocAdminController::class, 'store']);
+Route::get('editInformation/{id}',[AdminController::class,'editInformations'])->name('editInformation');
+Route::put('updateInformation/{id}',[AdminController::class,'updateInformations']);
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
