@@ -24,9 +24,7 @@
                                 <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
                                 <div class="blog-info clearfix">
                                     <div class="post-left">
-                                        <ul>
-                                            <li><a href="#."><i class="fa fa-calendar"></i> <span>{{$b->created_at}}</span></a></li>
-                                        </ul>
+                                        <a href="#."><i class="fa fa-calendar"></i> <span>{{$b->created_at}}</span></a>
                                     </div>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Secretaire extends Model
 {
     use HasFactory;
-    //protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
 
     protected $fillable = [
       'id','nom','prenom','user_id','gender','avatar'];

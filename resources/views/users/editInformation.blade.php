@@ -25,43 +25,43 @@
 					              <div class="row">
 					                  <div class="col-md-4">
 					                        <label class="focus-label">First Name</label>
-																	<input class="form-control floating @error('first_name') is-invalid @enderror" type="text" name="first_name" value="{{$p->nom}}">
-																	@error('first_name')
-																				<span class="invalid-feedback" role="alert">
-																						<strong>{{ $message }}</strong>
-																				</span>
-																	@enderror
+												<input class="form-control floating @error('first_name') is-invalid @enderror" type="text" name="first_name" value="{{$p->nom}}">
+												@error('first_name')
+													<span class="invalid-feedback" role="alert">
+														<strong>{{ $message }}</strong>
+													</span>
+												@enderror
 					                  </div>
 					                  <div class="col-md-4">
 					                        <label class="focus-label">Last Name</label>
-																	<input class="form-control floating @error('last_name') is-invalid @enderror" value="{{$p->prenom}}" type="text" name="last_name">
-																	@error('last_name')
-																				<span class="invalid-feedback" role="alert">
-																						<strong>{{ $message }}</strong>
-																				</span>
-																	@enderror
+											<input class="form-control floating @error('last_name') is-invalid @enderror" value="{{$p->prenom}}" type="text" name="last_name">
+											@error('last_name')
+												<span class="invalid-feedback" role="alert">
+													<strong>{{ $message }}</strong>
+												</span>
+											@enderror
 					                  </div>
 					              </div>
 					              <div style="padding:20px;"></div>
 					                  <div class="row">
 					                        <div class="col-md-4">
-																		<label class="focus-label @error('gender') is-invalid @enderror">Gender*Male/Female</label>
-																		<input type="text" class="form-control floating " value="{{$p->gender}}" name="gender">
-																		@error('gender')
-																		<span class="invalid-feedback" role="alert">
-																		<strong>{{ $message }}</strong>
-																		</span>
-																		@enderror
-																	 </div>
+												<label class="focus-label @error('gender') is-invalid @enderror">Gender*Male/Female</label>
+												<input type="text" class="form-control floating " value="{{$p->gender}}" name="gender">
+												@error('gender')
+													<span class="invalid-feedback" role="alert">
+														<strong>{{ $message }}</strong>
+													</span>
+												@enderror
+											</div>
 					                        <div class="col-md-4">
 					                          <label class="focus-label @error('specialite') is-invalid @enderror">Specialite</label>
 					                          <input type="text" class="form-control floating " value="{{$p->specialite}}" name="specialite">
-																		@error('specialite')
-																		<span class="invalid-feedback" role="alert">
-																		<strong>{{ $message }}</strong>
-																		</span>
-																		@enderror
-																	</div>
+												@error('specialite')
+													<span class="invalid-feedback" role="alert">
+														<strong>{{ $message }}</strong>
+													</span>
+												@enderror
+											</div>
 					                  </div>
 					              </div>
 					        </div>
@@ -194,27 +194,27 @@
 									</div>
 								</div>
 							</div>
-
-									<div class="card-box">
-										<div class="row">
-													<div class="col-sm-4 col-3">
-															<h4 class="card-title">Allergy :</h4>
-													</div>
-													<div class="col-md-12">
-																	<select class="form-control select @error('allergie') is-invalid @enderror" name="allergie" multiple>
-																		<option selected> {{$p->allergie}}</option>
-																		@foreach($allergies as $a)
-																			<option>{{ $a->nom }}</option>
-																		@endforeach
-																	</select>
-																	@error('allergie')
-																		<span class="invalid-feedback" role="alert">
-																			<strong>{{ $message }}</strong>
-																		</span>
-																 @enderror
-													</div>
-											</div>
+							 @if(Auth::user()->user_roles != 'secretaire')
+							<div class="card-box">
+								<div class="row">
+									<div class="col-sm-4 col-3">
+										<h4 class="card-title">Allergy :</h4>
 									</div>
+									<div class="col-md-12">
+										<select class="form-control select @error('allergie') is-invalid @enderror" name="allergie" multiple>
+											<option selected> {{$p->allergie}}</option>
+											@foreach($allergies as $a)
+												<option>{{ $a->nom }}</option>
+											@endforeach
+										</select>
+										@error('allergie')
+											<span class="invalid-feedback" role="alert">
+												<strong>{{ $message }}</strong>
+											</span>
+										@enderror
+									</div>
+								</div>
+							</div>
 									<div class="card-box">
 										<div class="row">
 													<div class="col-sm-4 col-3">
@@ -267,7 +267,7 @@
 											</div>
 									</div>
 							</div>
-
+							@endif
 						<div class="text-center m-t-20">
 					      <button class="btn btn-primary submit-btn " type="submit" >Save</button>
 					  </div>

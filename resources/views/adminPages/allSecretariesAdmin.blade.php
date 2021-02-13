@@ -8,7 +8,7 @@
                             <h4 class="page-title">Secretaries</h4>
                         </div>
                         <div class="col-sm-8 col-9 text-right m-b-20">
-                            <a href="add-employee.html" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Secretarie</a>
+                            <a href="{{route('addUser',['type'=>'secretaire'])}}" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Secretarie</a>
                         </div>
                     </div>
                     <form action="/searchSecretaires" method="get">
@@ -51,7 +51,7 @@
                                             @if($us->id == $ls->user_id)
                                       <tr>
                                         <td>
-    											                <img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle" alt="">
+    											                <img width="28" height="28" src="{{asset('storage/'.$ls->avatar)}}" class="rounded-circle" alt="">
                                           <h2>{{strtoupper ($ls->nom ) }} {{strtoupper ($ls->prenom) }}</h2>
     										                </td>
                                           <td>{{ $us->email }}</td>

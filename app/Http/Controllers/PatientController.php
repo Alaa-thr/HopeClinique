@@ -72,7 +72,7 @@ class PatientController extends Controller
              $user = \DB::table('secretaires')->where([['id', $id]])->get();
              $user_id = \DB::table('secretaires')->where([['id', $id]])->value('user_id');
              $users   = \DB::table('users')->where([['id', $user_id]])->get();
-             return view('users.informationUsers',['nameUser'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
+             return view('users.informationUsers',['users'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
          }
 
         elseif($request->role == "doctor")
