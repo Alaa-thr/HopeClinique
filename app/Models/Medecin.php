@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Medecin extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'user_id';
+  //  protected $primaryKey = 'user_id';
     protected $fillable = [
       'id','user_id ','nom','prenom','specialite','gender','avater'];
+
+      public function blog()
+      {
+        return $this->hasMany('App\Models\Blog');
+      }
 
       public function prescription()
       {

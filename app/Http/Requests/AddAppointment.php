@@ -32,8 +32,7 @@ class AddAppointment extends FormRequest
             'time_beging' =>['required'],
             'email' =>['required', 'string','email'],
             'phone_number' =>['required','string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
-            'reason' =>['required','string',"regex:/^[A-Za-z0-9\s.,çàéè()_+*%:!]+$/"],
-            
+            'reason' =>['required','string',"regex:/^[a-zA-Z0-9][a-zA-Z0-9',çàéè()_+*%:!.]+/"],
         ];
     }
 }

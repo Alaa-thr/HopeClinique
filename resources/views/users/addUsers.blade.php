@@ -216,10 +216,10 @@
 													@endforeach
 												</select>
 												@error('chronic_diseases')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        		@enderror
+                          <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
 											</div>
 										</div>
 										<div class="col-sm-6">
@@ -227,10 +227,10 @@
 												<label>Antecedent</label>
 												<input class="form-control @error('antecedent') is-invalid @enderror" type="text" name="antecedent">
 												@error('antecedent')
-                                                	<span class="invalid-feedback" role="alert">
-                                                    	<strong>{{ $message }}</strong>
-                                                	</span>
-                                        		@enderror
+                        <span class="invalid-feedback" role="alert">
+                        	<strong>{{ $message }}</strong>
+                      	</span>
+                      	@enderror
 											</div>
 										</div>
 										<div class="col-sm-6">

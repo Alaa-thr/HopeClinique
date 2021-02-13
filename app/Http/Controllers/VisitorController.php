@@ -3,10 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Medecin;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Blog;
 
 class VisitorController extends Controller
 {
     //
+    public function getNameUsers()
+    {
+        $nameUser = null;
+
+        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+            $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+
+        }else if(Auth::user()->user_roles == 'secretaire'){
+            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+        }
+        return  $nameUser;
+    }
 
     public function index()
     {
@@ -20,7 +35,9 @@ class VisitorController extends Controller
 
     public function blogs()
     {
-        return view('visitorPages.blog');
+        $blogs = Blog::all();
+
+        return view('visitorPages.blog',['blogs'=>$blogs]);
     }
 
     public function bolgDetails()
@@ -35,7 +52,12 @@ class VisitorController extends Controller
 
     public function doctors()
     {
-        return view('visitorPages.doctors');
+        $listeM = \DB::table('medecins')
+              ->join('users','users.id','=','medecins.user_id')
+              ->select('medecins.avatar','medecins.id','medecins.nom','medecins.prenom',
+              'medecins.specialite','users.phone','users.email')
+              ->get();
+        return view('visitorPages.doctors',['users'=>$this->getNameUsers(),'listeM'=>$listeM]);
     }
 
     public function services()

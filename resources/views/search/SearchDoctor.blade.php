@@ -12,29 +12,29 @@
                     </div>
                 </div>
 
-                <div class="row ">
-                      <div class="col-sm-6 col-md-4">
-                          <div class="form-group form-focus">
-                            <label class="focus-label">Doctor Name</label>
-                            <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
-                              <input type="text" class="form-control floating" name="search">
-                              <input type="hidden" value="name" name="searchp"/>
-                            </form>
-                          </div>
+                <form action="/searchDoctor" method="get">
+                <div class="row">
+                  <div class="col-lg-3 col-md-5 col-sl-2">
+                      <div class="form-group form-focus">
+                        <label class="focus-label">Doctor Name</label>
+                          <input type="text" class="form-control floating" name="search">
                       </div>
-                      <div class="col-sm-6 col-md-4">
-                          <div class="form-group form-focus">
-                              <label class="focus-label">Phone Number</label>
-                              <form  action="/searchDoctor" method="get" class="col-sm-6 col-md-12">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="phone" name="searchp"/>
-                              </form>
-                          </div>
+                  </div>
+                  <div class="col-lg-3 col-md-5 col-sl-2">
+                      <div class="form-group form-focus">
+                        <label class="focus-label">Number Phone</label>
+                          <input type="text" class="form-control floating" name="searchp">
                       </div>
-                      <div class="col-sm-6 col-md-3">
-                          <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
+                  </div>
+                  <div class="col-lg-3 col-md-5 col-sl-2">
+                      <div class="form-group form-focus">
+                        <button class="btn btn-success btn-block btn-rounded"> Search </button>
+
                       </div>
+                  </div>
               </div>
+              </form>
+              
             </div>  <!--pour backround white finish -->
 				<div class="row doctor-grid">
           @foreach($liste as $l)

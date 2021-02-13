@@ -153,7 +153,7 @@
 														<td>{{$r->date}} / {{$r->heure_debut}} - {{$r->heure_fin}}</td>
 														@if($today->diffInDays($r->date,false) > 0)
 														<td><span class="custom-badge status-red">Inactive</span></td>
-														@elseif($today->diffInDays($r->date,false) <= 0)
+														@elseif($today->diffInDays($r->date,false) > 0)
 														<td><span class="custom-badge status-green">Active</span></td>
 														@endif
 														<td style="width: 250px">{{$r->motif}}</td>

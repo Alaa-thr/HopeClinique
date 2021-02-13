@@ -22,10 +22,10 @@ class PatientController extends Controller
    public function getNameUsers()
     {
         $nameUser = null;
-        
+
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
-          
+
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }
@@ -76,34 +76,38 @@ class PatientController extends Controller
          }
 
         elseif($request->role == "doctor")
-          {    
+          {
             $typeUser = "doctor";
             $user = \DB::table('medecins')->where([['id', $id]])->get();
             $user_id = \DB::table('medecins')->where([['id', $id]])->value('user_id');
             $users   = \DB::table('users')->where([['id', $user_id]])->get();
-            
+
             return view('users.informationUsers',['users'=>$this->getNameUsers(),'user' => $user,'usersSelect' => $users,'typeUser' => $typeUser]);
         }
     }
     public function getsearchPatient(Request $request){
 
-        $search = $request->get('search');//prendre le mot qui nous saisissons
-        $userP  = \DB::table('users')->get();
+      $search = $request->get('search');//prendre le mot qui nous saisissons
+      $userP  = \DB::table('users')->get();
 
-        if($request->searchp == "id")
-        {
-          $listeP  =\DB::table('patients')->where('Num_Secrurite_Social', 'like','%'.$search.'%')->get();
-        }
-      elseif($request->searchp == "name"){
-        $listeP  =\DB::table('patients')->orWhere('nom', 'like', '%'.$search.'%')
-                                        ->orWhere('prenom', 'like', '%'.$search.'%')
+      if($request->search != "" && $request->searchp != ""){
+        $listeP  =\DB::table('patients')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                       ->orWhere('prenom', 'like', '%'.$request->search.'%')
+                                       ->get();
+        $userP  =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
+                                       ->get();
+      }
+      elseif($request->search != ""){
+        $listeP  =\DB::table('patients')->orWhere('nom', 'like', '%'.$request->search.'%')
+                                        ->orWhere('prenom', 'like', '%'.$request->search.'%')
                                         ->get();
       }
-      elseif($request->searchp == "phone"){
-        $userP  =\DB::table('users')->orWhere('phone', 'like', '%'.$search.'%')
+      elseif($request->searchp != ""){
+        $userP  =\DB::table('users')->orWhere('phone', 'like', '%'.$request->searchp.'%')
                                         ->get();
         $listeP  =\DB::table('patients')->get();
       }
+
     return view('search.SearchPatient',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
   }
   public function addOrdannance(AddOrdonnance $request)
