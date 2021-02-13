@@ -102,18 +102,27 @@
 					</div>
 					<div class="card-box">
 						<div class="row">
-									<div class="col-sm-4 col-3">
-											<h4 class="card-title">Comment:</h4>
-									</div>
-									<div class="col-sm-8 col-9 text-right m-b-20">
-											<a href="{{ url('commentaire/'.$p->id)}}"
-												class="btn btn btn-primary btn-rounded float-right">
-												<i class="fa fa-plus"></i> Add Comment</a>
-									</div>
-									<div class="col-md-10">
-													<b>{{$p->commentaire}}</b>
-									</div>
+							<div class="col-sm-4 col-3">
+								<h4 class="card-title">Comment:</h4>
 							</div>
+							<div class="col-sm-8 col-9 text-right">
+								@if($p->commentaire == null)
+									<a href="{{ url('commentaire/'.$p->id)}}"class="btn btn btn-primary btn-rounded float-right">
+										<i class="fa fa-plus"></i>
+										 	Add Comment
+									</a>
+								@else
+									<a href="{{ url('commentaire/'.$p->id)}}"class="btn btn btn-success btn-rounded float-right">
+											Update Comment
+									</a>
+								@endif
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-10">
+								<b>{{$p->commentaire}}</b>
+							</div>
+						</div>
 					</div>
 					@endif
 					<div class="card-box">
@@ -126,8 +135,7 @@
 											<tr>
 												<th>Patient Name</th>
 												<th>Doctor Name</th>
-												<th>Date</th>
-												<th>Time</th>
+												<th>Date-Time</th>
 												<th>Status</th>
 												<td>Motif</td>
 											</tr>
@@ -142,14 +150,13 @@
 															@elseif($r->medecin_id != NULL)
 															<td>{{strtoupper ($m->nom ) }} {{strtoupper ($m->prenom) }}</td>
 															@endif
-														<td>{{$r->date}}</td>
-														<td>{{$r->heure_debut}} - {{$r->heure_fin}} </td>
+														<td>{{$r->date}} / {{$r->heure_debut}} - {{$r->heure_fin}}</td>
 														@if($today->diffInDays($r->date,false) > 0)
 														<td><span class="custom-badge status-red">Inactive</span></td>
 														@elseif($today->diffInDays($r->date,false) <= 0)
 														<td><span class="custom-badge status-green">Active</span></td>
 														@endif
-														<td>{{$r->motif}}</td>
+														<td style="width: 250px">{{$r->motif}}</td>
 													</tr>
 												@endif
 
@@ -163,15 +170,40 @@
 					@if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM')
 					<div class="card-box">
 						<div class="row">
-									<div class="col-sm-4 col-3">
-											<h4 class="card-title">Orientation Letter:</h4>
-									</div>
-									<div class="col-sm-8 col-9 text-right m-b-20">
-											<a href="{{ url('lettre/'.$p->id)}}"
-												class="btn btn btn-primary btn-rounded float-right">
-												<i class="fa fa-plus"></i> Add Orientation Letter</a>
-									</div>
+							<div class="col-sm-4 col-3">
+								<h4 class="card-title">Orientation Letter:</h4>
 							</div>
+							<div class="col-sm-8 col-9 text-right m-b-20">
+								<a href="{{ url('lettre/'.$p->id)}}"class="btn btn btn-primary btn-rounded float-right">
+									<i class="fa fa-plus"></i> Add Orientation Letter
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table table-striped custom-table mb-0 ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Lettres</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach($lettres as $lettre)
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td class="lettre-contenu">{{$lettre->contenu}}</td>
+                                            <td>{{$lettre->date}}</td>
+                                        </tr>
+
+                                         <?php $i++; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+							</div>	
+						</div>
 					</div>
 					<div class="card-box">
 						<div class="row">
@@ -183,81 +215,50 @@
 									<i class="fa fa-plus"></i> Add Ordinance
 								</a>
 							</div>
-									<div class="col-md-12">
-										<div class="">
-											<table class="table table-striped custom-table">
-												<thead>
-													@foreach($prescription as $presc)
-													<tr>
-														<th>Ordinance {{$presc->date}}
-														</th>
-														<th>
-															<div class="dropdown dropdown-action" style="margin-left:455px;" >
-															<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-															  <i class="fa fa-ellipsis-v"></i></a>
-															<div class="dropdown-menu dropdown-menu-right" id="plusOrd">
-															    <div class="row">
-															      <div class="col-md-12">
-															          <div class="card-box">
-															              <h4 class="payslip-title"  id="divCliniquePDF">Clinique HopeClinique Dr. - TLEMCEN</h4>
-															              <div class="row">
-															                  <div class="col-sm-6 m-b-20">
-															                  </div>
-															              </div>
-															              <div class="row">
-															                      <ul class="list-unstyled">
-															                          <li><h5 class="txt"><strong>Tlemcen,le &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															                                                     {{$presc->date}}
-															                                              </strong>
-															                          </h5></li>
-															                          <li><h5 class="txt"><strong>Nom et prénom :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															                                                      {{strtoupper ($p->nom ) }} {{strtoupper ($p->prenom) }}
-															                                              </strong>
-															                          </h5></li>
-															                          <li><h5 class="txt"><strong>Date de naissance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															                                                      {{$p->date_naiss}}
-															                                              </strong>
-															                          </h5></li>
-															                      </ul>
-															              </div>
-															              <hr>
-							@foreach($ligne__prescriptons as $ligne)
-								@if($ligne->prescription_id==$presc->id)
-																						<div class="row">
-																							<div class="col-md-12">
-																								<div class="table-responsive">
-																									<table class="table table-striped custom-table">
-																										<tbody>
-																											<tr>
-																												<th>Médicament: {{$ligne->medicament}}</th>
-																												<td>Dose : {{$ligne->dose}}</td>
-																												<td>Duree : {{$ligne->duree_traitement}}</td>
-																												<td>Moment Prises : {{$ligne->moment_prises}}</td>
-																											</tr>
-																										</tbody>
-																									</table>
-																								</div>
-																							</div>
-																						</div>
-																						@endif
-																						@endforeach
-															          </div>
-															      </div>
-															  </div>
-															</div>
-															</div>
-
-														</th>
-
-													</tr>
-
-													@endforeach
-												</thead>
-											</table>
-										</div>
-									</div>
+							<div class="col-md-12">
+								<table class="table table-striped custom-table mb-0 ">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Doctor</th>
+                                            <th>Date</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1; ?>
+                                        @foreach($prescription as $prts)
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td class="lettre-contenu">Ordinance of Dr, 
+                                              @if($prts->nom_medecin == null and $prts->prenom_medecin == null)
+                                                @foreach($doctors as $doctor)
+                                                  @if($doctor->id == $prts->medecin_id)
+                                                    {{strtoupper($doctor->nom)}} {{strtoupper($doctor->prenom)}}
+                                                  @endif
+                                                @endforeach
+                                              @else
+                                               {{strtoupper($prts->nom_medecin)}} {{strtoupper($prts->prenom_medecin)}}
+                                              @endif
+                                              </td>
+                                            <td>{{$prts->date}}</td>
+                                            <td class="text-right">
+                                                <div class="dropdown dropdown-action">
+                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="{{ url('getOrdannance/'.$prts->id )}}" target="_blank"><i class="fa fa-plus m-r-5"></i> Show</a>
+                                                        <a class="dropdown-item" href="{{ url('generate-pdf/'.$prts->id )}}"><i class="fa fa-print m-r-5"></i> Print</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                         <?php $i++; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
 							</div>
 						</div>
+					</div>
 					<div class="card-box">
 						<form action="{{ url('addImagerie') }}" method="post" enctype="multipart/form-data">
 							{{  csrf_field() }}

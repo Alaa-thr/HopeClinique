@@ -4922,8 +4922,17 @@ blockquote p {
 .m-t--15 {
 	margin-top: -15px;
 }
+.m-t-30 {
+	margin-top: 30px;
+}
+.m-t-33 {
+	margin-top: 35px;
+}
 .m-r-5 {
 	margin-right: 5px;
+}
+.m-r-15 {
+	margin-right: 15px;
 }
 .cusrsor-pointer{
 	cursor: pointer;
@@ -4948,16 +4957,12 @@ blockquote p {
 	margin-left: 355px;
 }
 #fonction{
-	margin-Left:18px;
-	width:880px;
+	margin-left:18px;
+	
 }
 
 #medicament{
 	width:330px;
-}
-#divClinique{
-	width: 922px;
-	margin-left: 2px;
 }
 #AffOrd
 {
@@ -4966,10 +4971,24 @@ blockquote p {
 	margin-top: -25px;
 	margin-left: 160px;
 }
-#textareaLettre{
-	margin-left: 122px;
+.lettre-contenu{
+	width: 750px
 }
-#chLettre{
-	margin-top: 12px;
-	margin-left: 355px;
+#causeAddBtn{
+	height: 140px;
+}
+#causeUpdateBtn{
+	height: 140px;
+}
+#addButton{
+	display: block;
+}
+#updateButton{
+	display: none;
+}
+.select-addMedecat{
+	width: 330px;
+}
+.text-white{
+	color: #FFF;
 }

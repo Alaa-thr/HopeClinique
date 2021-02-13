@@ -13,6 +13,9 @@ use App\Models\Rdv;
 use App\Models\Image;
 use App\Models\Lettre_Orientation;
 use Illuminate\Http\Facades\UploadedFile;
+use App\Http\Requests\AddLettreOrnt;
+use App\Http\Requests\AddOrdonnance;
+use App\Http\Requests\AddComment;
 
 class PatientController extends Controller
 {
@@ -36,10 +39,16 @@ class PatientController extends Controller
               $user = \DB::table('patients')->where([['id', $id]])->get();
               $user_id = \DB::table('patients')->where([['id', $id]])->value('user_id');
               $users   = \DB::table('users')->where([['id', $user_id]])->get();
-              $rdvs   = \DB::table('rdvs')->where([['patient_id', $id]])->get();
+              $rdvs   = \DB::table('rdvs')->where([['patient_id', $id]])->orderBy('created_at','desc')->get();
               $medecins   = \DB::table('medecins')->get();
               $images   = \DB::table('images')->where([['patient_id', $id]])->get();
-              $prescription   = \DB::table('prescriptions')->where([['patient_id', $id]])->get();
+              $prescription   = \DB::table('prescriptions')
+                ->where([['patient_id', $id],['deleted',0]])
+                ->select('date','medecin_id','nom_medecin','prenom_medecin','id')
+                ->orderBy('created_at','desc')
+                ->get();
+              $doctors = \DB::table('medecins')->select('id','nom','prenom')->get();
+              $lettres = \DB::table('lettre__orientations')->where('patient_id', $id)->get();
               $today = today();
               $date=Carbon::now()->format('Y-m-d');
               $patient = \DB::table('prescriptions')->where([['patient_id', $id],['date', $date]])
@@ -47,7 +56,7 @@ class PatientController extends Controller
                     ->select('prescriptions.date','patients.nom','patients.prenom',
                     'patients.Num_Secrurite_Social','patients.date_naiss')
                     ->get();
-              $ligne__prescriptons = \DB::table('prescriptions')->where([['patient_id', $id]])
+              $ligne__prescriptons = \DB::table('prescriptions')->where([['patient_id', $id],['deleted',0]])
                     ->join('ligne__prescriptons','ligne__prescriptons.prescription_id','=','prescriptions.id')
                     ->select('prescriptions.id','ligne__prescriptons.prescription_id','ligne__prescriptons.medicament',
                     'ligne__prescriptons.dose','ligne__prescriptons.moment_prises',
@@ -55,7 +64,7 @@ class PatientController extends Controller
                     ->get();
 
               return view('users.informationUsers',['patient'=>$patient,'users'=>$this->getNameUsers(),
-              'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'images' => $images,'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription,'ligne__prescriptons'=>$ligne__prescriptons]);
+              'user' => $user,'usersSelect' => $users,'rdvs' => $rdvs,'medecins' => $medecins,'doctors' => $doctors,'images' => $images,'typeUser' => $typeUser,'today'=>$today,'prescription'=>$prescription,'ligne__prescriptons'=>$ligne__prescriptons,'lettres'=>$lettres]);
          }
          elseif($request->role == "secretarie")
            {
@@ -97,7 +106,7 @@ class PatientController extends Controller
       }
     return view('search.SearchPatient',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'search' => $search,'userP'=>$userP]);
   }
-  public function addOrdannance(Request $request)
+  public function addOrdannance(AddOrdonnance $request)
   {
 
       $prescriptions             = new Prescription();
@@ -107,39 +116,58 @@ class PatientController extends Controller
       $prescriptions->save();
 
       foreach ($request->médicament as $m) {
-              $médicamentTable[]=$m;}
-
+              $médicamentTable[]=$m;
+      }
       foreach ($request->duree_traitement as $d) {
-                $DureeTable[]=$d;}
+                $DureeTable[]=$d;
+      }
       foreach ($request->dose as $dd) {
-                $doseTable[]=$dd;}
+                $doseTable[]=$dd;
+      }
       foreach ($request->moment_prises as $p) {
-                $momentTable[]=$p;}
+                $momentTable[]=$p;
+      }
 
           $i=0;
         foreach ($request->médicament as $m) {
                   $ligne_prescriptions = new Ligne_Prescripton();
-                  $ligne_prescriptions->prescription_id = $prescriptions->id;
-                  $ligne_prescriptions->medicament      = $médicamentTable[$i];
-                  $ligne_prescriptions->dose            = $doseTable[$i];
-                  $ligne_prescriptions->moment_prises   = $momentTable[$i];
-                  $ligne_prescriptions->duree_traitement= $DureeTable[$i];
-                    $i++;
-                  $ligne_prescriptions->save();
-                }
-              return back()->withSuccess("hh");
+                  if($doseTable[$i] != null  && $DureeTable[$i] != null){
+                    $ligne_prescriptions->prescription_id = $prescriptions->id;
+                    $ligne_prescriptions->medicament      = $médicamentTable[$i];
+                    $ligne_prescriptions->dose            = $doseTable[$i];
+                    $ligne_prescriptions->moment_prises   = $momentTable[$i];
+                    $ligne_prescriptions->duree_traitement= $DureeTable[$i];
+                    $ligne_prescriptions->save();
+
+                  }
+                  $i++;
+                  
+        }
+        return back()->withSuccess("add");
 
   }
+
+  public function deleteOrdonnance(Request $request){
+
+        $ordonnances  = Prescription::where('id',$request->idOrdonnance)->update(['deleted' => 1]);
+        return  back()->withSuccess("delete");
+  }
+
   public function PageOrdonnance($id){
 
       $medicaments = \DB::table('medicaments')->orderBy('id','asc')->get();
       $listeP    =\DB::table('patients')->where([['id', $id]])->get();
       $date      =  Carbon::now()->format('Y-m-d');
       $idDoctorUser = Medecin::find(Auth::user()->id)->id;
-
+      $ordonnances  = \DB::table('prescriptions')
+                ->where([['patient_id', $id],['deleted',0]])
+                ->select('date','medecin_id','nom_medecin','prenom_medecin','id')
+                ->orderBy('created_at','desc')
+                ->get();
+      $doctors = \DB::table('medecins')->select('id','nom','prenom')->get();
       return view('adminPages.ordonnance',['users'=>$this->getNameUsers(),'listeP'=>$listeP,
-      'date'=>$date,'idDoctorUser'=>$idDoctorUser,'idPatient'=>$id,'medicaments'=>$medicaments]);
-    }
+      'date'=>$date,'idDoctorUser'=>$idDoctorUser,'idPatient'=>$id,'medicaments'=>$medicaments,'ordonnances'=>$ordonnances,'doctors'=>$doctors]);
+  }
 
     public function addImageriePatient(Request $request){
 
@@ -149,8 +177,8 @@ class PatientController extends Controller
               $images->image = $imgs->store('users_Avatar/patient');
               $images->patient_id = $request->idPatient;
               $images->save();
-                                              }
-                                        }
+            }
+        }
     return back();
   }
 
@@ -158,10 +186,11 @@ class PatientController extends Controller
 
       $date      =  Carbon::now()->format('Y-m-d');
       $listeP    =\DB::table('patients')->where([['id', $id]])->get();
+      $lettres = \DB::table('lettre__orientations')->where([['patient_id', $id]])->orderBy('created_at', 'desc')->select('id','date','contenu')->get();
 
-      return view('adminPages.lettreOrientation',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
+      return view('adminPages.lettreOrientation',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date,'lettres'=>$lettres]);
     }
-    public function ADDLettre(Request $request){
+    public function ADDLettre(AddLettreOrnt $request){
 
         $lettre_orientations             = new Lettre_Orientation();
         $lettre_orientations->medecin_id = Medecin::find(Auth::user()->id)->id;
@@ -170,7 +199,22 @@ class PatientController extends Controller
         $lettre_orientations->contenu    =  $request->cause;
         $lettre_orientations->save();
 
-        return back()->withSuccess("hh");
+        return back()->withSuccess("add");
+    }
+    public function updateLettre(AddLettreOrnt $request){
+
+        $lettre_orientations  = Lettre_Orientation::find($request->idLettre);
+        $lettre_orientations->contenu    =  $request->cause;
+        $lettre_orientations->save();
+
+        return  back()->withSuccess("update");
+    } 
+    public function deleteLettre(Request $request){
+
+        $lettre_orientations  = Lettre_Orientation::find($request->idLettre);
+        $lettre_orientations->delete();
+
+        return  back()->withSuccess("delete");
     }
     public function commentaire($id){
 
@@ -179,13 +223,20 @@ class PatientController extends Controller
 
           return view('adminPages.commentaire',['users'=>$this->getNameUsers(),'listeP'=>$listeP,'idPatient'=>$id,'date'=>$date]);
     }
-    public function ADDcommentaire(Request $request){
+    public function ADDcommentaire(AddComment $request){
 
             $patients = Patient::find($request->idPatient);
-            $patients->commentaire = $patients->commentaire." ,".$request->contenu;
+            $patients->commentaire = $request->content;
             $patients->save();
-          echo $patients->commentaire;
 
-            return back()->withSuccess("hh");
+            return back()->withSuccess("add");
+    }
+    public function deleteComment(Request $request){
+
+            $patients = Patient::find($request->idPatient);
+            $patients->commentaire = null;
+            $patients->save();
+
+            return back()->withSuccess("delete");
     }
 }

@@ -35,7 +35,7 @@ class AddUsersRequest extends FormRequest {
             'social_security_number' => ['required','min:12','max:12','alpha_num'],
             /*'commentaire' => ['nullable','string','regex:/^[a-z0-9A-Z]+[a-z0-9A-Z"_-éèàç,.:!?<>%*()&]+'],*/
             'allergie' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
-            'antecedent' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
+            'antecedent' => ['nullable','string','regex:/^[A-Za-z0-9\s.,çàéè]+$/'],
             'chronic_diseases' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
         ];
       }else if($this->typeUser == 'adminM' || $this->typeUser == 'doctor'){

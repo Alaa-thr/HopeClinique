@@ -64,17 +64,24 @@ Route::get('/searchPatientDoctor', [ScrtrDocAdminController::class, 'getsearchPa
 /* ADD OrdonnancePatient Pages */
 Route::get('Ordonnance/{id}',[PatientController::class, 'PageOrdonnance'])->name('Ordonnance');
 Route::post('ADDOrdonnance',[PatientController::class, 'addOrdannance']);
+Route::get('getOrdannance/{id}', [PDFController::class, 'getOrdannance']);
+Route::delete('deleteOrdonnance', [PatientController::class, 'deleteOrdonnance']);
 Route::get('generate-pdf/{id}', [PDFController::class, 'generatePDF']);
 Route::get('/getEventsDoctor/{id}', [DoctorController::class, 'getEventsDoctor']);
 
 /* ADD Lettre Orientation Pages */
 Route::get('lettre/{id}',[PatientController::class, 'lettre']);
 Route::post('ADDLettre',[PatientController::class, 'ADDLettre']);
+Route::put('updateLettre',[PatientController::class, 'updateLettre']);
+Route::delete('deleteLettre',[PatientController::class, 'deleteLettre']);
 Route::get('generateLettre-pdf/{id}', [PDFController::class, 'generatePDFLettre']);
+Route::get('lettreOrientation/{id}', [PDFController::class, 'getLettreOrientation']);
 
 /* ADD Commantaire Pages */
 Route::get('commentaire/{id}',[PatientController::class, 'commentaire']);
 Route::post('ADDcommentaire',[PatientController::class, 'ADDcommentaire']);
+Route::put('updateCommentaire',[PatientController::class, 'ADDcommentaire']);
+Route::delete('deleteComment',[PatientController::class, 'deleteComment']);
 
 Auth::routes();
 
