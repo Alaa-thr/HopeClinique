@@ -13,7 +13,7 @@ class AddColumnFkLettrePatient extends Migration
      */
     public function up()
     {
-        Schema::table('lettre_orientations', function (Blueprint $table) {
+        Schema::table('lettre__orientations', function (Blueprint $table) {
             $table->foreign('patient_id')->references('id')->on('patients');
         });
     }

@@ -14,6 +14,8 @@ use Illuminate\Http\Facades\UploadedFile;
 use Illuminate\Support\Carbon;
 use App\Models\Blog;
 use App\Http\Requests\BlogRequest;
+use App\Http\Requests\ServiceRequest;
+use App\Models\Specialite;
 
 class AdminController extends Controller
 {
@@ -63,12 +65,13 @@ class AdminController extends Controller
 
     public function allservicesAdmin()
     {
-        return view('adminPages.allservicesAdmin',['users'=>$this->getNameUsers()]);
+      $allservices = Specialite::paginate(10);
+      return view('adminPages.allservicesAdmin',['users'=>$this->getNameUsers(),'allservices'=>$allservices]);
     }
 
     public function allblogsAdmin()
     {
-        $blogs = Blog::paginate(1);
+        $blogs = Blog::paginate(10);
 
         return view('adminPages.blogs',['users'=>$this->getNameUsers(),'blogs'=>$blogs]);
     }
@@ -133,44 +136,61 @@ class AdminController extends Controller
         $userAuth->save();
         return back();
     }
-    //pour supprimer les allDoctors
-    public function destroy(Request $request,$id){
+    //pour supprimer Doctors/secretaire/paient
+    public function destroy(Request $request){
 
-      if($request->input('destroyU') == 'doctor'){
-              $doctor = \DB::table('medecins')->where([['id', $id]])->get();
+      if($request->typeUser == 'doctor'){
+              $doctor = \DB::table('medecins')->where([['id', $request->idUser]])->get();
               foreach ($doctor as $key ) {
                     $nomDoctor = $key->nom;
                     $prenomDoctor = $key->prenom;
-                    $user_id = $key->user_id;
+                    $user_id = $key->user_id;echo"dd1";
               }
 
-              $prescriptions = \DB::table('prescriptions')->where('medecin_id', $id)->get();
+              $prescriptions = \DB::table('prescriptions')->where('medecin_id', $request->idUser)->get();
                 foreach ($prescriptions as $prs ) {
                     \DB::table('prescriptions')->where('id',$prs->id)
                     ->update(['nom_medecin'=>$nomDoctor,'prenom_medecin'=>$prenomDoctor]);
 
                     }
-              $lettre_orientations = \DB::table('lettre_orientations')->where('medecin_id', $id)->get();
+              $lettre_orientations = \DB::table('lettre__orientations')->where('medecin_id', $request->idUser)->get();
                 foreach ($lettre_orientations as $l ) {
-                      \DB::table('lettre_orientations')->where('id',$l->id)
+                      \DB::table('lettre__orientations')->where('id',$l->id)
                       ->update(['nom_medecin'=>$nomDoctor,'prenom_medecin'=>$prenomDoctor]);
                     }
-              $rdvs = \DB::table('rdvs')->where('medecin_id', $id)->get();
+              $rdvs = \DB::table('rdvs')->where('medecin_id', $request->idUser)->get();
                 foreach ($rdvs as $r ) {
                           \DB::table('rdvs')->where('id',$r->id)
                           ->update(['nom_medecin'=>$nomDoctor,'prenom_medecin'=>$prenomDoctor]);
-                        }
+                     }
+              $blogs = \DB::table('blogs')->where('medecin_id', $request->idUser)->get();
+                foreach ($blogs as $r ) {
+                        \DB::table('rdvs')->where('id',$r->id)
+                            ->update(['nom_medecin'=>$nomDoctor,'prenom_medecin'=>$prenomDoctor]);
+                       }
+
                 $user = \DB::table('users')->where('id', $user_id)->delete();
-                $doctor = \DB::table('medecins')->where([['id', $id]])->delete();
+                return back()->withSuccess("delete");
               }
 
-        if($request->input('destroyU') == 'secretaire'){
-                $secretaireID = \DB::table('secretaires')->where([['id', $id]])->value('user_id');
-              $user = \DB::table('users')->where('id',$secretaireID)->delete();
-              $secretaire = \DB::table('secretaires')->where([['id', $id]])->delete();
-              }
+              elseif($request->typeUser == 'secretaire'){
+                  $secretaire = \DB::table('secretaires')->where([['id', $request->idUser]])->get();
+                  foreach ($secretaire as $key ) {
+                          $user_id = $key->user_id;
+                      }
+                $user = \DB::table('users')->where('id', $user_id)->delete();
 
-          return back();
+                return  back()->withSuccess("delete");
+            }
+          /*  elseif($request->typeUser == 'patient'){
+                $patient = \DB::table('patients')->where([['id', $request->idUser]])->get();
+                foreach ($patient as $key ) {
+                        $user_id = $key->user_id;
+                    }
+              $user = \DB::table('users')->where('id', $user_id)->delete();
+
+              return  back()->withSuccess("delete");
+          }*/
         }
         public function editInformations(Request $request,$id)
        {
@@ -310,6 +330,22 @@ class AdminController extends Controller
                        $bloge->avatr = $request->avatar->store('users_Avatar/blog');
                     }
                  $bloge->save();
+              }
+             return back()->withSuccess("Ok");
+       }
+       public function service($type)
+       {
+           return view('adminPages.addService',['users'=>$this->getNameUsers()]);
+       }
+       public function storeSsrvice(ServiceRequest $request)
+       {
+         if(Auth::user()->user_roles == 'adminM'){
+                 $specialites = new Specialite();
+                 $specialites->nom = $request->name_specialty;
+                 if($request->hasFile('avatar')){
+                       $specialites->avatar = $request->avatar->store('users_Avatar/service');
+                    }
+                 $specialites->save();
               }
              return back()->withSuccess("Ok");
        }

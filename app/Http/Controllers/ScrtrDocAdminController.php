@@ -24,12 +24,14 @@ class ScrtrDocAdminController extends Controller
 	public function getNameUsers()
     {
         $nameUser = null;
-        
+
         if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
-          
+
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+        }else if(Auth::user()->user_roles == 'patient'){
+          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->get();
         }
         return  $nameUser;
     }
@@ -112,6 +114,8 @@ class ScrtrDocAdminController extends Controller
             $user = Secretaire::find(Auth::user()->id);
         }else if($userRole == 'doctor' || $userRole == 'adminM'){
             $user = Medecin::find(Auth::user()->id);
+        }else if($userRole == 'patient'){
+            $user = Patient::find(Auth::user()->id);
         }
 
         return view('users.profile',['users'=>$this->getNameUsers(),'user' => $user]);
@@ -218,6 +222,12 @@ class ScrtrDocAdminController extends Controller
     public function allAppointmentsAdmin()
     {
         $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')->join('medecins','medecins.id','=','rdvs.medecin_id')->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')->get();
+
+        if(Auth::user()->user_roles == 'patient'){
+          $idd = \DB::table('patients')->where('user_id',Auth::user()->id)->value('id');
+          $lettres = \DB::table('lettre__orientations')->where('patient_id',$idd)->get();
+          return view('adminPages.allAppointmentsAdmin',['lettres' => $lettres,'users'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
+        }
         return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
     }
 
@@ -256,7 +266,7 @@ class ScrtrDocAdminController extends Controller
 
       if($request->searchPatientDoctor == "birthday")
       {
-        
+
         $liste  =\DB::table('rdvs')
         ->join('medecins','medecins.id','=','rdvs.medecin_id')
         ->join('patients','patients.id','=','rdvs.patient_id')

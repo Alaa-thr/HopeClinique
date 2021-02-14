@@ -1578,10 +1578,13 @@ ol {
 .services__details__pic {
 	margin-top: 35px;
 	margin-bottom: 35px;
-}
+	width: 200px;
+	height: 200px;
+	}
 
 .services__details__pic img {
-	min-width: 100%;
+	width: 200px;
+	height: 200px;
 }
 
 .services__details__text {

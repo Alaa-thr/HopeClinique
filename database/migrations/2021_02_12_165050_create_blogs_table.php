@@ -10,13 +10,14 @@ class CreateBlogsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */
+     */          
+
     public function up()
     {
         Schema::create('blogs', function (Blueprint $table) {
           $table->id();
           $table->unsignedBigInteger('medecin_id')->nullable();
-          $table->foreign('medecin_id')->references('id')->on('medecins')->onDelete('cascade');
+          $table->foreign('medecin_id')->references('id')->on('medecins')->onDelete('SET NULL');
           $table->string('title');
           $table->string('description');
           $table->string('avatr')->default(NULL);

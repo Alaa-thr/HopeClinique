@@ -20,7 +20,6 @@ class CreatePrescriptionsTable extends Migration
           $table->date('date');
           $table->string('nom_medecin')->default(NULL);
           $table->string('prenom_medecin')->default(NULL);
-          $table->unique(['medecin_id','patient_id','date']);
           $table->timestamps();
         });
     }

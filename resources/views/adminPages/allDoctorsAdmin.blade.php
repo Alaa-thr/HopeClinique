@@ -3,6 +3,17 @@
 <div class="page-wrapper">
             <div class="content">
               <div class="dash-widget"> <!--pour backround white-->
+                @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> The Doctor
+                            @if(Session::get('success') == 'delete')
+                                has been <strong>deleted</strong> successfully.
+                            @endif
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                @endif
                 <div class="row">
                     <div class="col-sm-4 col-3">
                         <h4 class="page-title">Doctors</h4>
@@ -60,18 +71,17 @@
                                        <i class="fa fa-pencil m-r-5"></i> Edit</a>
                                      </button>
                                   </form>
-                                      <form action="{{ url('addUserdelete/'.$l->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
-                                         {{ csrf_field() }}<!--pour générer token-->
-                                         {{ method_field('DELETE')}}<!--pour générer input de type hidden et value put -->
-                                         <button class="dropdown-item" data-toggle="modal" data-target="#delete_doctor">
-                                           <input type="hidden" value="{{$um->user_roles}}" name="destroyU"/>
-                                            <i class="fa fa-trash-o m-r-5"></i> Delete
-                                         </button>
-                                      </form>
+                                  <form action="{{ url('deleteUser') }}" method="post" id="deleteBtn">
+                                      {{  csrf_field() }}
+                                      <input type="hidden" name="_method" value="DELETE">
+                                      <input type="hidden" name="idUser" value="2">
+                                      <input type="hidden" name="typeUser" value="doctor"/>
+                                      <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteUser()"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                  </form>
                                 </div>
                             </div>
                             <h4 class="doctor-name text-ellipsis">
-                              <form action="{{ url('informationUsers/'.$l->id )}}" method="get"> <a>{{strtoupper ($l->nom ) }} {{strtoupper ($l->prenom) }}</a>
+                              <form action="{{ url('informationUsers/'.$l->id )}}" method="get"> <a>{{strtoupper ($l->nom) }} {{strtoupper ($l->prenom) }}</a>
                               </form>
                             </h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
@@ -79,7 +89,7 @@
                               <i class="fa fa-phone"></i> &nbsp;{{ $um->phone }} {{ $um->email }}
                             </div>
                         </div>
-          </div>
+                      </div>
               @endif
             @endforeach
          @endforeach
@@ -91,4 +101,5 @@
                 </div>
             </div>
         </div>
+        <script src="{{asset('scrtrDoctorPage/js/users.js')}}"></script>
 @endsection

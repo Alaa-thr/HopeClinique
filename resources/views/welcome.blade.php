@@ -44,29 +44,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="consultation__text">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="consultation__text__item">
-                                    <div class="section-title">
-                                        <span>Welcon to Aesthetic</span>
-                                        <h2>Find Best Doctors With <b>AESTHETIC</b></h2>
-                                    </div>
-                                    <p>30 Years of experience in Cosmetic Surgery.Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="consultation__video set-bg" data-setbg="{{ asset('visitorPage/img/consultation-video.jpg')}}">
-                                    <a href="https://www.youtube.com/watch?v=PXsuI67s2AA" class="play-btn video-popup"><i class="fa fa-play"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
         </div>
     </section>
     <!-- Consultation Section End -->
@@ -128,138 +106,90 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="services__btn">
-                        <a href="#" class="primary-btn">Contact us</a>
+                        <a href="{{ url('contact/')}}" class="primary-btn">Contact us</a>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <div class="services__item__icon">
-                            <span class="flaticon-044-aesthetic"></span>
-                        </div>
-                        <div class="services__item__text">
-                            <h5>Body procedures</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor aliqua.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <div class="services__item__icon">
-                            <span class="flaticon-027-beauty"></span>
-                        </div>
-                        <div class="services__item__text">
-                            <h5>Facial Procedures</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor aliqua.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <div class="services__item__icon">
-                            <span class="flaticon-031-anatomy"></span>
-                        </div>
-                        <div class="services__item__text">
-                            <h5>Breast procedures</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor aliqua.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <div class="services__item__icon">
-                            <span class="flaticon-008-abdominoplasty"></span>
-                        </div>
-                        <div class="services__item__text">
-                            <h5>Skin care & Beauty</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor aliqua.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+              @foreach($allservices as $ser)
+              <div class="col-lg-3 order-lg-2">
+                  <div class="services__details">
+                      <div class="row">
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                              <div class="services__details__title">
+                                  <h3>{{$ser->nom}}</h3>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="services__details__pic">
+                          <img src="{{asset('storage/'.$ser->avatar)}}" alt="">
+                      </div>
+                  </div>
+              </div>
+              @endforeach
             </div>
         </div>
     </section>
     <!-- Services Section End -->
-    @include('layouts.modals.doctorsModal')
-    <!-- Gallery Begin -->
-    <div class="gallery">
-        <div class="gallery__container">
-            <div class="grid-sizer"></div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-1.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-1.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
+    <!-- Team Section Begin -->
+        <section class="team spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="section-title">
+                            <span>Our Team</span>
+                            <h2>Our Expert Doctors</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  @foreach($listeM as $doctor)
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="team__item">
+                          <img src="{{asset('storage/'.$doctor->avatar)}}" alt="user"/>
+                            <h5>{{strtoupper ($doctor->nom ) }} {{strtoupper ($doctor->prenom) }}</h5>
+                            <span>{{ $doctor->specialite }}</span>
+                            <div class="team__item__social">
+                                  <i class="fa fa-google"></i> {{ $doctor->email }}<br/>
+                                  <i class="fa fa-phone"></i> {{ $doctor->phone }}
+                            </div>
+                        </div>
+                    </div>
+                  @endforeach
+                </div>
             </div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-2.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-2.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-3.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-3.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-5.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-5.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-6.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-6.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
-            <div class="gc__item set-bg" data-setbg="{{ asset('visitorPage/img/gallery/gallery-7.jpg')}}">
-                <a href="{{ asset('visitorPage/img/gallery/gallery-7.jpg')}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-            </div>
-        </div>
-    </div>
-    <!-- Gallery End -->
+        </section>
+        <!-- Team Section End -->
+
 
     <!-- Latest News Begin -->
-    <section class="latest spad">
+    <section class="services spad set-bg" data-setbg="{{ asset('visitorPage/img/services-bg.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-6">
                     <div class="section-title">
-                        <span>Our News</span>
-                        <h2>Skin care tips</h2>
+                        <span>Our Blogs</span>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="latest__btn">
-                        <a href="#" class="primary-btn">View all news</a>
+                    <div class="services__btn">
+                        <a href="{{ url('blogs/')}}" class="primary-btn">Read More</a>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="latest__item">
-                        <h5><a href="#">Here’s how you can get a natural glow this party season</a></h5>
-                        <p>Lorem ipsum, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                        <ul>
-                            <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                            <li>Dec 06, 2019</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="latest__item">
-                        <h5><a href="#">Get better skin with these top 10 tips for skin care</a></h5>
-                        <p>Lorem ipsum, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                        <ul>
-                            <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                            <li>Dec 06, 2019</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="latest__item">
-                        <h5><a href="#">8 Ways to Save Your Skin if You Exercise Outside This Winter</a></h5>
-                        <p>Lorem ipsum, consectetur adipiscing elit, sed do eiusmod tempor.</p>
-                        <ul>
-                            <li><img src="{{ asset('visitorPage/img/blog/blog-author.jpg')}}" alt=""> John Doe</li>
-                            <li>Dec 06, 2019</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <!-- Gallery Begin -->
+   <div class="gallery">
+       <div class="gallery__container">
+           <div class="grid-sizer"></div>
+           @foreach($blogs as $b)
+           <div class="gc__item set-bg" data-setbg="{{asset('storage/'.$b->avatr)}}">
+               <a href="{{asset('storage/'.$b->avatr)}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
+               <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
+           </div>
+           @endforeach
+       </div>
+   </div>
+   <!-- Gallery End -->
         </div>
-    </section>  
+    </section>
 @endsection

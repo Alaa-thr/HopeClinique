@@ -3,14 +3,14 @@
 		<div class="page-wrapper">
             <div class="content ">
             	<div class="dash-widget">
-									<div class="row">
-											<div class="col-sm-4 col-3">
-													<h5 class="page-sub-title">Add Blogs :</h5>
-											</div>
-									</div>
+								<div class="row">
+										<div class="col-sm-4 col-3">
+												<h5 class="page-sub-title">Add Services :</h5>
+										</div>
+								</div>
       					@if(session()->has('success'))
       	                <div class="alert alert-success alert-dismissible fade show" role="alert">
-      						<strong>Success!</strong> The	blog has been added successfully.
+      						<strong>Success!</strong> The	service has been added successfully.
       						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
       							<span aria-hidden="true">&times;</span>
       						</button>
@@ -18,7 +18,7 @@
       					@endif
 	                <div class="row">
 	                    <div class="col-lg-8 offset-lg-2">
-	                        <form enctype="multipart/form-data" action="{{ url('addBlogStore') }}" method="post">
+	                        <form enctype="multipart/form-data" action="{{ url('serviceStore') }}" method="post">
                             <input type="hidden" name="idDoctor" value="{{Auth::user()->id}}">
 														{{  csrf_field() }}
 														<div class="row">
@@ -26,7 +26,7 @@
 																	<div class="form-group">
 																					<button class="btn btn btn-primary float-right" >
 																							<i class="fa fa-plus"></i>
-																									Add Blog
+																									Add Service
 																					</button>
 																	</div>
 																</div>
@@ -34,9 +34,9 @@
 	                            <div class="row">
 	                                <div class="col-sm-12">
 	                                    <div class="form-group">
-	                                        <label>Title<span class="text-danger">*</span></label>
-	                                        <input class="form-control @error('title') is-invalid @enderror" type="text" name="title">
-	                                        @error('title')
+	                                        <label>Name Specialty<span class="text-danger">*</span></label>
+	                                        <input class="form-control @error('name_specialty') is-invalid @enderror" type="text" name="name_specialty">
+	                                        @error('name_specialty')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -44,18 +44,6 @@
 	                                    </div>
 	                                </div>
 	                                <div class="col-sm-12">
-	                                    <div class="form-group">
-	                                        <label>Description <span class="text-danger">*</span></label>
-	                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description">
-                                          </textarea>
-	                                        @error('description')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        	@enderror
-	                                    </div>
-	                                </div>
-									              <div class="col-sm-12">
               									  <div class="form-group">
               									    <label>Image</label>
               									    <div class="profile-upload">

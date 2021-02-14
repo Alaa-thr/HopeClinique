@@ -1,6 +1,6 @@
 <?php
-
-    $stripeDashboard=$stripeAllDoctors=$stripeAddDoctors=$stripeAllDoctorsPere=$stripeSecretaries=$stripeAddSecretaries=$stripeSecretariesPere=$stripeAllPatients=$stripeAllPatientsPere=$stripeAddPatients=$stripeAppointments=$stripeAllServices=$stripeProfile=$stripeAddAppointments='';
+//lien li nkoun fih ywali bleu
+    $stripeDashboard=$stripeAllDoctors=$stripeAddDoctors=$stripeAllDoctorsPere=$stripeSecretaries=$stripeAddSecretaries=$stripeSecretariesPere=$stripeAllPatients=$stripeAllPatientsPere=$stripeAddPatients=$stripeAppointments=$stripeAllServices=$stripeProfile=$stripeAddAppointments=$stripeAddOrdinances=$stripeAllBlogs=$stripeAddBlogs=$stripeAllBlogsPere=$stripeAllServices=$stripeAddServices=$stripeAllServicesPere='';
 
     $urlAcctuiel = Route::getCurrentRoute()->uri();
     if($urlAcctuiel == 'dashboard'){
@@ -22,8 +22,6 @@
         $stripeAllPatientsPere='active';
     }else if($urlAcctuiel == 'appointments'){
         $stripeAppointments='active';
-    }else if($urlAcctuiel == 'allServices'){
-        $stripeAllServices='active';
     }else if($urlAcctuiel == 'addUser/{type}' && $typeUser == "patient"){
         $stripeAddPatients='active';
         $stripeAllPatientsPere='active';
@@ -31,6 +29,24 @@
         $stripeProfile='active';
     }else if($urlAcctuiel == 'addAppointment'){
         $stripeAddAppointments='active';
+    }
+    else if($urlAcctuiel == 'allOrdinances'){
+        $stripeAddOrdinances='active';
+    }
+    else if($urlAcctuiel == 'allBlogs'){
+        $stripeAllBlogs='active';
+        $stripeAllBlogsPere='active';
+    }else if($urlAcctuiel == 'blog/{id}'){
+        $stripeAddBlogs='active';
+        $stripeAllBlogsPere='active';
+    }
+
+    else if($urlAcctuiel == 'allServices'){
+        $stripeAllServices='active';
+        $stripeAllServicesPere='active';
+    }else if($urlAcctuiel == 'service/{id}'){
+        $stripeAddServices='active';
+        $stripeAllServicesPere='active';
     }
 ?>
 <div class="header">
@@ -45,9 +61,11 @@
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         @foreach($users as $user)
+                          @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
                             <span class="user-img">
                                 <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
                             </span>
+                            @endif
                             <span>{{$user->nom}} {{$user->prenom}}</span>
                         @endforeach
 
@@ -100,7 +118,7 @@
                             <a href="{{route('profile')}}"><i class="fa fa-dashboard"></i> <span>Profile</span></a>
                         </li>
                         @if(Auth::user()->user_roles == 'adminM')
-                        <li >
+                        <li>
                             <a class="cusrsor-pointer <?php echo $stripeAllDoctorsPere ?>"><i class="fa fa-user-md"></i> <span>Doctors</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li class="<?php echo $stripeAllDoctors ?>"><a href="{{route('allDoctors')}}">All Doctors</a></li>
@@ -147,15 +165,27 @@
                         </li>
                         @endif
                         @if(Auth::user()->user_roles == 'adminM')
-                        <li class="<?php echo $stripeAllServices ?>">
-                            <a href="{{route('allservices')}}"><i class="fa fa-hospital-o"></i> <span>Services</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a class="cusrsor-pointer" ><i class="fa fa-newspaper-o"></i> <span> Blogs </span> <span class="menu-arrow"></span></a>
+                        <li>
+                            <a class="cusrsor-pointer <?php echo $stripeAllServicesPere ?>"><i class="fa fa-hospital-o"></i> <span>Services</span><span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="{{route('allblogs')}}">All Blogs</a></li>
-                                <li><a href="{{ url('blog/'.Auth::user()->id)}}">Add Blog</a></li>
+                                <li class="<?php echo $stripeAllServices ?>"><a href="{{route('allservices')}}">All Services</a></li>
+                                <li class="<?php echo $stripeAddServices ?>"><a href="{{ url('service/'.Auth::user()->id)}}">Add Service</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a class="cusrsor-pointer <?php echo $stripeAllBlogsPere ?>"><i class="fa fa-newspaper-o"></i> <span>Blogs</span><span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li class="<?php echo $stripeAllBlogs ?>"><a href="{{route('allblogs')}}">All Blogs</a></li>
+                                <li class="<?php echo $stripeAddBlogs ?>"><a href="{{ url('blog/'.Auth::user()->id)}}">Add Blog</a></li>
+                            </ul>
+                        </li>
+                        @endif
+                        @if(Auth::user()->user_roles == 'patient')
+                        <li class="<?php echo $stripeAppointments ?>">
+                            <a href="{{route('allAppointments')}}"><i class="fa fa-calendar"></i> <span>All Appointments</span></a>
+                        </li>
+                        <li class="<?php echo $stripeAddOrdinances ?>">
+                            <a href="{{route('allOrdinances')}}"><i class="fa fa-plus"></i> <span>All Ordinances</span></a>
                         </li>
                         @endif
                     </ul>
