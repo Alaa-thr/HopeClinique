@@ -49,15 +49,18 @@ Route::get('addUser/{type}', [AdminController::class, 'addUser'])->name('addUser
 Route::get('allBlogs',[AdminController::class,'allblogsAdmin'])->name('allblogs');
 Route::get('detailsBlog/{id}',[AdminController::class,'detailsBlogAdmin'])->name('detailsBlog');
 Route::put('updateProfile',[AdminController::class,'updateProfile']);
-Route::delete('addUserdelete/{id}', [AdminController::class, 'destroy']);
 Route::post('addUserStore', [ScrtrDocAdminController::class, 'store']);
 Route::get('editInformation/{id}',[AdminController::class,'editInformations'])->name('editInformation');
 Route::put('updateInformation/{id}',[AdminController::class,'updateInformations']);
 Route::get('blog/{id}',[AdminController::class,'blog']);
 Route::post('addBlogStore', [AdminController::class, 'store']);
+Route::get('service/{id}',[AdminController::class,'service']);
+Route::post('serviceStore', [AdminController::class, 'storeSsrvice']);
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
+Route::get('allOrdinances', [PatientController::class, 'allOrdinancesPatient'])->name('allOrdinances');
+
 /* ADD patient Imagerie Pages */
 Route::post('addImagerie', [PatientController::class, 'addImageriePatient']);
 /* ADD users Pages */
@@ -80,6 +83,7 @@ Route::put('updateLettre',[PatientController::class, 'updateLettre']);
 Route::delete('deleteLettre',[PatientController::class, 'deleteLettre']);
 Route::get('generateLettre-pdf/{id}', [PDFController::class, 'generatePDFLettre']);
 Route::get('lettreOrientation/{id}', [PDFController::class, 'getLettreOrientation']);
+Route::delete('deleteUser', [AdminController::class, 'destroy']);
 
 /* ADD Commantaire Pages */
 Route::get('commentaire/{id}',[PatientController::class, 'commentaire']);

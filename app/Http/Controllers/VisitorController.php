@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Medecin;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Blog;
+use App\Models\Specialite;
 
 class VisitorController extends Controller
 {
@@ -25,7 +26,14 @@ class VisitorController extends Controller
 
     public function index()
     {
-        return view('welcome');
+      $blogs = Blog::all();
+      $allservices = Specialite::all();
+      $listeM = \DB::table('medecins')
+                ->join('users','users.id','=','medecins.user_id')
+                ->select('medecins.avatar','medecins.id','medecins.nom','medecins.prenom',
+                'medecins.specialite','users.phone','users.email')
+                ->get();
+      return view('welcome',['allservices'=>$allservices,'blogs'=>$blogs,'listeM'=>$listeM]);
     }
 
     public function aboutUs()
@@ -62,6 +70,7 @@ class VisitorController extends Controller
 
     public function services()
     {
-        return view('visitorPages.services');
+      $allservices = Specialite::all();
+      return view('visitorPages.services',['users'=>$this->getNameUsers(),'allservices'=>$allservices]);
     }
 }

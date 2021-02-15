@@ -13,7 +13,7 @@ class AddColumnFkLettreMedecin extends Migration
      */
     public function up()
     {
-        Schema::table('lettre_orientations', function (Blueprint $table) {
+        Schema::table('lettre__orientations', function (Blueprint $table) {
              $table->foreign('medecin_id')->references('id')->on('medecins')->onDelete('SET NULL');
         });
     }

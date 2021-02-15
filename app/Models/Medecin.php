@@ -10,7 +10,7 @@ class Medecin extends Model
     use HasFactory;
     protected $primaryKey = 'user_id';
     protected $fillable = [
-      'id','user_id ','nom','prenom','specialite','gender','avater'];
+      'id','user_id','nom','prenom','specialite','gender','avater'];
 
       public function blog()
       {
@@ -32,5 +32,9 @@ class Medecin extends Model
       public function lettre_orientation()
       {
         return $this->hasMany('App\Models\Lettre_Orientation');
+      }
+      public function specialite()
+      {
+            return $this->belongsTo('App\Models\Specialite');
       }
 }

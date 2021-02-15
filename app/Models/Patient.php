@@ -10,10 +10,10 @@ class Patient extends Model
     use HasFactory;
 
 
-
+    protected $primaryKey = 'user_id';
     protected $fillable = [
-      'id ','prenom','nom','Num_Secrurite_Social','date_naissance',
-      'maladie_chronique','allergie','antecedent','commentaire','ville'
+      'id ','user_id','prenom','nom','Num_Secrurite_Social','date_naissance',
+      'maladie_chronique','age','allergie','antecedent','commentaire','ville'
   ];
 
 

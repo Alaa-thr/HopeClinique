@@ -28,6 +28,8 @@ class PatientController extends Controller
 
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+        }else if(Auth::user()->user_roles == 'patient'){
+          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->get();
         }
         return  $nameUser;
     }
@@ -145,7 +147,6 @@ class PatientController extends Controller
 
                   }
                   $i++;
-                  
         }
         return back()->withSuccess("add");
 
@@ -212,7 +213,8 @@ class PatientController extends Controller
         $lettre_orientations->save();
 
         return  back()->withSuccess("update");
-    } 
+    }
+
     public function deleteLettre(Request $request){
 
         $lettre_orientations  = Lettre_Orientation::find($request->idLettre);
@@ -242,5 +244,20 @@ class PatientController extends Controller
             $patients->save();
 
             return back()->withSuccess("delete");
+    }
+    public function allOrdinancesPatient()
+    {
+      $medicaments = \DB::table('medicaments')->orderBy('id','asc')->get();
+      $listeP    =\DB::table('patients')->where('user_id',Auth::user()->id)->get();
+      $date      =  Carbon::now()->format('Y-m-d');
+      $idd    =\DB::table('patients')->where('user_id',Auth::user()->id)->value('id');
+      $ordonnances  = \DB::table('prescriptions')
+                ->where([['patient_id',$idd ],['deleted',0]])
+                ->select('date','medecin_id','nom_medecin','prenom_medecin','id')
+                ->orderBy('created_at','desc')
+                ->get();
+      $doctors = \DB::table('medecins')->select('id','nom','prenom')->get();
+      return view('users.Allordonnance',['users'=>$this->getNameUsers(),'listeP'=>$listeP,
+      'date'=>$date,'idPatient'=>'user_id',Auth::user()->id,'medicaments'=>$medicaments,'ordonnances'=>$ordonnances,'doctors'=>$doctors]);
     }
 }
