@@ -38,11 +38,15 @@ class ScrtrDocAdminController extends Controller
 
     public function dashboard()
     {
-      //Statistique : Nbr Rvd de cette année
+      $nombrDoctors =  \DB::table("medecins")->count();
+      $nombrPatients = \DB::table("patients")->count();
+      $nombrPatientsPerDoctor = \DB::table("rdvs")->where('medecin_id','=',Medecin::find(Auth::user()->id)->id)->distinct('patient_id')->count();
+      $nombrSecretary = \DB::table("secretaires")->count();
+      //Statistique : Nbr Rvd de cette année (return le nmbr et lannee et le mois(chiffre))
       $NombreRDVParMois = \DB::table("rdvs")
       ->select(\DB::raw('count(id) as `Nombre_RDV_Par_Mois`'),
       \DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
-       ->groupby('month','year')
+       ->groupby('year','month')
        ->having('year','=',date("Y"))
        ->get();
        $i=1;
@@ -61,7 +65,7 @@ class ScrtrDocAdminController extends Controller
         $NombrePrescriptionParMois = \DB::table("prescriptions")
         ->select(\DB::raw('count(id) as `Nombre_Prescription_Par_Mois`'),
         \DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
-         ->groupby('month','year')
+         ->groupby('year','month')
          ->having('year','=',date("Y"))
          ->get();
          $j=1;
@@ -71,7 +75,7 @@ class ScrtrDocAdminController extends Controller
                   $j++;
                 }
                   $data2[] = $nbr->Nombre_Prescription_Par_Mois;
-                  $i++;
+                  $j++;
           }
           for($j;$j<13;$j++){
             $data2[] = 0;
@@ -84,8 +88,7 @@ class ScrtrDocAdminController extends Controller
           }else{
             $mois--;
           }
-          $rdvs =
-                \DB::table("rdvs")->join('medecins','medecins.id','=','rdvs.medecin_id')
+          $rdvs =\DB::table("rdvs")->join('medecins','medecins.id','=','rdvs.medecin_id')
                 ->select("medecins.id",'medecins.nom','medecins.prenom',\DB::raw('count(rdvs.id) as `Nombre_RDV`'),
                 \DB::raw('YEAR(rdvs.created_at) year, MONTH(rdvs.created_at) month'))
                  ->groupby("medecins.id",'month','year','medecins.nom','medecins.prenom')
@@ -101,10 +104,65 @@ class ScrtrDocAdminController extends Controller
           }elseif(count($data2)==0){
             $data4[] = 0;
           }
-          //print_r( $data3);
-        return view('secrtrDoctorPages.dashboard',['users'=>$this->getNameUsers(),'data1'=> $data1,
-        'data2'=> $data2,'data3'=> $data3,'data4'=> $data4,'mois'=> $mois,
-    ]);
+          $nombrPatientsParMois = \DB::table("patients")
+                ->select(\DB::raw('count(patients.id) as `Nombre_Patient`'),
+                \DB::raw('YEAR(patients.created_at) year, MONTH(patients.created_at) month'))
+                 ->groupby('month','year')
+                 ->having('year','=',date("Y"))
+                 ->get();
+          $i=1;
+          foreach ($nombrPatientsParMois as $nbr) {
+                while($nbr->month != $i){
+                  $data5NbrPatient[] = 0;
+                  $i++;
+                }
+                  $data5NbrPatient[] = $nbr->Nombre_Patient;
+                  $i++;
+          }
+          for($i;$i<13;$i++){
+            $data5NbrPatient[] = 0;
+          }
+          $nombreAppointmentDocPerMonth = \DB::table("rdvs")
+                ->where('medecin_id','=',Medecin::find(Auth::user()->id)->id)
+                ->select(\DB::raw('count(rdvs.id) as `Nombre_RDV`'),
+                \DB::raw('YEAR(rdvs.created_at) year, MONTH(rdvs.created_at) month'))
+                 ->groupby('month','year')
+                 ->having('year','=',$annee)
+                 ->get();
+          $i=1;
+          foreach ($nombreAppointmentDocPerMonth as $nbr) {
+                while($nbr->month != $i){
+                  $dataNombreAppointmentDocPerMonth[] = 0;
+                  $i++;
+                }
+                  $dataNombreAppointmentDocPerMonth[] = $nbr->Nombre_RDV;
+                  $i++;
+          }
+          for($i;$i<13;$i++){
+            $dataNombreAppointmentDocPerMonth[] = 0;
+          }
+
+          $nombreOrdonnanceDocPerMonth = \DB::table("prescriptions")
+                ->where('medecin_id','=',Medecin::find(Auth::user()->id)->id)
+                ->select(\DB::raw('count(prescriptions.id) as `Nombre_RDV`'),
+                \DB::raw('YEAR(prescriptions.created_at) year, MONTH(prescriptions.created_at) month'))
+                 ->groupby('month','year')
+                 ->having('year','=',$annee)
+                 ->get();
+          $i=1;
+          foreach ($nombreOrdonnanceDocPerMonth as $nbr) {
+                while($nbr->month != $i){
+                  $dataNombreOrdonnanceDocPerMonth[] = 0;
+                  $i++;
+                }
+                  $dataNombreOrdonnanceDocPerMonth[] = $nbr->Nombre_RDV;
+                  $i++;
+          }
+          for($i;$i<13;$i++){
+            $dataNombreOrdonnanceDocPerMonth[] = 0;
+          }
+         //return $nombreOrdonnanceDocPerMonth;
+        return view('secrtrDoctorPages.dashboard',['users'=>$this->getNameUsers(),'data1'=> $data1,'data2'=> $data2,'data3'=> $data3,'data4'=> $data4,'mois'=> $mois,'nombrDoctors'=> $nombrDoctors,'nombrPatients'=> $nombrPatients,'nombrSecretary'=> $nombrSecretary,'data5NbrPatient'=> $data5NbrPatient,'nombrPatientsPerDoctor'=>$nombrPatientsPerDoctor,'dataNombreAppointmentDocPerMonth'=>$dataNombreAppointmentDocPerMonth,'dataNombreOrdonnanceDocPerMonth'=>$dataNombreOrdonnanceDocPerMonth]);
     }
 
     public function profile()
