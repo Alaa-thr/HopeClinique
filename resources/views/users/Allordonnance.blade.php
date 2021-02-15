@@ -44,9 +44,18 @@
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="{{ url('getOrdannance/'.$ordonnance->id )}}" target="_blank"><i class="fa fa-plus m-r-5"></i> Show</a>
-                                                        <a class="dropdown-item" href="{{ url('generate-pdf/'.$ordonnance->id )}}"><i class="fa fa-print m-r-5"></i> Print</a>
-
+                                                      <form action="{{ url('getOrdannance/'.$ordonnance->id )}}" method="get">
+                                                         <button class="dropdown-item" data-toggle="modal">
+                                                           <input type="hidden" value="{{$ordonnance->medecin_id}}" name="medecin_id"/>
+                                                            <i class="fa fa-plus m-r-5"></i> Show
+                                                         </button>
+                                                      </form>
+                                                      <form action="{{ url('generate-pdf/'.$ordonnance->id )}}" method="get">
+                                                         <button class="dropdown-item" data-toggle="modal">
+                                                           <input type="hidden" value="{{$ordonnance->medecin_id}}" name="medecin_id"/>
+                                                            <i class="fa fa-print m-r-5"></i> Print
+                                                         </button>
+                                                      </form>
                                                     </div>
                                                 </div>
                                             </td>

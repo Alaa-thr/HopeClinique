@@ -9,6 +9,7 @@ use App\Http\Requests\AddUsersRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Medecin;
+use App\Models\Rdv;
 
 class DoctorController extends Controller
 {
@@ -91,5 +92,15 @@ class DoctorController extends Controller
     return response()->json([
         'events' => $events,
       ]);
+  }
+  public function deleteAppointments(Request $request){
+
+      if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+        $rdvs  = Rdv::where('id',$request->idRdv)->delete();
+        return  back()->withSuccess("delete");
+      }else{
+        $rdvs  = Rdv::where('id',$request->idRdv)->update(['deleted' => 1]);
+        return  back()->withSuccess("delete");
+      }
   }
 }
