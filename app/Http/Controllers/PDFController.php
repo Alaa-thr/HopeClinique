@@ -44,6 +44,23 @@ class PDFController extends Controller
         return view('myPDF',['prescriptions'=>$prescriptions,'users'=>$this->getNameUsers(),'patient'=>$patient]);
      }
 
+     public function getOrdannance($id)
+     {
+
+        $patient = \DB::table('prescriptions')->where('prescriptions.id', $id)
+            ->join('patients','patients.id','=','prescriptions.patient_id')
+            ->select('prescriptions.date','patients.nom','patients.prenom',
+            'patients.Num_Secrurite_Social','patients.date_naiss')
+            ->get();
+        $prescriptions = \DB::table('prescriptions')->where('prescriptions.id', $id)
+            ->join('ligne__prescriptons','ligne__prescriptons.prescription_id','=','prescriptions.id')
+            ->select('ligne__prescriptons.medicament as medicament',
+            'ligne__prescriptons.dose as dose','ligne__prescriptons.moment_prises as moment_prises',
+            'ligne__prescriptons.duree_traitement as duree_traitement')
+            ->get();
+        return view('myPDF',['prescriptions'=>$prescriptions,'users'=>$this->getNameUsers(),'patient'=>$patient]);
+     }
+     
     public function generatePDF($id)
     {
 
@@ -64,7 +81,6 @@ class PDFController extends Controller
             $prenom = $p->prenom;
           }
           return $pdf->download('ordonnance '.$nom.' '.$prenom.'.pdf');
-
     }
 
     public function getLettreOrientation($idLettre)

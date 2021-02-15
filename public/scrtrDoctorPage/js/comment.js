@@ -1,3 +1,4 @@
+
 function deleteComment(idComment) {
     Swal.fire({
       title: 'Are you sure?',
@@ -13,3 +14,4 @@ function deleteComment(idComment) {
       }
     })
 }
+

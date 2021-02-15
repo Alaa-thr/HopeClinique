@@ -147,7 +147,6 @@ class PatientController extends Controller
 
                   }
                   $i++;
-
         }
         return back()->withSuccess("add");
 
@@ -215,6 +214,7 @@ class PatientController extends Controller
 
         return  back()->withSuccess("update");
     }
+
     public function deleteLettre(Request $request){
 
         $lettre_orientations  = Lettre_Orientation::find($request->idLettre);
@@ -259,6 +259,5 @@ class PatientController extends Controller
       $doctors = \DB::table('medecins')->select('id','nom','prenom')->get();
       return view('users.Allordonnance',['users'=>$this->getNameUsers(),'listeP'=>$listeP,
       'date'=>$date,'idPatient'=>'user_id',Auth::user()->id,'medicaments'=>$medicaments,'ordonnances'=>$ordonnances,'doctors'=>$doctors]);
-
     }
 }

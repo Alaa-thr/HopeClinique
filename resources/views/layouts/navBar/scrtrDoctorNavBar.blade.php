@@ -115,7 +115,7 @@
                         </li>
                         @endif
                         <li class="<?php echo $stripeProfile ?>">
-                            <a href="{{route('profile')}}"><i class="fa fa-dashboard"></i> <span>Profile</span></a>
+                            <a href="{{route('profile')}}"><i class="fa fa-user"></i> <span>Profile</span></a>
                         </li>
                         @if(Auth::user()->user_roles == 'adminM')
                         <li>

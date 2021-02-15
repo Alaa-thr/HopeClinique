@@ -83,8 +83,6 @@ Route::put('updateLettre',[PatientController::class, 'updateLettre']);
 Route::delete('deleteLettre',[PatientController::class, 'deleteLettre']);
 Route::get('generateLettre-pdf/{id}', [PDFController::class, 'generatePDFLettre']);
 Route::get('lettreOrientation/{id}', [PDFController::class, 'getLettreOrientation']);
-
-
 Route::delete('deleteUser', [AdminController::class, 'destroy']);
 
 /* ADD Commantaire Pages */
