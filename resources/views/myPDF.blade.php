@@ -31,7 +31,7 @@
         margin-top: 50px;
         margin-left: 20px;
         margin-right: 20px;
-        
+
     }
     .card-box{
       margin-left: 5px;
@@ -49,7 +49,13 @@
               <div class="row">
                 <div class="txt" style="text-align: center;font-size: 20px;margin-bottom: 10px">
                   <b>
+                    @if(Auth::user()->user_roles != 'patient')
                     Dr.{{strtoupper($users)}}
+                    @else
+                    @foreach($users as $user)
+                    Dr.{{strtoupper($user->nom)}}  {{strtoupper($user->prenom)}}
+                    @endforeach
+                    @endif
                   </b>
                 </div>
                 <div class="txt">
@@ -58,12 +64,12 @@
                 <div class="txt">
                   <b>Nom et prénom :</b>&nbsp;&nbsp;&nbsp;&nbsp;
                     {{strtoupper ($patien->nom ) }} {{strtoupper ($patien->prenom) }}
-                  
+
                 </div>
                 <div class="txt">
                   <b>Date de naissance:</b>&nbsp;&nbsp;&nbsp;&nbsp;
                     {{$patien->date_naiss}}
-                  
+
                 </div>
               </div>
               @endforeach
@@ -82,7 +88,7 @@
                       </tbody>
                     </table>
               </div>
-              
+
           </div>
       </div>
 </body>

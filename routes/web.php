@@ -63,6 +63,8 @@ Route::get('allOrdinances', [PatientController::class, 'allOrdinancesPatient'])-
 
 /* ADD patient Imagerie Pages */
 Route::post('addImagerie', [PatientController::class, 'addImageriePatient']);
+Route::delete('deleteAppointment', [DoctorController::class, 'deleteAppointments']);
+
 /* ADD users Pages */
 Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
 Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');

@@ -12,7 +12,7 @@ class Prescription extends Model
 
 
     protected $fillable = [
-      'id','medecin_id','patient_id','date','nom_medecin','prenom_medecin'  ];
+      'id','medecin_id','patient_id','date','nom_medecin','prenom_medecin','deleted'  ];
 
 
       public function ligne_prescripton()
