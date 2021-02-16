@@ -71,7 +71,7 @@
                     @if($appointment->patient_id == $appoint->id)
                     <tr>
                       <td>{{$appoint->nom}}
-                        {{$appoint->prenom}} </td>
+                          {{$appoint->prenom}} </td>
                       <td>{{$appoint->date_naiss}}</td>
                       @endif
                       @endforeach
@@ -87,6 +87,8 @@
 											<td>{{$appoint->nom}} {{$appoint->prenom}}</td>
                       @endif
                       @endforeach
+                      @else
+                      <td>{{$appointment->medecinName}} {{$appointment->medecinPrenom}}</td>
                       @endif
 											<td>{{$appointment->date}}</td>
 											<td>{{$appointment->heure_debut}}</td>
@@ -96,6 +98,7 @@
                       <td><span class="custom-badge status-green">Active</span></td>
                       @endif
                       <td class="text-right">
+                        @if($today->diffInDays($appointment->date,false) < 0)
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
@@ -111,6 +114,7 @@
                             </form>
                     			</div>
 												</div>
+                        @endif
 											</td>
 										</tr>
 										@endforeach

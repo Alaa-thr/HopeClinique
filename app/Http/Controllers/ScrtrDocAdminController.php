@@ -282,14 +282,26 @@ class ScrtrDocAdminController extends Controller
       $today = today();
       if( Auth::user()->user_roles == 'adminM'){
 
-        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')->join('medecins','medecins.id','=','rdvs.medecin_id')->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')->get();
+        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')
+        ->join('medecins','medecins.id','=','rdvs.medecin_id')
+        ->select('rdvs.deletedA','rdvs.id','rdvs.patient_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss',
+        'medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+        ->groupby('deletedA','id','patient_id','heure_fin','date','heure_debut','patientName','patientPrenom','medecinPrenom','date_naiss','medecinName')
+        ->having('deletedA','=',0)
+        ->orderBy('rdvs.heure_debut','asc')
+        ->orderBy('rdvs.date','desc')
+        ->get();
         return view('adminPages.allAppointmentsAdmin',['today'=>$today,'users'=>$this->getNameUsers(),'appointments' => $appointments]);
+
       }elseif(Auth::user()->user_roles == 'doctor'){
         $appointments = \DB::table('rdvs')
                       ->join('medecins','medecins.id','=','rdvs.medecin_id')
-                      ->select('rdvs.id','rdvs.patient_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
-                      ->groupby('id','patient_id','heure_fin','date','heure_debut','user_id','medecinPrenom','medecinName')
+                      ->select('rdvs.deleted','rdvs.id','rdvs.patient_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+                      ->groupby('deleted','id','patient_id','heure_fin','date','heure_debut','user_id','medecinPrenom','medecinName')
                       ->having('user_id','=',Auth::user()->id)
+                      ->having('deleted','=',0)
+                      ->orderBy('rdvs.heure_debut','asc')
+                      ->orderBy('rdvs.date','desc')
                       ->get();
         $appointmentss = \DB::table('patients')->get();
         return view('adminPages.allAppointmentsAdmin',['today'=>$today,'users'=>$this->getNameUsers(),'appointmentss' => $appointmentss,'appointments' => $appointments]);
@@ -297,10 +309,12 @@ class ScrtrDocAdminController extends Controller
         elseif(Auth::user()->user_roles == 'patient'){
           $appointments = \DB::table('rdvs')
                         ->join('patients','patients.id','=','rdvs.patient_id')
-                        ->select('rdvs.deleted','rdvs.id','rdvs.patient_id','rdvs.medecin_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','patients.prenom as patientPrenom','patients.nom as patientName','patients.date_naiss')
-                        ->groupby('deleted','id','medecin_id','patient_id','heure_fin','date','heure_debut','user_id','patientName','patientPrenom','date_naiss')
+                        ->select('rdvs.deletedP','rdvs.id','rdvs.patient_id','rdvs.medecin_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','patients.prenom as patientPrenom','patients.nom as patientName','patients.date_naiss')
+                        ->groupby('deletedP','id','medecin_id','patient_id','heure_fin','date','heure_debut','user_id','patientName','patientPrenom','date_naiss')
                         ->having('user_id','=',Auth::user()->id)
-                        ->having('deleted','=',0)
+                        ->having('deletedP','=',0)
+                        ->orderBy('rdvs.heure_debut','asc')
+                        ->orderBy('rdvs.date','desc')
                         ->get();
           $appointmentss = \DB::table('medecins')->get();
           $idd = \DB::table('patients')->where('user_id',Auth::user()->id)->value('id');

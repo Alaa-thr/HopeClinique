@@ -95,12 +95,13 @@ class DoctorController extends Controller
   }
   public function deleteAppointments(Request $request){
 
-      if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
-        $rdvs  = Rdv::where('id',$request->idRdv)->delete();
-        return  back()->withSuccess("delete");
-      }else{
+      if(Auth::user()->user_roles == 'doctor'){
         $rdvs  = Rdv::where('id',$request->idRdv)->update(['deleted' => 1]);
-        return  back()->withSuccess("delete");
+      }elseif(Auth::user()->user_roles == 'adminM'){
+          $rdvs  = Rdv::where('id',$request->idRdv)->update(['deletedA' => 1]);
+        }elseif(Auth::user()->user_roles == 'patient'){
+        $rdvs  = Rdv::where('id',$request->idRdv)->update(['deletedP' => 1]);
       }
+      return  back()->withSuccess("delete");
   }
 }

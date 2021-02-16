@@ -94,13 +94,14 @@ class AdminController extends Controller
         $villes=\DB::table('villes')->orderBy('id','asc')->get();
 
         //pour récupérer les maladies chroniques m bdd
-        $chroniques=\DB::table('maladieschroniques')->orderBy('id','asc')->get();
+        $chroniques=\DB::table('maladieschroniques')->orderBy('nom','asc')->get();
 
         //pour récupérer les allergies m bdd
-        $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
+        $allergies=\DB::table('allergies')->orderBy('nom','asc')->get();
+        $specialty=\DB::table('specialites')->orderBy('nom','asc')->get();
 
         return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
-        'chroniques'=>$chroniques,'allergies'=>$allergies,'users'=>$this->getNameUsers()]);
+        'chroniques'=>$chroniques,'allergies'=>$allergies,'users'=>$this->getNameUsers(),'specialty'=>$specialty]);
     }
 
     public function updateProfile(ProfileRequest $request)
