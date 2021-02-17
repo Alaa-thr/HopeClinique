@@ -106,7 +106,7 @@
 													<div class="dropdown-menu dropdown-menu-right">
                             @if(Auth::user()->user_roles != 'patient')
 														<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="addAppointment/6"><i class="fa fa-plus m-r-5"></i> Add Appointment</a>
+														<!--a class="dropdown-item" href="addAppointment/6"><i class="fa fa-plus m-r-5"></i> Add Appointment</a-->
                             @endif
                             <form action="{{ url('deleteAppointment') }}" method="post" id="deleteBtn">
                                 {{  csrf_field() }}
@@ -117,6 +117,21 @@
                     			</div>
 												</div>
                         @endif
+												@if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+												@if($today->diffInDays($appointment->date,false) >= 0)
+												<div class="dropdown dropdown-action">
+													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<form action="{{ url('app/'.$appointment->id )}}" method="get">
+															 <button class="dropdown-item" data-toggle="modal">
+																 <input type="hidden" value="secretarie" name="role"/>
+																 <i class="fa fa-pencil m-r-5"></i> Edit</a>
+															 </button>
+														</form>
+                    			</div>
+												</div>
+                        @endif
+										  	@endif
 											</td>
 										</tr>
 										@endforeach
