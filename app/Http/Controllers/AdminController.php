@@ -34,10 +34,11 @@ class AdminController extends Controller
 
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+        }else if(Auth::user()->user_roles == 'patient'){
+          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->select('nom','prenom')->get();
         }
         return  $nameUser;
     }
-
     public function allDoctorsAdmin()
     {
         $liste = Medecin::paginate(8);//pour afficher liste de medecin
@@ -185,15 +186,6 @@ class AdminController extends Controller
 
                 return  back()->withSuccess("delete");
             }
-          /*  elseif($request->typeUser == 'patient'){
-                $patient = \DB::table('patients')->where([['id', $request->idUser]])->get();
-                foreach ($patient as $key ) {
-                        $user_id = $key->user_id;
-                    }
-              $user = \DB::table('users')->where('id', $user_id)->delete();
-
-              return  back()->withSuccess("delete");
-          }*/
         }
         public function editInformations(Request $request,$id)
        {
@@ -248,7 +240,7 @@ class AdminController extends Controller
        }
        public function updateInformations(updateInforRequest $request,$id)
        {
-
+        
           if($request->roleU == 'doctor'){
             if(Auth::user()->user_roles == 'adminM'){
               $doctor = Medecin::find($id);
@@ -274,8 +266,16 @@ class AdminController extends Controller
               $patient->ville = $request->city;
               $patient->Num_Secrurite_Social   = $request->social_security;
               $patient->date_naiss   = $request->date_of_birth;
-              $patient->maladie_chronique   = $request->chronic_diseases;
-              $patient->allergie   = $request->allergie;
+              $allergie = $chronic_diseases = "";
+
+              foreach ($request->allergie as $key) {
+                $allergie = $allergie.' '.$key;
+              }
+              foreach ($request->chronic_diseases as $key) {
+                $chronic_diseases = $chronic_diseases.' '.$key;
+              }
+              $patient->maladie_chronique = $allergie;
+              $patient->allergie          = $chronic_diseases;
               $patient->antecedent   = $request->antecedent;
               $patient->commentaire   = $request->comment;
               $user->phone = $request->phone;
@@ -302,13 +302,12 @@ class AdminController extends Controller
 
           if($request->roleU == 'secretaire'){
                if(Auth::user()->user_roles == 'adminM'){
-                  $secretaire = Secretaire::find($id);
-                  echo $secretaire;
-                  $user    = User::find($secretaire->user_id);
+                  $secretaire = Secretaire::where('id',$id)->first();
+                  $ss = \DB::table('secretaires')->where('id',$id)->get();
+                  $user    = User::find($ss[0]->user_id);
                   $secretaire->nom    = $request->first_name;
                   $secretaire->prenom = $request->last_name;
                   $secretaire->gender = $request->gender;
-                //  $secretaire->specialite = $request->specialite;
                   $user->email   = $request->email;
                   $user->phone = $request->phone;
                   $secretaire->save();

@@ -34,7 +34,7 @@ class ScrtrDocAdminController extends Controller
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }else if(Auth::user()->user_roles == 'patient'){
-          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->get();
+          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->select('nom','prenom')->get();
         }
         return  $nameUser;
     }
@@ -213,8 +213,16 @@ class ScrtrDocAdminController extends Controller
               $patient->gender            = $request->gender == '1' ? 'Female' : 'Male' ;
               $patient->ville             = $request->city;
               $patient->date_naiss        = Carbon::createFromFormat('m-d-Y', $request->date_of_birth)->format('Y-m-d');
-              $patient->maladie_chronique = $request->chronic_diseases;
-              $patient->allergie          = $request->allergie;
+              $allergie = $chronic_diseases = "";
+
+              foreach ($request->allergie as $key) {
+                $allergie = $allergie.' '.$key;
+              }
+              foreach ($request->chronic_diseases as $key) {
+                $chronic_diseases = $chronic_diseases.' '.$key;
+              }
+              $patient->maladie_chronique = $allergie;
+              $patient->allergie          = $chronic_diseases;
               $patient->age               = Carbon::parse($request->date_of_birth)->age;
               $patient->antecedent        = $request->antecedent;
               $patient->user_id           = $user->id;
@@ -334,14 +342,21 @@ class ScrtrDocAdminController extends Controller
     {
         $allPatients = Patient::All();
         $allDoctors = Medecin::All();
-        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>$allPatients,'allDoctors'=>$allDoctors]);
+        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>$allPatients,'allDoctors'=>$allDoctors,'updatePage'=> false]);
     }
 
-    public function showAddAppointmentID($id)
+    public function showUpdateAppointment($idAppointment)
     {
-        $allPatients = Patient::find($id);
-        $allDoctors = Medecin::All();
-        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>[$allPatients],'allDoctors'=>$allDoctors]);
+     
+        $appointment = \DB::table('rdvs')
+            ->join('patients','patients.id','=','rdvs.patient_id')
+            ->join('medecins','medecins.id','=','rdvs.medecin_id')
+            ->join('users','users.id','=','patients.user_id')
+            ->where('rdvs.id',$idAppointment)
+            ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientSecondName','patients.id as patientId','medecins.nom as doctorName','medecins.prenom as doctorSecondName','medecins.id as doctorId','date_naiss','specialite','email','phone')
+            ->get();
+        $date = Carbon::createFromFormat('Y-m-d',$appointment[0]->date)->format('d-m-Y');
+        return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'appointments'=>$appointment,'updatePage'=> true,'date'=>$date]);
     }
 
     public function addAppointment(Request $request)
@@ -349,13 +364,27 @@ class ScrtrDocAdminController extends Controller
       $appointment = new Rdv();
       $idPatient = \DB::table('patients')->where('user_id',$request->patient)->select('id')->get();
       $appointment->medecin_id = $request->doctor;
+      //return $appointment;
       $appointment->patient_id = $idPatient[0]->id;
       $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
       $appointment->heure_debut = date("h:i", strtotime( $request->time_beging ));
       $appointment->heure_fin = date("h:i", strtotime( $request->time_end ));
       $appointment->motif = $request->reason;
       $appointment->save();
-      return back()->withSuccess("");
+      return back()->withSuccess("add");
+      return $request;
+
+    }
+
+    public function updateAppointmentInfo(Request $request)
+    {
+      $appointment = Rdv::find($request->idAppointment);
+      $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
+      $appointment->heure_debut = date("h:i", strtotime( $request->time_beging));
+      $appointment->heure_fin = date("h:i", strtotime( $request->time_end));
+      $appointment->motif = $request->reason;
+      $appointment->save();
+      return back()->withSuccess("update");
 
     }
 

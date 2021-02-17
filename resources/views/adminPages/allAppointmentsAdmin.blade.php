@@ -104,34 +104,27 @@
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
-                            @if(Auth::user()->user_roles != 'patient')
-														<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-														<!--a class="dropdown-item" href="addAppointment/6"><i class="fa fa-plus m-r-5"></i> Add Appointment</a-->
-                            @endif
-                            <form action="{{ url('deleteAppointment') }}" method="post" id="deleteBtn">
+
+                            <form action="{{ url('deleteAppointment') }}" method="post" id="deleteBtn{{$appointment->id}}">
+                           
+                            
                                 {{  csrf_field() }}
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="idRdv" value="{{$appointment->id}}">
-                                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteUser()"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteUser('deleteBtn{{$appointment->id}}')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                             </form>
                     			</div>
 												</div>
+                        @else
+                        <div class="dropdown dropdown-action">
+                          <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{url('updateAppointment/'.$appointment->id)}}" class="dropdown-item"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                          </div>
+                        </div>
+
                         @endif
-												@if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
-												@if($today->diffInDays($appointment->date,false) >= 0)
-												<div class="dropdown dropdown-action">
-													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-													<div class="dropdown-menu dropdown-menu-right">
-														<form action="{{ url('app/'.$appointment->id )}}" method="get">
-															 <button class="dropdown-item" data-toggle="modal">
-																 <input type="hidden" value="secretarie" name="role"/>
-																 <i class="fa fa-pencil m-r-5"></i> Edit</a>
-															 </button>
-														</form>
-                    			</div>
-												</div>
-                        @endif
-										  	@endif
+											
 											</td>
 										</tr>
 										@endforeach

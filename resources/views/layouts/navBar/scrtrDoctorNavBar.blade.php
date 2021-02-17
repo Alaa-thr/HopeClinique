@@ -62,7 +62,9 @@
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         @foreach($users as $user)
                             <span class="user-img">
-                                <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
+                                @if(Auth::user()->user_roles != 'patient')
+                                    <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
+                                @endif
                             </span>
                             <span>{{$user->nom}} {{$user->prenom}}</span>
                         @endforeach

@@ -36,7 +36,7 @@ Route::get('dashboard', [ScrtrDocAdminController::class, 'dashboard'])->name('da
 Route::get('profile', [ScrtrDocAdminController::class, 'profile'])->name('profile');
 Route::get('editProfile',[ScrtrDocAdminController::class,'editProfile'])->name('editProfile');
 Route::get('addAppointment',[ScrtrDocAdminController::class,'showAddAppointment'])->name('addAppointment');
-Route::get('addAppointment/{id}',[ScrtrDocAdminController::class,'showAddAppointmentID']);
+//Route::get('addAppointment/{id}',[ScrtrDocAdminController::class,'showAddAppointmentID']);
 Route::post('addAppointmentInfo',[ScrtrDocAdminController::class,'addAppointment'])->name('addAppointmentInfo');
 Route::get('getPatientSelected/{id}',[ScrtrDocAdminController::class,'getPatientSelected'])->name('getPatientSelected');
 Route::get('checkDateAppointment/{date}/{timeD}/{timeF}',[ScrtrDocAdminController::class,'checkDateAppointment']);
@@ -76,6 +76,8 @@ Route::get('allOrdinances', [PatientController::class, 'allOrdinancesPatient'])-
 /* ADD patient Imagerie Pages */
 Route::post('addImagerie', [PatientController::class, 'addImageriePatient']);
 Route::delete('deleteAppointment', [DoctorController::class, 'deleteAppointments']);
+Route::get('updateAppointment/{id}', [ScrtrDocAdminController::class, 'showUpdateAppointment']);
+Route::put('updateAppointmentInfo', [ScrtrDocAdminController::class, 'updateAppointmentInfo']);
 
 /* ADD users Pages */
 Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
