@@ -110,5 +110,5 @@
                 </div>
             </div>
         </div>
-<script src="{{asset('scrtrDoctorPage/js/users.js')}}"></script>
+<script src="{{asset('scrtrDoctorPage/js/secretaire.js')}}"></script>
 @endsection

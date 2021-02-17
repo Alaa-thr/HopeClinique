@@ -104,7 +104,10 @@
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
+
                             <form action="{{ url('deleteAppointment') }}" method="post" id="deleteBtn{{$appointment->id}}">
+                           
+                            
                                 {{  csrf_field() }}
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="idRdv" value="{{$appointment->id}}">
@@ -121,6 +124,7 @@
                         </div>
 
                         @endif
+											
 											</td>
 										</tr>
 										@endforeach

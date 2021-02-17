@@ -15,6 +15,8 @@ use App\Http\Requests\AddUsersRequest;
 use App\Http\Requests\AddAppointment;
 use App\Http\Controllers\AdminController;
 use App\Models\Specialite;
+use App\Models\Blog;
+use App\Models\Image;
 
 class ScrtrDocAdminController extends Controller
 {
@@ -434,4 +436,54 @@ class ScrtrDocAdminController extends Controller
           $specialites  = Specialite::where('id',$request->service)->delete();
           return  back()->withSuccess("delete");
     }
+    public function destroy(Request $request){
+
+            $blog =Blog::where('id',$request->idUser)->delete();
+            return  back()->withSuccess("delete");
+            }
+
+    public function updateBlog(Request $request,$id){
+
+            return view('adminPages.updateBlog',['users'=>$this->getNameUsers(),'idblog'=>$id]);
+      }
+      public function update(Request $request)
+      {
+        if($request->title !="" || $request->avatar !="" || $request->description !=""){
+                $bloge = Blog::find($request->idblo);
+              if($request->title !=""){
+                $request->validate([
+                  'title' => ['required', 'string', 'max:100', 'min:3'],
+                  ]);
+                $bloge->title       = $request->title;
+              }if($request->description !=""){
+                $request->validate([
+                  'description' => ['required', 'string','max:1000', 'min:3'],
+                  ]);
+                $bloge->description       = $request->description;
+              }if($request->avatar !=""){
+                if($request->hasFile('avatar')){
+                  $request->validate([
+                    'avatar' => ['required','image'],
+                    ]);
+                      $bloge->avatr = $request->avatar->store('users_Avatar/blog');
+                   }              }
+                $bloge->medecin_id  = $request->idDoctor;
+                $bloge->save();
+            return back()->withSuccess("Ok");
+          }
+            return back();
+      }
+
+      public function updateimage(Request $request)
+      {
+
+        $images   = \DB::table('images')->where([['patient_id', $request->idPatient]])->get();
+
+        return view('users.deleteImage',['images' => $images,'users'=>$this->getNameUsers(),]);
+      }
+      public function destroyImage(Request $request){
+        echo $request->idImg;
+              $images =Image::where('id',$request->idImg)->delete();
+              return back()->withSuccess("Ok");
+              }
 }

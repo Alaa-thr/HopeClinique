@@ -106,4 +106,9 @@ class DoctorController extends Controller
       }
       return  back()->withSuccess("delete");
   }
+
+  public function UpdateAppointments(){
+
+    return view('search.SearchDoctor',['users'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'userM'=>$userM]);
+  }
 }

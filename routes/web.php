@@ -40,6 +40,7 @@ Route::get('addAppointment',[ScrtrDocAdminController::class,'showAddAppointment'
 Route::post('addAppointmentInfo',[ScrtrDocAdminController::class,'addAppointment'])->name('addAppointmentInfo');
 Route::get('getPatientSelected/{id}',[ScrtrDocAdminController::class,'getPatientSelected'])->name('getPatientSelected');
 Route::get('checkDateAppointment/{date}/{timeD}/{timeF}',[ScrtrDocAdminController::class,'checkDateAppointment']);
+Route::put('UpdateAppointment', [ScrtrDocAdminController::class, 'UpdateAppointments']);
 
 /* Admin Pages */
 Route::get('allDoctors', [AdminController::class, 'allDoctorsAdmin'])->name('allDoctors');
@@ -59,8 +60,14 @@ Route::post('addBlogStore', [AdminController::class, 'store']);
 Route::get('addService',[AdminController::class,'addServicePage']);
 Route::get('updateService/{id}',[AdminController::class,'updateServicePage']);
 Route::post('serviceStore', [AdminController::class, 'storeSsrvice']);
+Route::delete('deleteBlog', [ScrtrDocAdminController::class, 'destroy']);
+Route::get('updateBlog/{id}',[ScrtrDocAdminController::class,'updateBlog']);
+Route::post('updateBlogStore', [ScrtrDocAdminController::class, 'update']);
+Route::get('updateImg', [ScrtrDocAdminController::class, 'updateimage']);
+Route::delete('deleteImg', [ScrtrDocAdminController::class, 'destroyImage']);
 Route::put('serviceUpdate', [AdminController::class, 'serviceUpdate']);
 Route::delete('deleteService', [AdminController::class, 'deleteService']);
+
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');
@@ -99,6 +106,8 @@ Route::get('commentaire/{id}',[PatientController::class, 'commentaire']);
 Route::post('ADDcommentaire',[PatientController::class, 'ADDcommentaire']);
 Route::put('updateCommentaire',[PatientController::class, 'ADDcommentaire']);
 Route::delete('deleteComment',[PatientController::class, 'deleteComment']);
+
+Route::get('app/{id}',[PatientController::class, 'app']);
 
 Auth::routes();
 
