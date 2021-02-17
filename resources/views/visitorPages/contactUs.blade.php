@@ -19,9 +19,9 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Contact Section Begin -->
-    <section class="contact spad">
+    <section class="contact spad" style="margin-bottom: 30px">
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-bottom: 15px">
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="contact__widget">
                         <div class="contact__widget__icon">
@@ -33,6 +33,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px">
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="contact__widget">
                         <div class="contact__widget__icon">
@@ -40,10 +42,13 @@
                         </div>
                         <div class="contact__widget__text">
                             <h5>Hotline</h5>
-                            <p>1-677-124-44227 • 1-688-356-66889</p>
+                            <p>+213-540-844-782 • +213-650-844-783</p>
                         </div>
                     </div>
+                    
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="contact__widget">
                         <div class="contact__widget__icon">
@@ -56,27 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contact__content">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="contact__pic">
-                            <img src="{{ asset('visitorPage/img/contact-pic.jpg')}}" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="contact__form">
-                            <h3>Get in touch</h3>
-                            <form action="#">
-                                <input type="text" placeholder="Name">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Website">
-                                <textarea placeholder="Message"></textarea>
-                                <button type="submit" class="site-btn">Send Message</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection

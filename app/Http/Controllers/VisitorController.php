@@ -27,25 +27,33 @@ class VisitorController extends Controller
     public function index()
     {
       $blogs = Blog::all();
-      $allservices = Specialite::all();
+      $allservices = Specialite::all()->take(4);
       $listeM = \DB::table('medecins')
                 ->join('users','users.id','=','medecins.user_id')
                 ->select('medecins.avatar','medecins.id','medecins.nom','medecins.prenom',
                 'medecins.specialite','users.phone','users.email')
                 ->get();
-      return view('welcome',['allservices'=>$allservices,'blogs'=>$blogs,'listeM'=>$listeM]);
+      return view('welcome',['allservices'=>$allservices,'blogs'=>$blogs,'listeM'=>$listeM,'users'=>$this->getNameUsers()]);
     }
 
     public function aboutUs()
     {
-        return view('visitorPages.aboutUS');
+      $listeM = \DB::table('medecins')
+                ->join('users','users.id','=','medecins.user_id')
+                ->select('medecins.avatar','medecins.id','medecins.nom','medecins.prenom',
+                'medecins.specialite','users.phone','users.email')
+                ->get();
+        return view('visitorPages.aboutUS',['listeM'=>$listeM,'users'=>$this->getNameUsers()]);
     }
 
     public function blogs()
     {
-        $blogs = Blog::all();
+        $blogs = \DB::table('blogs')
+                 ->join('medecins','medecins.id','=','blogs.medecin_id')
+                 ->select('blogs.*','nom','prenom')
+                 ->get();
 
-        return view('visitorPages.blog',['blogs'=>$blogs]);
+        return view('visitorPages.blog',['blogs'=>$blogs,'users'=>$this->getNameUsers()]);
     }
 
     public function bolgDetails()
@@ -55,7 +63,7 @@ class VisitorController extends Controller
 
     public function contactUs()
     {
-        return view('visitorPages.contactUs');
+        return view('visitorPages.contactUs',['users'=>$this->getNameUsers()]);
     }
 
     public function doctors()

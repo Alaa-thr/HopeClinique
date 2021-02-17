@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Blog;
 use App\Http\Requests\BlogRequest;
 use App\Http\Requests\ServiceRequest;
+use App\Http\Requests\ServiceUpdateRequest;
 use App\Models\Specialite;
 
 class AdminController extends Controller
@@ -65,7 +66,7 @@ class AdminController extends Controller
 
     public function allservicesAdmin()
     {
-      $allservices = Specialite::paginate(10);
+      $allservices = Specialite::paginate(6);
       return view('adminPages.allservicesAdmin',['users'=>$this->getNameUsers(),'allservices'=>$allservices]);
     }
 
@@ -335,20 +336,42 @@ class AdminController extends Controller
               }
              return back()->withSuccess("Ok");
        }
-       public function service($type)
+       public function addServicePage()
        {
-           return view('adminPages.addService',['users'=>$this->getNameUsers()]);
+           return view('adminPages.addService',['users'=>$this->getNameUsers(),'updatePage' => false]);
+       }
+       public function updateServicePage($idService)
+       {
+          $service = Specialite::find($idService);
+           return view('adminPages.addService',['users'=>$this->getNameUsers(),'updatePage' => true,'service' => $service]);
        }
        public function storeSsrvice(ServiceRequest $request)
        {
-         if(Auth::user()->user_roles == 'adminM'){
-                 $specialites = new Specialite();
-                 $specialites->nom = $request->name_specialty;
-                 if($request->hasFile('avatar')){
-                       $specialites->avatar = $request->avatar->store('users_Avatar/service');
-                    }
-                 $specialites->save();
-              }
-             return back()->withSuccess("Ok");
+          $specialites = new Specialite();
+          $specialites->nom = $request->name_specialty;
+          $specialites->discription = $request->description;
+          if($request->hasFile('avatar')){
+            $specialites->avatar = $request->avatar->store('service');
+          }
+          $specialites->save();
+          return back()->withSuccess("add");
+       }
+       public function serviceUpdate(ServiceUpdateRequest $request)
+       {
+          $specialites = Specialite::find($request->idService);
+
+          $specialites->nom = $request->name_specialty;
+          $specialites->discription = $request->description;
+          if($request->hasFile('avatar')){
+            $specialites->avatar = $request->avatar->store('service');
+          }
+          $specialites->save();
+          return back()->withSuccess("update");
+       }
+      public function deleteService(Request $request)
+       {
+          $specialite = Specialite::find($request->idService);
+          $specialite->delete();
+          return back()->withSuccess("delete");
        }
 }
