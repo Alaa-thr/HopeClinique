@@ -29,14 +29,14 @@ class AddUsersRequest extends FormRequest {
             'last_name' =>['required','regex:/^[\pL\s\-]+$/u'],
             'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'email' =>['required', 'string','email'],
-            'password' =>['required', 'string', 'min:8'],
+            'password' =>['required', 'string', 'min:8','max:15'],
             'date_of_birth' =>['required'],
             'city' => ['required'],
             'social_security_number' => ['required','min:12','max:12','alpha_num'],
             /*'commentaire' => ['nullable','string','regex:/^[a-z0-9A-Z]+[a-z0-9A-Z"_-éèàç,.:!?<>%*()&]+'],*/
-            'allergie' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
+            'allergie' => ['nullable'],
             'antecedent' => ['nullable','string','regex:/^[A-Za-z0-9\s.,çàéè]+$/'],
-            'chronic_diseases' => ['nullable','string','regex:/^[\pL\s\-]+$/u'],
+            'chronic_diseases' => ['nullable'],
         ];
       }else if($this->typeUser == 'adminM' || $this->typeUser == 'doctor'){
           return [
@@ -45,7 +45,7 @@ class AddUsersRequest extends FormRequest {
             'phone_number' =>  ['required', 'string','regex:/^0[5-7][0-9]+/',"min:10","max:10"],
             'email' =>['required', 'string','email'],
             'password' =>['required', 'string', 'min:8'],
-            'Specialty' =>['required', 'string'],
+            'Specialty' =>['required'],
             'avatar' => ['required','image'],
             'role' => ['required'],
           ];

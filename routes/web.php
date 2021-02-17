@@ -28,6 +28,8 @@ Route::get('bolgDetails',[VisitorController::class,'bolgDetails'])->name('bolgDe
 Route::get('contact',[VisitorController::class,'contactUs'])->name('contact');
 Route::get('doctors',[VisitorController::class,'doctors'])->name('doctors');
 Route::get('services',[VisitorController::class,'services'])->name('services');
+Route::delete('deleteService', [ScrtrDocAdminController::class, 'deleteServices']);
+Route::get('detailsBlogVisiteur/{id}',[VisitorController::class,'detailsBlogVisiteurs']);
 
 /* Secretaire & Doctor Pages */
 Route::get('dashboard', [ScrtrDocAdminController::class, 'dashboard'])->name('dashboard');
@@ -66,6 +68,8 @@ Route::get('allOrdinances', [PatientController::class, 'allOrdinancesPatient'])-
 
 /* ADD patient Imagerie Pages */
 Route::post('addImagerie', [PatientController::class, 'addImageriePatient']);
+Route::delete('deleteAppointment', [DoctorController::class, 'deleteAppointments']);
+
 /* ADD users Pages */
 Route::get('/searchPatient', [PatientController::class, 'getsearchPatient'])->name('searchPatient');
 Route::get('/searchSecretaires', [SecretaireController::class, 'getsearchSecretaires'])->name('searchSecretaires');

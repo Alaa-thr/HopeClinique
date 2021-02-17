@@ -43,18 +43,23 @@
                                             <td>{{strtoupper ($service->nom ) }}</td>
                                             <td>{{$service->discription}}</td>
                                             <td class="text-right">
-                                                <div class="dropdown dropdown-action">
-                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="{{ url('updateService/'.$service->id)}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        <form action="{{ url('deleteService') }}" method="post" id="deleteBtn{{$service->id}}">
+												<form action="{{ url('deleteService') }}" method="post" id="deleteBtn">
+													{{  csrf_field() }}
+													<input type="hidden" name="_method" value="DELETE">
+													<input type="hidden" name="service" value="{{$service->id}}">
+													<div class="dropdown dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="{{ url('updateService/'.$service->id)}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                            <form action="{{ url('deleteService') }}" method="post" id="deleteBtn{{$service->id}}">
                                                             {{  csrf_field() }}
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="idService" value="{{$service->id}}">
-                                                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteService('deleteBtn{{$service->id}}')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                        </form>
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <input type="hidden" name="idService" value="{{$service->id}}">
+                                                                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteService('deleteBtn{{$service->id}}')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                </div>
+												</form>
                                             </td>
                                          </tr>
                                          <?php $i++; ?>

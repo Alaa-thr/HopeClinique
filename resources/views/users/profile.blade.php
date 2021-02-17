@@ -66,6 +66,7 @@
 											<li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-toggle="tab">Profile</a></li>
 										</ul>
 								</div>
+
 						@if(Auth::user()->user_roles == 'patient')
 						<div style="height:30px"></div>
 						<div class="card-box">

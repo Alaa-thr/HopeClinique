@@ -32,7 +32,7 @@
                             <img src="{{asset('storage/'.$b->avatr)}}" alt="">
                         </div>
                         <div class="blog__item__text">
-                            <h5><a href="{{ url('detailsBlog/'.$b->id)}}">{{$b->title}}</a></h5>
+                            <h5><a href="{{ url('detailsBlogVisiteur/'.$b->id)}}">{{$b->title}}</a></h5>
                             <ul>
                                 <li> BY {{strtoupper ($b->nom) }} {{strtoupper ($b->prenom) }}</li>
                                 <li>{{$b->created_at}}</li>

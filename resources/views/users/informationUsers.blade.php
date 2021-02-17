@@ -13,7 +13,6 @@
 
 					</div>
 			</div>
-
 			@foreach($user as $p)
 				@foreach($usersSelect as $u)
 			  	@if($typeUser == 'patient')
@@ -151,15 +150,14 @@
 															<td>{{strtoupper ($m->nom ) }} {{strtoupper ($m->prenom) }}</td>
 															@endif
 														<td>{{$r->date}} / {{$r->heure_debut}} - {{$r->heure_fin}}</td>
-														@if($today->diffInDays($r->date,false) > 0)
+														@if($today->diffInDays($r->date,false) < 0)
 														<td><span class="custom-badge status-red">Inactive</span></td>
-														@elseif($today->diffInDays($r->date,false) > 0)
+														@elseif($today->diffInDays($r->date,false) >= 0)
 														<td><span class="custom-badge status-green">Active</span></td>
 														@endif
 														<td style="width: 250px">{{$r->motif}}</td>
 													</tr>
 												@endif
-
 											@endforeach
 										@endforeach
 									</table>
@@ -202,7 +200,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-							</div>	
+							</div>
 						</div>
 					</div>
 					<div class="card-box">
@@ -230,7 +228,7 @@
                                         @foreach($prescription as $prts)
                                         <tr>
                                             <td>{{$i}}</td>
-                                            <td class="lettre-contenu">Ordinance of Dr, 
+                                            <td class="lettre-contenu">Ordinance of Dr,
                                               @if($prts->nom_medecin == null and $prts->prenom_medecin == null)
                                                 @foreach($doctors as $doctor)
                                                   @if($doctor->id == $prts->medecin_id)

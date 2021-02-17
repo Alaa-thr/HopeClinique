@@ -25,7 +25,7 @@
     @endif
 
     <script src="{{ asset('scrtrDoctorPage/js/jquery-3.2.1.min.js')}}"></script>
-   
+
 </head>
 <body>
     <div id="app">
@@ -60,6 +60,7 @@
           $("#patientSelect").select2({ maximumSelectionLength: 1 });
           $("#doctorSelect").select2({ maximumSelectionLength: 1 });
           $("#medicament").select2({ maximumSelectionLength: 1 });
+          $("#Specialty").select2({ maximumSelectionLength: 1 });
       });
   </script>
 </body>

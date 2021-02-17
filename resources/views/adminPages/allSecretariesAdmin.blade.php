@@ -5,7 +5,7 @@
                 <div class="dash-widget">
                   @if(session()->has('success'))
                           <div class="alert alert-success alert-dismissible fade show" role="alert">
-                              <strong>Success!</strong> The Doctor
+                              <strong>Success!</strong> The Secretaire
                               @if(Session::get('success') == 'delete')
                                   has been <strong>deleted</strong> successfully.
                               @endif
@@ -13,7 +13,7 @@
                                   <span aria-hidden="true">&times;</span>
                               </button>
                           </div>
-                  @endif
+                    @endif
                     <div class="row">
                         <div class="col-sm-4 col-3">
                             <h4 class="page-title">Secretaries</h4>

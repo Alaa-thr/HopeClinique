@@ -95,13 +95,14 @@ class AdminController extends Controller
         $villes=\DB::table('villes')->orderBy('id','asc')->get();
 
         //pour récupérer les maladies chroniques m bdd
-        $chroniques=\DB::table('maladieschroniques')->orderBy('id','asc')->get();
+        $chroniques=\DB::table('maladieschroniques')->orderBy('nom','asc')->get();
 
         //pour récupérer les allergies m bdd
-        $allergies=\DB::table('allergies')->orderBy('id','asc')->get();
+        $allergies=\DB::table('allergies')->orderBy('nom','asc')->get();
+        $specialty=\DB::table('specialites')->orderBy('nom','asc')->get();
 
         return view('users.addUsers',['typeUser'=>$typeUser,'villes'=>$villes,
-        'chroniques'=>$chroniques,'allergies'=>$allergies,'users'=>$this->getNameUsers()]);
+        'chroniques'=>$chroniques,'allergies'=>$allergies,'users'=>$this->getNameUsers(),'specialty'=>$specialty]);
     }
 
     public function updateProfile(ProfileRequest $request)
@@ -137,15 +138,16 @@ class AdminController extends Controller
         $userAuth->save();
         return back();
     }
-    //pour supprimer Doctors/secretaire/paient
+    //pour supprimer Doctors/secretaire/patient
     public function destroy(Request $request){
 
       if($request->typeUser == 'doctor'){
+      $doctor = \DB::table('medecins')->where([['id', $request->idUser]])->get();  echo $doctor;
               $doctor = \DB::table('medecins')->where([['id', $request->idUser]])->get();
               foreach ($doctor as $key ) {
                     $nomDoctor = $key->nom;
                     $prenomDoctor = $key->prenom;
-                    $user_id = $key->user_id;echo"dd1";
+                    $user_id = $key->user_id;
               }
 
               $prescriptions = \DB::table('prescriptions')->where('medecin_id', $request->idUser)->get();

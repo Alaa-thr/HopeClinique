@@ -11,7 +11,7 @@
 	                </div>
 	                @if(session()->has('success'))
 		                <div class="alert alert-success alert-dismissible fade show" role="alert">
-							<strong>Success!</strong> The 
+							<strong>Success!</strong> The
 							<a href="#" class="alert-link">Appointment</a>
 							has been added successfully.
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -28,7 +28,7 @@
 										<div class="form-group">
 											<label>Patient Name</label>
 											<select class="form-control select  @error('patient') is-invalid @enderror" multiple name="patient" id="patientSelect" onchange="addInfoPatient(event)">
-												
+
 												@foreach($allPatients as $patient)
 														<option value="{{$patient->user_id}}">{{$patient->nom}}
 														{{$patient->prenom}}  {{$patient->date_naiss}}</option>
@@ -47,9 +47,9 @@
 	                                    <div class="form-group">
 	                                        <label>Doctor</label>
 	                                        <select class="form-control select @error('doctor') is-invalid @enderror" multiple name="doctor" id="doctorSelect">
-												@foreach($allDoctors as $doctor)
-													<option value="{{$doctor->id}}">{{$doctor->nom}}  {{$doctor->prenom}}  {{$doctor->specialite}}</option>
-												@endforeach
+                  												@foreach($allDoctors as $doctor)
+                  													<option value="{{$doctor->id}}">{{$doctor->nom}}  {{$doctor->prenom}}  {{$doctor->specialite}}</option>
+                  												@endforeach
 	                                        </select>
 	                                        @error('doctor')
                                                 <span class="invalid-feedback" role="alert">

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUsersRequest;
 use App\Http\Requests\AddAppointment;
 use App\Http\Controllers\AdminController;
+use App\Models\Specialite;
 
 class ScrtrDocAdminController extends Controller
 {
@@ -38,6 +39,8 @@ class ScrtrDocAdminController extends Controller
 
     public function dashboard()
     {
+      $data3[]=0;$data4[]=0;
+
       $nombrDoctors =  \DB::table("medecins")->count();
       $nombrPatients = \DB::table("patients")->count();
       $nombrPatientsPerDoctor = \DB::table("rdvs")->where('medecin_id','=',Medecin::find(Auth::user()->id)->id)->distinct('patient_id')->count();
@@ -279,14 +282,50 @@ class ScrtrDocAdminController extends Controller
 
     public function allAppointmentsAdmin()
     {
-        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')->join('medecins','medecins.id','=','rdvs.medecin_id')->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')->get();
+      $today = today();
+      if( Auth::user()->user_roles == 'adminM'){
 
-        if(Auth::user()->user_roles == 'patient'){
+        $appointments = \DB::table('rdvs')->join('patients','patients.id','=','rdvs.patient_id')
+        ->join('medecins','medecins.id','=','rdvs.medecin_id')
+        ->select('rdvs.deletedA','rdvs.id','rdvs.patient_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss',
+        'medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+        ->groupby('deletedA','id','patient_id','heure_fin','date','heure_debut','patientName','patientPrenom','medecinPrenom','date_naiss','medecinName')
+        ->having('deletedA','=',0)
+        ->orderBy('rdvs.date','desc')
+        ->orderBy('rdvs.heure_debut','asc')
+        ->get();
+        $idDoctor = \DB::table('medecins')->where('user_id',Auth::user()->id)->value('id');
+        return view('adminPages.allAppointmentsAdmin',['idDoctor'=>$idDoctor,'today'=>$today,'users'=>$this->getNameUsers(),'appointments' => $appointments]);
+
+      }elseif(Auth::user()->user_roles == 'doctor'){
+        $appointments = \DB::table('rdvs')
+                      ->join('medecins','medecins.id','=','rdvs.medecin_id')
+                      ->select('rdvs.deleted','rdvs.id','rdvs.patient_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+                      ->groupby('deleted','id','patient_id','heure_fin','date','heure_debut','user_id','medecinPrenom','medecinName')
+                      ->having('user_id','=',Auth::user()->id)
+                      ->having('deleted','=',0)
+                      ->orderBy('rdvs.date','desc')
+                      ->orderBy('rdvs.heure_debut','asc')
+                      ->get();
+        $appointmentss = \DB::table('patients')->get();
+        $idDoctor = \DB::table('medecins')->where('user_id',Auth::user()->id)->value('id');
+        return view('adminPages.allAppointmentsAdmin',['idDoctor'=>$idDoctor,'today'=>$today,'users'=>$this->getNameUsers(),'appointmentss' => $appointmentss,'appointments' => $appointments]);
+        }
+        elseif(Auth::user()->user_roles == 'patient'){
+          $appointments = \DB::table('rdvs')
+                        ->join('patients','patients.id','=','rdvs.patient_id')
+                        ->select('rdvs.deletedP','rdvs.id','rdvs.patient_id','rdvs.medecin_id','rdvs.date','rdvs.heure_debut','rdvs.heure_fin','user_id','patients.prenom as patientPrenom','patients.nom as patientName','patients.date_naiss')
+                        ->groupby('deletedP','id','medecin_id','patient_id','heure_fin','date','heure_debut','user_id','patientName','patientPrenom','date_naiss')
+                        ->having('user_id','=',Auth::user()->id)
+                        ->having('deletedP','=',0)
+                        ->orderBy('rdvs.date','desc')
+                        ->orderBy('rdvs.heure_debut','asc')
+                        ->get();
+          $appointmentss = \DB::table('medecins')->get();
           $idd = \DB::table('patients')->where('user_id',Auth::user()->id)->value('id');
           $lettres = \DB::table('lettre__orientations')->where('patient_id',$idd)->get();
-          return view('adminPages.allAppointmentsAdmin',['lettres' => $lettres,'users'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
+          return view('adminPages.allAppointmentsAdmin',['lettres' => $lettres,'users'=>$this->getNameUsers(),'appointmentss' => $appointmentss,'appointments' => $appointments,'today'=>$today]);
         }
-        return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers(),'appointments' => $appointments,'today' => Carbon::now()->format('Y-m-d')]);
     }
 
     public function showAddAppointment()
@@ -303,35 +342,50 @@ class ScrtrDocAdminController extends Controller
         return view('secrtrDoctorPages.addAppointment',['users'=>$this->getNameUsers(),'allPatients'=>[$allPatients],'allDoctors'=>$allDoctors]);
     }
 
-    public function addAppointment(AddAppointment $request)
+    public function addAppointment(Request $request)
     {
-        $appointment = new Rdv();
-        $idPatient = \DB::table('patients')->where('user_id',$request->patient)->select('id')->get();
-        $appointment->medecin_id = $request->doctor;
-        $appointment->patient_id = $idPatient[0]->id;
-        $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
-        $appointment->heure_debut = date("h:i", strtotime( $request->time_beging ));
-        $appointment->heure_fin = date("h:i", strtotime( $request->time_end ));
-        $appointment->motif = $request->reason;
-        $appointment->save();
-        return back()->withSuccess("");
+      $appointment = new Rdv();
+      $idPatient = \DB::table('patients')->where('user_id',$request->patient)->select('id')->get();
+      $appointment->medecin_id = $request->doctor;
+      $appointment->patient_id = $idPatient[0]->id;
+      $appointment->date = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
+      $appointment->heure_debut = date("h:i", strtotime( $request->time_beging ));
+      $appointment->heure_fin = date("h:i", strtotime( $request->time_end ));
+      $appointment->motif = $request->reason;
+      $appointment->save();
+      return back()->withSuccess("");
+
     }
 
     public function getsearchPatientDoctor(Request $request){
 
       $search = $request->get('search');//prendre le mot qui nous saisissons
+      $today = today();
+      $idDoctor = \DB::table('medecins')->where('user_id',Auth::user()->id)->value('id');
 
+      if($request->birthday != "" && $request->name != ""){
 
-      if($request->searchPatientDoctor == "birthday")
+        $liste  =\DB::table('rdvs')
+        ->join('medecins','medecins.id','=','rdvs.medecin_id')
+        ->join('patients','patients.id','=','rdvs.patient_id')
+        ->where([['date_naiss','like','%'.$search.'%'],['patients.nom', 'like', '%'.$search.'%']])
+        ->orwhere([['date_naiss','like','%'.$search.'%'],['patients.prenom', 'like', '%'.$search.'%']])
+        ->orwhere([['date_naiss','like','%'.$search.'%'],['patients.prenom', 'like', '%'.$search.'%']])
+        ->orwhere([['date_naiss','like','%'.$search.'%'],['medecins.prenom', 'like', '%'.$search.'%']])
+        ->orwhere([['date_naiss','like','%'.$search.'%'],['medecins.prenom', 'like', '%'.$search.'%']])
+        ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
+        ->get();
+      }
+      elseif($request->birthday != "")
       {
-
         $liste  =\DB::table('rdvs')
         ->join('medecins','medecins.id','=','rdvs.medecin_id')
         ->join('patients','patients.id','=','rdvs.patient_id')
         ->where('date_naiss','like','%'.$search.'%')
         ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
         ->get();
-      }elseif($request->searchPatientDoctor == "name"){
+
+      }elseif($request->name != ""){
         $liste  =\DB::table('rdvs')
         ->join('medecins','medecins.id','=','rdvs.medecin_id')
         ->join('patients','patients.id','=','rdvs.patient_id')
@@ -342,6 +396,13 @@ class ScrtrDocAdminController extends Controller
         ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
         ->get();
       }
-      return view('adminPages.allAppointmentsAdmin',['users'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,'appointments'=> $liste]);
+        return view('adminPages.allAppointmentsAdmin',['idDoctor'=>$idDoctor,
+        'today'=>$today,'users'=>$this->getNameUsers(),'liste'=>$liste,'search' => $search,
+        'appointments'=> $liste]);
+    }
+    public function deleteServices(Request $request){
+
+          $specialites  = Specialite::where('id',$request->service)->delete();
+          return  back()->withSuccess("delete");
     }
 }

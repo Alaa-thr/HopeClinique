@@ -71,18 +71,17 @@
                                        <i class="fa fa-pencil m-r-5"></i> Edit</a>
                                      </button>
                                   </form>
-                                  <form action="{{ url('deleteUser') }}" method="post" id="deleteBtn">
+                                  <form action="{{ url('deleteUser') }}" method="post" id="deleteBtn{{$l->id}}">
                                       {{  csrf_field() }}
-                                      <input type="hidden" name="_method" value="DELETE">
-                                      <input type="hidden" name="idUser" value="2">
+                                      <input type="hidden" name="_method"  value="DELETE">
+                                      <input type="hidden" name="idUser"   value="{{$l->id}}">
                                       <input type="hidden" name="typeUser" value="doctor"/>
-                                      <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteUser()"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                      <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_department" onclick="deleteUser('deleteBtn{{$l->id}}')"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                   </form>
                                 </div>
                             </div>
                             <h4 class="doctor-name text-ellipsis">
-                              <form action="{{ url('informationUsers/'.$l->id )}}" method="get"> <a>{{strtoupper ($l->nom) }} {{strtoupper ($l->prenom) }}</a>
-                              </form>
+                                 <a>{{strtoupper ($l->nom) }} {{strtoupper ($l->prenom) }}</a>
                             </h4>
                             <div class="doc-prof">{{$l->specialite}}</div>
                             <div class="user-country">
