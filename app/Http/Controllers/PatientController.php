@@ -177,7 +177,7 @@ class PatientController extends Controller
     public function addImageriePatient(Request $request){
 
         if($request->hasFile('image')){
-            foreach ($request->image as $imgs) {// pour les photos du produits
+            foreach ($request->image as $imgs) {
               $images = new Image;
               $images->image = $imgs->store('users_Avatar/patient');
               $images->patient_id = $request->idPatient;
@@ -260,4 +260,9 @@ class PatientController extends Controller
       return view('users.Allordonnance',['users'=>$this->getNameUsers(),'listeP'=>$listeP,
       'date'=>$date,'idPatient'=>'user_id',Auth::user()->id,'medicaments'=>$medicaments,'ordonnances'=>$ordonnances,'doctors'=>$doctors]);
     }
+    public function app($id){
+          $allPatients = Patient::All();
+          $allDoctors = Medecin::All();
+          return view('secrtrDoctorPages.updatAppointment',['users'=>$this->getNameUsers(),'allPatients'=>$allPatients,'allDoctors'=>$allDoctors]);
+      }
 }

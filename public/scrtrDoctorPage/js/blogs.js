@@ -1,4 +1,4 @@
-function deleteUser(idUser) {
+function deleteUser() {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -9,24 +9,22 @@ function deleteUser(idUser) {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        document.getElementById(idUser).submit();
-        //console.log(idUser)
+        document.getElementById('deleteBtn').submit();
       }
     })
 }
-function UpdateAppointment() {
+function UpdateUser() {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger',
+      confirmButtonText: 'Yes, Updated it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        document.getElementById(updateBtn).submit();
-        //console.log(idUser)
+        document.getElementById('updateBtn').submit();
       }
     })
 }
