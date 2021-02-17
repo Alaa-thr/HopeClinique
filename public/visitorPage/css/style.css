@@ -2877,3 +2877,14 @@ ol {
 #section{
 	margin-bottom: -52px;
 }
+#tbl{
+  border-style: solid;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#Detailsblogs{
+    margin-top: 70px;
+    line-height: 2em;
+  font-size: 30px;
+}

@@ -13,7 +13,7 @@
                                   <span aria-hidden="true">&times;</span>
                               </button>
                           </div>
-                  @endif
+                    @endif
                     <div class="row">
                         <div class="col-sm-4 col-3">
                             <h4 class="page-title">Secretaries</h4>

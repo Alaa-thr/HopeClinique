@@ -1,5 +1,11 @@
 @extends('layouts.scrtrDoctorApp')
 @section('content')
+@if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+	<link href="{{ asset('fullCalendar/lib/main.css')}}" rel='stylesheet' />
+	<link href="{{ asset('fullCalendar/lib/fullCalendar.css')}}" rel='stylesheet' />
+	<script src="{{ asset('fullCalendar/lib/main.js')}}"></script>
+	<script src="{{ asset('fullCalendar/lib/fullCalendar.js')}}"></script>
+@endif
         <div class="page-wrapper">
             <div class="content">
             	<div class="dash-widget">
@@ -18,36 +24,32 @@
 	                    <div class="col-sm-4 col-3">
 	                        <h4 class="page-title">Appointments</h4>
 	                    </div>
-                      @if(Auth::user()->user_roles != 'patient')
-	                    <div class="col-sm-8 col-9 text-right m-b-20">
-	                        <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
-	                    </div>
-                      @endif
 	                </div>
                   @if(Auth::user()->user_roles != 'patient')
-	                <div class="row ">
-                      <div class="col-sm-6 col-md-4" >
-                          <div class="form-group form-focus" >
-                          	<label class="focus-label ">Name of doctor or patient</label>
-                            <form  action="{{route('searchPatientDoctor')}}" method="get" class="col-sm-6 col-md-12">
-                              <input type="text" class="form-control floating" name="search">
-                              <input type="hidden" value="name" name="searchPatientDoctor"/>
-                            </form>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-4">
-                          <div class="form-group form-focus">
-                              <label class="focus-label">Birthday</label>
-                              <form  action="{{route('searchPatientDoctor')}}" method="get" class="col-sm-6 col-md-12">
-                                <input type="text" class="form-control floating" name="search">
-                                <input type="hidden" value="birthday" name="searchPatientDoctor"/>
-                              </form>
-                          </div>
-                      </div>
-                      <div class="col-sm-6 col-md-3">
-                          <a href="#" class="btn btn-success btn-block btn-rounded"> Search </a>
-                      </div>
-              		</div>
+									<form action="/searchPatientDoctor" method="get">
+	                <div class="row">
+	                  <div class="col-lg-4 col-md-6 col-sl-3">
+	                      <div class="form-group form-focus">
+	                        <label class="focus-label">>Name of doctor or patient</label>
+	                          <input type="text" class="form-control floating" name="name">
+	                      </div>
+	                  </div>
+	                  <div class="col-lg-4 col-md-6 col-sl-3">
+	                      <div class="form-group form-focus">
+	                        <label class="focus-label">BirthdayBirthday</label>
+	                          <input type="text" class="form-control floating" name="birthday">
+	                      </div>
+	                  </div>
+	                  <div class="col-lg-2 col-md-6 col-sl-3" id="sear">
+	                      <div class="form-group form-focus">
+	                        <button class="btn btn-success btn-block btn-rounded"> Search </button>
+	                      </div>
+	                  </div>
+										@if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+											 <input type="hidden" id="idDoc" value="{{$idDoctor}}">
+										@endif
+	              </div>
+	            </form>
                   @endif
       		         <div class="row">
 						            <div class="col-md-12">
@@ -71,7 +73,7 @@
                     @if($appointment->patient_id == $appoint->id)
                     <tr>
                       <td>{{$appoint->nom}}
-                        {{$appoint->prenom}} </td>
+                          {{$appoint->prenom}} </td>
                       <td>{{$appoint->date_naiss}}</td>
                       @endif
                       @endforeach
@@ -87,6 +89,8 @@
 											<td>{{$appoint->nom}} {{$appoint->prenom}}</td>
                       @endif
                       @endforeach
+                      @else
+                      <td>{{$appointment->medecinName}} {{$appointment->medecinPrenom}}</td>
                       @endif
 											<td>{{$appointment->date}}</td>
 											<td>{{$appointment->heure_debut}}</td>
@@ -96,6 +100,7 @@
                       <td><span class="custom-badge status-green">Active</span></td>
                       @endif
                       <td class="text-right">
+                        @if($today->diffInDays($appointment->date,false) < 0)
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 													<div class="dropdown-menu dropdown-menu-right">
@@ -111,6 +116,7 @@
                             </form>
                     			</div>
 												</div>
+                        @endif
 											</td>
 										</tr>
 										@endforeach
@@ -155,6 +161,24 @@
                           </div>
                     </div>
               @endif
+
+              @if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+              <div style="height:30px"></div>
+              <div class="card-box">
+                <div class="row">
+                <div class="col-sm-4 col-3">
+                  <h4 class="page-title">Appointments</h4>
+                </div>
+                <div class="col-sm-8 col-9 text-right m-b-20">
+                    <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>
+                </div>
+                </div>
+                <div class="row">
+                  <div  class="col-lg-12 col-md-12 " id="calendar"></div>
+                </div>
+              </div>
+            @endif
+
           </div>
 		  </div>
 <script src="{{asset('scrtrDoctorPage/js/users.js')}}"></script>

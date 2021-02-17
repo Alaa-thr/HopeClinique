@@ -12,7 +12,6 @@
 										Add Secretaire
 								@elseif ($typeUser=='patient')
 										Add Patient
-
 								@endif
 							</h4>
 	                    </div>
@@ -64,18 +63,22 @@
 	                                    </div>
 	                                </div>
 	                                @if ($typeUser==='doctor')
-										<div class="col-sm-6">
-											<div class="form-group">
-												<label>Specialty<span class="text-danger">*</span></label>
-												<input class="form-control @error('Specialty') is-invalid @enderror" type="text" name="Specialty">
-												@error('Specialty')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        		@enderror
-											</div>
-										</div>
-									@endif
+																	<div class="col-sm-6">
+																		<div class="form-group">
+																			<label>Specialty<span class="text-danger">*</span></label>
+																			<select class="form-control select @error('Specialty') is-invalid @enderror" name="Specialty" id="Specialty" multiple>
+																				@foreach($specialty as $s)
+																				<option>{{$s->nom}}</option>
+																				@endforeach
+																				</select>
+																				 @error('Specialty')
+		                                      <span class="invalid-feedback" role="alert">
+		                                          <strong>{{ $message }}</strong>
+		                                      </span>
+		                                    @enderror
+																</div>
+															</div>
+														@endif
 									@if ($typeUser=='patient')
 										<div class="col-sm-6">
 											<div class="form-group">
@@ -83,10 +86,10 @@
 													<div class="cal-icon">
 														<input type="text" class="form-control datetimepicker @error('date_of_birth') is-invalid @enderror" name="date_of_birth">
 														@error('date_of_birth')
-                                                			<span class="invalid-feedback" role="alert">
-                                                   				<strong>{{ $message }}</strong>
-                                                			</span>
-                                        				@enderror
+                            	<span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
 													</div>
 											</div>
 										</div>
@@ -210,7 +213,7 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>Chronic diseases</label>
-												<select class="form-control select @error('chronic_diseases') is-invalid @enderror" multiple name=chronic_diseases>
+												<select class="form-control select @error('chronic_diseases') is-invalid @enderror" multiple name=chronic_diseases[]>
 													@foreach($chroniques as $c)
 														<option>{{ $c->nom }}</option>
 													@endforeach
@@ -236,7 +239,7 @@
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label>Allergie</label>
-												<select class="form-control select @error('allergie') is-invalid @enderror" multiple name="allergie">
+												<select class="form-control select @error('allergie') is-invalid @enderror" name="allergie[]" multiple>
 												 	@foreach($allergies as $a)
 														<option>{{ $a->nom }}</option>
 													@endforeach
