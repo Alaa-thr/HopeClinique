@@ -8,7 +8,7 @@
                     <div class="hero__text">
                         <span>Eiusmod tempor incididunt </span>
                         <h2>Take the world's best quality Treadment</h2>
-                        <a href="#" class="primary-btn normal-btn">Contact us</a>
+                        <a href="{{route('contact')}}" class="primary-btn normal-btn">Contact us</a>
                     </div>
                 </div>
             </div>
@@ -20,28 +20,23 @@
     <section class="consultation">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="consultation__form">
-                        <div class="section-title">
-                            <span>REQUEST FOR YOUR</span>
-                            <h2>Consultation</h2>
-                        </div>
-                        <form action="#">
-                            <input type="text" placeholder="Name">
-                            <input type="text" placeholder="Email">
-                            <div class="datepicker__item">
-                                <input type="text" placeholder="Date" class="datepicker">
-                                <i class="fa fa-calendar"></i>
+               
+                <div class="col-lg-8">
+                    <div class="consultation__text">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="consultation__text__item">
+                                    <div class="section-title">
+                                        <span>Welcon to HopeClinique</span>
+                                        <h2>Find Best Doctors With <b>AESTHETIC</b></h2>
+                                    </div>
+                                    <p>30 Years of experience in Cosmetic Surgery.Lorem ipsum dolor sit amet,
+                                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                                    dolore magna aliqua.</p>
+                                </div>
                             </div>
-                            <select>
-                                <option value="">Type of service</option>
-                                <option value="">Advanced equipment</option>
-                                <option value="">Qualified doctors</option>
-                                <option value="">Certified services</option>
-                                <option value="">Emergency care</option>
-                            </select>
-                            <button type="submit" class="site-btn">Book appoitment</button>
-                        </form>
+                            
+                        </div>
                     </div>
                 </div>
               </div>
@@ -106,26 +101,23 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="services__btn">
-                        <a href="{{ url('contact/')}}" class="primary-btn">Contact us</a>
+                        <a href="{{ url('services/')}}" class="primary-btn">Check More</a>
                     </div>
                 </div>
             </div>
             <div class="row">
               @foreach($allservices as $ser)
-              <div class="col-lg-3 order-lg-2">
-                  <div class="services__details">
-                      <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6">
-                              <div class="services__details__title">
-                                  <h3>{{$ser->nom}}</h3>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="services__details__pic">
-                          <img src="{{asset('storage/'.$ser->avatar)}}" alt="">
-                      </div>
-                  </div>
-              </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="services__item">
+                        <div class="services__item__icon">
+                            <img src="{{asset('storage/'.$ser->avatar)}}" width="70" height="90" alt="">
+                        </div>
+                        <div class="services__item__text">
+                            <h5>{{$ser->nom}}</h5>
+                            <p>{{$ser->discription}}</p>
+                        </div>
+                    </div>
+                </div>
               @endforeach
             </div>
         </div>
@@ -168,7 +160,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-6">
                     <div class="section-title">
-                        <span>Our Blogs</span>
+                        <h2>Our Blogs</h2>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -184,7 +176,7 @@
            @foreach($blogs as $b)
            <div class="gc__item set-bg" data-setbg="{{asset('storage/'.$b->avatr)}}">
                <a href="{{asset('storage/'.$b->avatr)}}" class="image-popup"><i class="fa fa-search-plus"></i></a>
-               <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
+               <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more">&nbsp;Read More</a>
            </div>
            @endforeach
        </div>
@@ -192,4 +184,5 @@
    <!-- Gallery End -->
         </div>
     </section>
+    <section class="team spad"></section>
 @endsection

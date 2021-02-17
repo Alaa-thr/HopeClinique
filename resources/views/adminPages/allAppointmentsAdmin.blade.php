@@ -22,7 +22,7 @@
                 @endif
 	                <div class="row">
 	                    <div class="col-sm-4 col-3">
-	                        <h4 class="page-title">Appointments</h4>
+	                        <h4 class="page-title"><b>All Doctors' Appointments</b></h4>
 	                    </div>
 	                </div>
                   @if(Auth::user()->user_roles != 'patient')
@@ -182,7 +182,7 @@
               <div class="card-box">
                 <div class="row">
                 <div class="col-sm-4 col-3">
-                  <h4 class="page-title">Appointments</h4>
+                  <h4 class="page-title"><b>My Appointments</b></h4>
                 </div>
                 <div class="col-sm-8 col-9 text-right m-b-20">
                     <a href="{{route('addAppointment')}}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Appointment</a>

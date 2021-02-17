@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\uniqueService;
-class ServiceRequest extends FormRequest
+
+class ServiceUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,9 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
-          'avatar' => ['required','image'],
-          'name_specialty' => ['required', 'string', 'max:100', 'min:3','regex:/^[A-Za-z0-9][A-Za-z0-9\sçàéè]+$/',new uniqueService(0)],
+          'avatar' => ['nullable','image'],
+          'name_specialty' => ['required', 'string', 'max:100', 'min:3','regex:/^[A-Za-z0-9][A-Za-z0-9\sçàéè]+$/',new uniqueService($this->idService)],
           'description' => ['required', 'string', 'min:3','regex:/^[A-Za-z0-9][A-Za-z0-9\s.(,)çàéè]+$/'],
         ];
-
-  }
+    }
 }

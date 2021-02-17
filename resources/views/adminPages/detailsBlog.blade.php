@@ -9,10 +9,10 @@
                 </div>
                 <div class="row">
                   @foreach($detailBlog as $b)
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="blog-view">
                             <article class="blog blog-single-post">
-                                <h3 class="blog-title">Do you know {{$b->title}}?</h3>
+                                <h3 class="blog-title">{{$b->title}}?</h3>
                                 <div class="blog-info clearfix">
                                     <div class="post-left">
                                         <ul>

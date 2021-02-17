@@ -25,27 +25,21 @@
     <section class="blog spad">
         <div class="container">
           <div class="row">
-            @foreach($blogs as $b)
-              <div style="margin-bottom:30px;" class="col-sm-6 col-md-6 col-lg-4">
-                  <div class="blog grid-blog">
-                      <div class="blog-image">
-                          <a href="blog-details.html">
-                            <img class="img-fluid" src="{{asset('storage/'.$b->avatr)}}" alt=""></a>
-                      </div>
-                      <div class="blog-content">
-                          <h3 class="blog-title"><a href="blog-details.html">Do You Know the {{$b->title}}?</a></h3>
-                          <p>{{$b->description}}.</p>
-                          <a href="{{ url('detailsBlogVisiteur/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
-                          <div class="blog-info clearfix">
-                              <div class="post-left">
-                                  <ul>
-                                      <li><a href="#."><i class="fa fa-calendar"></i> <span>{{$b->created_at}}</span></a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+              @foreach($blogs as $b)
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="{{asset('storage/'.$b->avatr)}}" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <h5><a href="{{ url('detailsBlogVisiteur/'.$b->id)}}">{{$b->title}}</a></h5>
+                            <ul>
+                                <li> BY {{strtoupper ($b->nom) }} {{strtoupper ($b->prenom) }}</li>
+                                <li>{{$b->created_at}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
               @endforeach
           </div>
         </div>
