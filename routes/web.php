@@ -54,8 +54,11 @@ Route::get('editInformation/{id}',[AdminController::class,'editInformations'])->
 Route::put('updateInformation/{id}',[AdminController::class,'updateInformations']);
 Route::get('blog/{id}',[AdminController::class,'blog']);
 Route::post('addBlogStore', [AdminController::class, 'store']);
-Route::get('service/{id}',[AdminController::class,'service']);
+Route::get('addService',[AdminController::class,'addServicePage']);
+Route::get('updateService/{id}',[AdminController::class,'updateServicePage']);
 Route::post('serviceStore', [AdminController::class, 'storeSsrvice']);
+Route::put('serviceUpdate', [AdminController::class, 'serviceUpdate']);
+Route::delete('deleteService', [AdminController::class, 'deleteService']);
 
 /* ADD patient Pages */
 Route::get('informationUsers/{id}',[PatientController::class, 'plusinformation'])->name('informationUsers');

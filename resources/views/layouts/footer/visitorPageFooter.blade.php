@@ -9,10 +9,7 @@
                     </div>
                     <div class="col-lg-4 col-md-8">
                         <div class="footer__newslatter">
-                            <form action="#">
-                                <input type="text" placeholder="Email">
-                                <button type="submit" class="site-btn">Subscribe</button>
-                            </form>
+                            
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12">
@@ -57,7 +54,7 @@
                         <h5>Contact Us</h5>
                         <ul>
                             <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
-                            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+                            <li><i class="fa fa-phone"></i> +213-540-844-782 • +213-650-844-783</li>
                             <li><i class="fa fa-envelope"></i> Support@gmail.com</li>
                         </ul>
                     </div>

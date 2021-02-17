@@ -34,7 +34,7 @@
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown" >
                         <span class="user-img m-l--13">
-                            <img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
+                            <img class="rounded-circle" src="{{ asset('storage/'.$users[0]->avatar)}}" width="24" alt="Admin">
                             <span class="status online"></span>
                         </span>
                     </a>
@@ -57,12 +57,12 @@
             @endguest
             <div id="mobile-menu-wrap"></div>
             <ul class="header__menu" style="display: none; margin-top: -22px">
-                <li><a href="#">Appointment</a></li>
+                <li><a href="{{route('contact')}}">Appointment</a></li>
             </ul>
         </div>
         <hr style="background-color: black">
         <ul class="offcanvas__widget">
-            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+            <li><i class="fa fa-phone"></i> +213-540-844-782</li>
             <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
             <li><i class="fa fa-clock-o"></i> Mon to Sat 9:00am to 18:00pm</li>
         </ul>
@@ -82,7 +82,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <ul class="header__top__left">
-                            <li><i class="fa fa-phone"></i> 1-677-124-44227</li>
+                            <li><i class="fa fa-phone"></i> +213-540-844-782</li>
                             <li><i class="fa fa-map-marker"></i> Los Angeles Gournadi, 1230 Bariasl</li>
                             <li><i class="fa fa-clock-o"></i> Mon to Sat 9:00am to 18:00pm</li>
                         </ul>
@@ -119,7 +119,7 @@
                             </ul>
                         </nav>
                         <div class="header__btn">
-                            <a href="#" class="primary-btn m-r-8 m-l-10">Appointment</a>
+                            <a href="{{route('contact')}}" class="primary-btn m-r-8 m-l-10">Appointment</a>
                             @guest
                             <a href="{{route('login')}}" class="primary-btn">Login</a>
                             @else
@@ -127,7 +127,7 @@
                                 <li class="nav-item dropdown has-arrow">
                                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                                         <span class="user-img">
-                                            <img class="rounded-circle" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" width="24" alt="Admin">
+                                            <img class="rounded-circle" src="{{ asset('storage/'.$users[0]->avatar)}}" width="24" alt="Admin">
                                             <span class="status online"></span>
                                         </span>
                                     </a>

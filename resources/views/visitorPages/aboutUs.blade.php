@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="about__video set-bg" data-setbg="{{ asset('visitorPage/img/about-video.jpg')}}">
-                        <a href="https://www.youtube.com/watch?v=PXsuI67s2AA" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -37,7 +37,7 @@
                             <li><i class="fa fa-check-circle"></i> Excellence in Healthcare every</li>
                             <li><i class="fa fa-check-circle"></i> Building a healthy environment</li>
                         </ul>
-                        <a href="#" class="primary-btn normal-btn">Contact us</a>
+                        <a href="{{route('contact')}}" class="primary-btn normal-btn">Contact us</a>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
     <!-- About Section End -->
 
     <!-- Chooseus Section Begin -->
-    <section class="chooseus spad">
+    <section class="testimonials spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -89,157 +89,31 @@
         </div>
     </section>
     <!-- Chooseus Section End -->
-
-    <!-- Testimonials Section Begin -->
-    <section class="testimonials spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="section-title">
-                        <span>Testimonials</span>
-                        <h2>Happy clients</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="testimonial__slider owl-carousel">
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__author">
-                                <div class="testimonial__author__icon">
-                                    <i class="fa fa-quote-left"></i>
-                                </div>
-                                <div class="testimonial__author__text">
-                                    <h5>Catanis Greimar</h5>
-                                    <span>Businesswoman</span>
-                                </div>
-                            </div>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <p>Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
-                            vel facilisis ut labore et dolore magna aliqua accumsan lacus vel facilisis. </p>
+    <section class="team spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="section-title">
+                            <span>Our Team</span>
+                            <h2>Our Expert Doctors</h2>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                  @foreach($listeM as $doctor)
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="team__item">
+                          <img src="{{asset('storage/'.$doctor->avatar)}}" alt="user"/>
+                            <h5>{{strtoupper ($doctor->nom ) }} {{strtoupper ($doctor->prenom) }}</h5>
+                            <span>{{ $doctor->specialite }}</span>
+                            <div class="team__item__social">
+                                  <i class="fa fa-google"></i> {{ $doctor->email }}<br/>
+                                  <i class="fa fa-phone"></i> {{ $doctor->phone }}
+                            </div>
+                        </div>
+                    </div>
+                  @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- Testimonials Section End -->
-    <!-- Team Section Begin -->
-    @include('layouts.modals.doctorsModal')
+        </section>
 @endsection

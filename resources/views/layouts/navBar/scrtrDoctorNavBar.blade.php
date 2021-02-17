@@ -61,11 +61,9 @@
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         @foreach($users as $user)
-                          @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
                             <span class="user-img">
                                 <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
                             </span>
-                            @endif
                             <span>{{$user->nom}} {{$user->prenom}}</span>
                         @endforeach
 
