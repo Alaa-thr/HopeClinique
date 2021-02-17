@@ -15,13 +15,13 @@
                     <div class="col-sm-6 col-md-6 col-lg-4">
                         <div class="blog grid-blog">
                             <div class="blog-image">
-                                <a href="blog-details.html">
+                                <a href="#">
                                   <img class="img-fluid" src="{{asset('storage/'.$b->avatr)}}" alt=""></a>
                             </div>
                             <div class="blog-content">
-                                <h3 class="blog-title"><a href="blog-details.html">Do You Know the {{$b->title}}?</a></h3>
+                                <h3 class="blog-title"><a href="blog-details.html">{{$b->title}}?</a></h3>
                                 <p>{{$b->description}}.</p>
-                                <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
+                                <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> More</a>
                                 <div class="blog-info clearfix">
                                     <div class="post-left">
                                         <a href="#."><i class="fa fa-calendar"></i> <span>{{$b->created_at}}</span></a>

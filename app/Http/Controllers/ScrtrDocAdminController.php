@@ -371,7 +371,7 @@ class ScrtrDocAdminController extends Controller
         ->where([['date_naiss','like','%'.$search.'%'],['patients.nom', 'like', '%'.$search.'%']])
         ->orwhere([['date_naiss','like','%'.$search.'%'],['patients.prenom', 'like', '%'.$search.'%']])
         ->orwhere([['date_naiss','like','%'.$search.'%'],['patients.prenom', 'like', '%'.$search.'%']])
-        ->orwhere([['date_naiss','like','%'.$search.'%'],['medecins.prenom', 'like', '%'.$search.'%']])
+        ->orwhere([['date_naiss','like','%'.$search.'%'],['medecins.nom', 'like', '%'.$search.'%']])
         ->orwhere([['date_naiss','like','%'.$search.'%'],['medecins.prenom', 'like', '%'.$search.'%']])
         ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
         ->get();
@@ -391,7 +391,7 @@ class ScrtrDocAdminController extends Controller
         ->join('patients','patients.id','=','rdvs.patient_id')
         ->where('patients.nom', 'like', '%'.$search.'%')
         ->orWhere('patients.prenom', 'like', '%'.$search.'%')
-        ->orWhere('medecins.prenom', 'like', '%'.$search.'%')
+        ->orWhere('medecins.nom', 'like', '%'.$search.'%')
         ->orWhere('medecins.prenom', 'like', '%'.$search.'%')
         ->select('rdvs.*','patients.nom as patientName','patients.prenom as patientPrenom','date_naiss','medecins.prenom as medecinPrenom','medecins.nom as medecinName')
         ->get();
