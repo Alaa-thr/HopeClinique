@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="profile-view">
-							   @if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM')
+							   @if(Auth::user()->user_roles == 'doctor'|| Auth::user()->user_roles == 'adminM'|| Auth::user()->user_roles == 'secretaire')
                                 <div class="profile-img-wrap">
                                     <div class="profile-img">
                                         <a href="#"><img class="avatar" src=" {{asset('storage/'.$user->avatar)}}" alt=""></a>

@@ -31,6 +31,7 @@ Route::get('services',[VisitorController::class,'services'])->name('services');
 Route::delete('deleteService', [ScrtrDocAdminController::class, 'deleteServices']);
 Route::get('detailsBlogVisiteur/{id}',[VisitorController::class,'detailsBlogVisiteurs']);
 
+
 /* Secretaire & Doctor Pages */
 Route::get('dashboard', [ScrtrDocAdminController::class, 'dashboard'])->name('dashboard');
 Route::get('profile', [ScrtrDocAdminController::class, 'profile'])->name('profile');

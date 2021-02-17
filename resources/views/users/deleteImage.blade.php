@@ -4,10 +4,8 @@
 	<div class="content">
     @if(session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> The  Image
-                @if(Session::get('success') == 'delete')
-                    has been <strong>deleted</strong> successfully.
-                @endif
+                <strong>Success!</strong> The  Image has been <strong>deleted</strong> successfully.
+                
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -19,6 +17,7 @@
 					</div>
 			</div>
 								<div class="content">
+                  <div class="dash-widget">
 										<div  class="row">
 											@foreach($images as $img)
 											<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 m-b-20">
@@ -50,6 +49,7 @@
                        </div>
 											@endforeach
 										</div>
+                  </div>
 								</div>
 							<div class="sidebar-overlay" data-reff=""></div>
 					</div>

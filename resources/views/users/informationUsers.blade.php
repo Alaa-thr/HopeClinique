@@ -268,33 +268,39 @@
 							</div>
 						</div>
 					</div>
-					<div class="card-box">
-						<form action="{{ url('addImagerie') }}" method="post" enctype="multipart/form-data">
-							{{  csrf_field() }}
-								<div class="row">
+					<div class="card-box" >
+						<div class="row">
 									<div class="col-sm-4 col-3">
 											<h4 class="card-title">Images:</h4>
 									</div>
-									<div class="col-sm-8 col-9 text-right m-b-20">
-										<button name="p" value="{{$p->id}}" style="margin-top: -35px;"class="btn btn btn-primary btn-rounded float-right">
-											<i class="fa fa-plus"></i> Add Images
-										</button>
-										<input type="hidden" value="{{$p->id}}" name="idPatient">
-									</div>
 								</div>
-							</form>
+						<div style="">
 							<form action="{{ url('updateImg') }}" method="get">
 								{{  csrf_field() }}
 									<div class="row">
 										<div class="col-sm-12 col-12 text-right m-b-40">
 											<button style="margin-top: -35px;"class="btn btn btn-danger btn-rounded float-right">
 										
-												<i class="fa fa-pencil m-r-5"></i> Delete Image</a>
+												<i class="fa fa-pencil m-r-5"></i> Delete Image
 												</button>
 											<input type="hidden" value="{{$p->id}}" name="idPatient">
 										</div>
 									</div>
 								</form>
+								<form action="{{ url('addImagerie') }}" method="post" enctype="multipart/form-data">
+									{{  csrf_field() }}
+								<div class="row">
+									
+									<div class="col-sm-8 col-9 text-right m-b-20">
+                        				<input type="file" class="form-control"style="height: 40px;width:455px;" name="image[]" multiple>
+										<button name="p" value="1" style="margin-top: -35px;"class="btn btn btn-primary btn-rounded float-right">
+											<i class="fa fa-plus"></i> Add Images
+										</button>
+										<input type="hidden" value="{{$p->id}}" name="idPatient">
+									</div>
+								</div>
+							</form>
+						</div>
 								<div class="content">
 										<div id="lightgallery" class="row">
 											@foreach($images as $img)
