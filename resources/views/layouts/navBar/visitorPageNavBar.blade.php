@@ -33,10 +33,15 @@
             <ul class="nav user-menu">
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown" >
+
+                        @foreach($users as $user)
+                                
                         <span class="user-img m-l--13">
+                            @if(Auth::user()->user_roles != 'patient')
                             <img class="rounded-circle" src="{{ asset('storage/'.$users[0]->avatar)}}" width="24" alt="Admin">
-                            <span class="status online"></span>
+                            @endif
                         </span>
+                        @endforeach
                     </a>
                     <div class="dropdown-menu">
                         @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')
@@ -126,10 +131,15 @@
                             <ul class="nav user-menu float-right">
                                 <li class="nav-item dropdown has-arrow">
                                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                                        @foreach($users as $user)
+                                
                                         <span class="user-img">
+                                            @if(Auth::user()->user_roles != 'patient')
                                             <img class="rounded-circle" src="{{ asset('storage/'.$users[0]->avatar)}}" width="24" alt="Admin">
-                                            <span class="status online"></span>
+                                            @endif
                                         </span>
+                                        @endforeach
+                                        
                                     </a>
                                     <div class="dropdown-menu">
                                         @if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'secretaire')

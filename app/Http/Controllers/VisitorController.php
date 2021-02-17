@@ -28,6 +28,7 @@ class VisitorController extends Controller
         return  $nameUser;
     }
 
+    
     public function index()
     {
       $blogs = Blog::all();

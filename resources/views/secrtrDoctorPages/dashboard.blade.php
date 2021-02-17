@@ -269,7 +269,7 @@
       <?php print_r($dataNombreOrdonnanceDocPerMonth[4])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[5])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[6])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[7])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[8])?>,
       <?php print_r($dataNombreOrdonnanceDocPerMonth[9])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[10])?>,<?php print_r($dataNombreOrdonnanceDocPerMonth[11])?>],
         
-                    backgroundColor: ['tansparent'],
+                    backgroundColor: ['rgba(26, 26, 255,0.3)'],
                     borderColor: 'rgb(26, 26, 255)',
                     borderWidth: 2,
                 }],

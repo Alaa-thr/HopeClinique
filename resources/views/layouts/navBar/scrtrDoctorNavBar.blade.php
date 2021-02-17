@@ -11,7 +11,13 @@
     }else if($urlAcctuiel == 'addUser/{type}' && $typeUser == "doctor"){
         $stripeAddDoctors='active';
         $stripeAllDoctorsPere='active';
-    }else if($urlAcctuiel == 'allSecretaries'){
+    }
+
+    else if($urlAcctuiel == 'editProfile'){
+        $stripeProfile='active';
+    }
+
+    else if($urlAcctuiel == 'allSecretaries'){
         $stripeSecretaries='active';
         $stripeSecretariesPere='active';
     }else if($urlAcctuiel == 'addUser/{type}' && $typeUser == "secretaire"){
@@ -20,7 +26,32 @@
     }else if($urlAcctuiel == 'allPatients'){
         $stripeAllPatients='active';
         $stripeAllPatientsPere='active';
-    }else if($urlAcctuiel == 'appointments'){
+    }
+    else if($urlAcctuiel == 'informationUsers/{id}'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'commentaire/{id}'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'lettre/{id}'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'Ordonnance/{id}'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'addImagerie'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'updateImg'){
+        $stripeAllPatients='active';
+        $stripeAllPatientsPere='active';
+    }
+    else if($urlAcctuiel == 'appointments'){
         $stripeAppointments='active';
     }else if($urlAcctuiel == 'addUser/{type}' && $typeUser == "patient"){
         $stripeAddPatients='active';
@@ -33,6 +64,12 @@
     else if($urlAcctuiel == 'allOrdinances'){
         $stripeAddOrdinances='active';
     }
+
+  else if($urlAcctuiel == 'updateBlog/{id}'){
+      $stripeAllBlogs='active';
+      $stripeAllBlogsPere='active';
+  }
+
     else if($urlAcctuiel == 'allBlogs'){
         $stripeAllBlogs='active';
         $stripeAllBlogsPere='active';
@@ -40,7 +77,10 @@
         $stripeAddBlogs='active';
         $stripeAllBlogsPere='active';
     }
-
+    else if($urlAcctuiel =='updateService/{id}'){
+        $stripeAllServices='active';
+        $stripeAllServicesPere='active';
+    }
     else if($urlAcctuiel == 'allServices'){
         $stripeAllServices='active';
         $stripeAllServicesPere='active';
@@ -63,7 +103,7 @@
                         @foreach($users as $user)
                             <span class="user-img">
                                 @if(Auth::user()->user_roles != 'patient')
-                                    <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
+                                  <img class="rounded-circle" src="{{ asset('storage/'.$user->avatar)}}" width="24" alt="Admin">
                                 @endif
                             </span>
                             <span>{{$user->nom}} {{$user->prenom}}</span>
