@@ -51,7 +51,7 @@
                                        @if($us->id == $ls->user_id)
                                       <tr>
                                         <td>
-    											                <img width="28" height="28" src="{{ asset('scrtrDoctorPage/img/user.jpg')}}" class="rounded-circle" alt="">
+    											                <img width="28" height="28" src="{{asset('storage/'.$ls->avatar)}}" class="rounded-circle" alt="">
                                           <h2>{{strtoupper ($ls->nom ) }} {{strtoupper ($ls->prenom) }}</h2>
     										                </td>
                                           <td>{{ $ls->id }}</td>

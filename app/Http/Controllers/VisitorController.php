@@ -14,13 +14,17 @@ class VisitorController extends Controller
     public function getNameUsers()
     {
         $nameUser = null;
-
-        if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
+        if(Auth::user()){
+          if(Auth::user()->user_roles == 'doctor' || Auth::user()->user_roles == 'adminM'){
             $nameUser = \DB::table('medecins')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
 
-        }else if(Auth::user()->user_roles == 'secretaire'){
-            $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          }else if(Auth::user()->user_roles == 'secretaire'){
+              $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
+          }else if(Auth::user()->user_roles == 'patient'){
+            $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->select('nom','prenom')->get();
+          }
         }
+        
         return  $nameUser;
     }
 

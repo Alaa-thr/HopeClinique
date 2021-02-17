@@ -71,7 +71,6 @@
                                  <i class="fa fa-pencil m-r-5"></i> Edit</a>
                                </button>
                             </form>
-														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_patient"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>
 											</td>

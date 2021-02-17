@@ -53,7 +53,12 @@
                                        <input type="hidden" value="doctor" name="role"/> + &nbsp; More
                                      </button>
                                   </form>
-                                    <a class="dropdown-item" href="edit-doctor.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                    <form action="{{ url('editInformation/'.$l->id )}}" method="get">
+                                     <button class="dropdown-item" data-toggle="modal">
+                                       <input type="hidden" value="doctor" name="role"/>
+                                       <i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                     </button>
+                                  </form>
                                       <form action="{{ url('addUserdelete/'.$l->id)}}" method="post"><!--car il n existe pas dans html sauf 2 method get et post-->
                                          {{ csrf_field() }}<!--pour générer token-->
                                          {{ method_field('DELETE')}}<!--pour générer input de type hidden et value put -->

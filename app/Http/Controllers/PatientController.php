@@ -29,7 +29,7 @@ class PatientController extends Controller
         }else if(Auth::user()->user_roles == 'secretaire'){
             $nameUser = \DB::table('secretaires')->where('user_id',Auth::user()->id)->select('nom','prenom','avatar')->get();
         }else if(Auth::user()->user_roles == 'patient'){
-          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->get();
+          $nameUser = \DB::table('patients')->where('user_id',Auth::user()->id)->select('nom','prenom')->get();
         }
         return  $nameUser;
     }
