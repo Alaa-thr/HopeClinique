@@ -28,13 +28,17 @@
                                             <td>{{$service->id}}</td>
                                             <td>{{strtoupper ($service->nom ) }}</td>
                                             <td class="text-right">
-                                                <div class="dropdown dropdown-action">
+																							<form action="{{ url('deleteService') }}" method="post" id="deleteBtn">
+																								{{  csrf_field() }}
+																								<input type="hidden" name="_method" value="DELETE">
+																								<input type="hidden" name="service" value="{{$service->id}}">
+																						  <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="edit-department.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_department"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_department" onclick="deleteService()"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                     </div>
                                                 </div>
+																							</form>
                                             </td>
                                         </tr>
 																				@endforeach

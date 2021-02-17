@@ -35,7 +35,7 @@
                       <div class="blog-content">
                           <h3 class="blog-title"><a href="blog-details.html">Do You Know the {{$b->title}}?</a></h3>
                           <p>{{$b->description}}.</p>
-                          <a href="{{ url('detailsBlog/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
+                          <a href="{{ url('detailsBlogVisiteur/'.$b->id)}}" class="read-more"><i class="fa fa-long-arrow-right"></i> Read More</a>
                           <div class="blog-info clearfix">
                               <div class="post-left">
                                   <ul>

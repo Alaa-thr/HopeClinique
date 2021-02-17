@@ -28,6 +28,8 @@ Route::get('bolgDetails',[VisitorController::class,'bolgDetails'])->name('bolgDe
 Route::get('contact',[VisitorController::class,'contactUs'])->name('contact');
 Route::get('doctors',[VisitorController::class,'doctors'])->name('doctors');
 Route::get('services',[VisitorController::class,'services'])->name('services');
+Route::delete('deleteService', [ScrtrDocAdminController::class, 'deleteServices']);
+Route::get('detailsBlogVisiteur/{id}',[VisitorController::class,'detailsBlogVisiteurs']);
 
 /* Secretaire & Doctor Pages */
 Route::get('dashboard', [ScrtrDocAdminController::class, 'dashboard'])->name('dashboard');

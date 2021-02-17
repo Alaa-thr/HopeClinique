@@ -137,15 +137,16 @@ class AdminController extends Controller
         $userAuth->save();
         return back();
     }
-    //pour supprimer Doctors/secretaire/paient
+    //pour supprimer Doctors/secretaire/patient
     public function destroy(Request $request){
 
       if($request->typeUser == 'doctor'){
+      $doctor = \DB::table('medecins')->where([['id', $request->idUser]])->get();  echo $doctor;
               $doctor = \DB::table('medecins')->where([['id', $request->idUser]])->get();
               foreach ($doctor as $key ) {
                     $nomDoctor = $key->nom;
                     $prenomDoctor = $key->prenom;
-                    $user_id = $key->user_id;echo"dd1";
+                    $user_id = $key->user_id;
               }
 
               $prescriptions = \DB::table('prescriptions')->where('medecin_id', $request->idUser)->get();

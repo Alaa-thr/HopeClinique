@@ -13,7 +13,6 @@
 
 					</div>
 			</div>
-
 			@foreach($user as $p)
 				@foreach($usersSelect as $u)
 			  	@if($typeUser == 'patient')
@@ -159,7 +158,6 @@
 														<td style="width: 250px">{{$r->motif}}</td>
 													</tr>
 												@endif
-
 											@endforeach
 										@endforeach
 									</table>

@@ -73,4 +73,12 @@ class VisitorController extends Controller
       $allservices = Specialite::all();
       return view('visitorPages.services',['users'=>$this->getNameUsers(),'allservices'=>$allservices]);
     }
+    public function detailsBlogVisiteurs($id)
+    {
+        $medecin_id = \DB::table('blogs')->where('id',$id)->value('medecin_id');
+        $user = \DB::table('medecins')->where('user_id',$medecin_id)->get();
+        $detailBlog = \DB::table('blogs')->where('id',$id)->get();
+
+        return view('visitorPages.detailsBlog',['users'=>$this->getNameUsers(),'detailBlog'=>$detailBlog,'user'=>$user]);
+    }
 }

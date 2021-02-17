@@ -44,7 +44,7 @@
     <script src="{{ asset('scrtrDoctorPage/js/popper.min.js')}}"></script>
     <script src="{{ asset('visitorPage/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('scrtrDoctorPage/js/jquery.slimscroll.js')}}"></script>
-    <script src="{{ asset('scrtrDoctorPage/js/Chart.bundle.js')}}"></script>
+    
     <script src="{{ asset('js/lightgallery-all.min.js')}}"></script>
     @if(Route::getCurrentRoute()->uri() == 'allPatients' || Route::getCurrentRoute()->uri() == 'allDoctors' || Route::getCurrentRoute()->uri() == 'allSecretaries' || Route::getCurrentRoute()->uri() == 'allServices'|| Route::getCurrentRoute()->uri() == 'addUser/{type}' || Route::getCurrentRoute()->uri() == 'editProfile' || Route::getCurrentRoute()->uri() == 'addAppointment' || Route::getCurrentRoute()->uri() == 'Ordonnance/{id}' || Route::getCurrentRoute()->uri() == 'appointments' || Route::getCurrentRoute()->uri() == 'informationUsers/{id}' || Route::getCurrentRoute()->uri() == 'searchPatientDoctor' ||Route::getCurrentRoute()->uri() == 'profile'||Route::getCurrentRoute()->uri() == 'lettre/{id}' || Route::getCurrentRoute()->uri() == 'commentaire/{id}' || Route::getCurrentRoute()->uri() == 'editInformation/{id}'|| Route::getCurrentRoute()->uri() == 'dashboard')
 
